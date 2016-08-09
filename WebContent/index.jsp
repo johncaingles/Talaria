@@ -9,7 +9,7 @@
 </head>
 <body>
 	<jsp:include page="nav-bar.jsp" />
-	<h1>FUCKME</h1>
+	<h1>KAINANO</h1>
 	<form action="LoginServlet" method="post">
 		username: <input type="text" name="username" />
 		password: <input type="password" name="password" />
