@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -38,6 +39,13 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 //		response.setContentType("text/plain");
 //		String sex = request.getParameter("password");
 //		PrintWriter out = response.getWriter();
@@ -45,34 +53,25 @@ public class LoginServlet extends HttpServlet {
 
         String username = request.getParameter("username");   
         String password = request.getParameter("password");
-		
-		if(Model.checkCredentials(username, password)){
-
-           response.sendRedirect("results.jsp");
-		} else {
-
+        
+        String sendThis = "This is sent yo";
+        
+        request.setAttribute("sendThis", sendThis);
+//        RequestDispatcher rd = getServletContext()
+//                .getRequestDispatcher("results.jsp");
+        
+        
+		if(Model.checkCredentials(username, password))
+		{
+			request.getRequestDispatcher("results.jsp").forward(request, response);
+//			rd.forward(request, response);
+			//response.sendRedirect("results.jsp");
+		} 
+		else 
+		{
 		   response.sendRedirect("index.jsp");
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/plain");
-		String sex = request.getParameter("password");
-		PrintWriter out = response.getWriter();
-		out.print("hi: " + sex);
-		
-		String user = request.getParameter("user");
-        String pwd = request.getParameter("pw");
-       
-        response.sendRedirect("results.jsp");
         
-        if (user.equals("") || pwd.equals(""))
-        {
-            
-        }
         
 //        else if (account != null)
 //        {
