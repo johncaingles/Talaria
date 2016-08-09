@@ -43,36 +43,22 @@ public class LoginServlet extends HttpServlet {
 //		PrintWriter out = response.getWriter();
 //		out.print("hi: " + sex);
 
-        String username = request.getParameter("username");   
-        String password = request.getParameter("password");
-		
-		if(Model.checkCredentials(username, password)){
 
-           response.sendRedirect("results.jsp");
-		} else {
-
-		   response.sendRedirect("index.jsp");
-		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/plain");
-		String sex = request.getParameter("password");
-		PrintWriter out = response.getWriter();
-		out.print("hi: " + sex);
-		
-		String user = request.getParameter("user");
-        String pwd = request.getParameter("pw");
-       
-        response.sendRedirect("results.jsp");
-        
-        if (user.equals("") || pwd.equals(""))
-        {
-            
-        }
+		System.out.println("pakshet");
+        String username = request.getParameter("username");   
+        String password = request.getParameter("password");
+		System.out.println("KINGINA");
+		if(Model.checkCredentials(username, password)){
+           response.sendRedirect("results.jsp");
+		} else {
+		   response.sendRedirect("index.jsp");
+		}
         
 //        else if (account != null)
 //        {

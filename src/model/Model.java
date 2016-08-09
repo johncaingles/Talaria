@@ -10,6 +10,7 @@ public class Model {
 	private static DBConnection db;
 
 	public static boolean checkCredentials(String username, String password) {
+		System.out.println("KINGINAMO");
 		db = new DBConnection();
 		db.getConnection();
 		

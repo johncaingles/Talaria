@@ -4,11 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<jsp:include page="dependencies.jsp" />
 <title>Login</title>
 </head>
 <body>
-	<h1>KAINANO</h1>
-	<form action="LoginServlet" type="post">
+	<jsp:include page="nav-bar.jsp" />
+	<h1>FUCKME</h1>
+	<form action="LoginServlet" method="post">
 		username: <input type="text" name="username" />
 		password: <input type="password" name="password" />
 		
