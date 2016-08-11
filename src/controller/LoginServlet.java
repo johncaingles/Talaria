@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Account;
 import model.Model;
 
 /**
@@ -38,7 +39,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -57,9 +57,28 @@ public class LoginServlet extends HttpServlet {
         
 		if(Model.checkCredentials(username, password))
 		{
+			int accountID = Model.getAccountID(username);
+			Account account = new Account(accountID);
+			account.setUsername(username);
+//			account.setName(Model.getAccountName(accountID));
+//			account.setPrivilegeLevel(Model.getPrivilegeLevel(accountID));
+			
+			
+			
 			request.getRequestDispatcher("results.jsp").forward(request, response);
-//			rd.forward(request, response);
+	//			rd.forward(request, response);
 			//response.sendRedirect("results.jsp");
+//          Cookie idCookie = new Cookie("user_id", String.valueOf(account.getAccountID()));
+//          Cookie nameCookie = new Cookie("user_name", String.valueOf(account.getName()));
+//          //setting cookie to expiry in 30 mins
+//          idCookie.setMaxAge(30 * 60);
+//          nameCookie.setMaxAge(30 * 60);
+          
+          HttpSession session = request.getSession();
+          session.setAttribute("user_account", account);
+          
+//          response.addCookie(idCookie);
+//          response.addCookie(nameCookie);
 		} 
 		else 
 		{
