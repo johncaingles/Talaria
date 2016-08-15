@@ -42,6 +42,7 @@
 				    <label for="pwd">Temporary Password (Expires in 24 hours):</label>
 				    <input type="password" class="form-control" id="pwd" name="password">
 				  </div>
+				  <input type="hidden" class="form-control" name="accType" value="2"> //2 = PM, 3 = AM
 				  <button type="submit" class="btn red lighten-1">Create</button>
 				</form>
           </div>
@@ -56,6 +57,7 @@
 				    <label for="pwd">Temporary Password (Expires in 24 hours):</label>
 				    <input type="password" class="form-control" id="pwd" name="password">
 				  </div>
+				  <input type="hidden" class="form-control" name="accType" value="3">
 				  <button type="submit" class="btn red lighten-1">Create</button>
 				</form>
           </div>
