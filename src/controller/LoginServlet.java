@@ -48,11 +48,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");   
         String password = request.getParameter("password");
-        
-        String sendThis = "This is sent yo";
-        
-		
-        
+                
         if(Model.checkCredentials(username, password))
 		{
 			int accountID = Model.getAccountID(username);
