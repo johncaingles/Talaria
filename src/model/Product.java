@@ -4,9 +4,9 @@ public class Product
 {
 	private int prod_id;
 	private String name;
-	private float price;
+	private double price;
 	private String category;
-	public Product(int prod_id, String name, float price, String category) 
+	public Product(int prod_id, String name, double price, String category) 
 	{
 		super();
 		this.prod_id = prod_id;
@@ -33,11 +33,11 @@ public class Product
 		this.name = name;
 	}
 	
-	public float getPrice() 
+	public double getPrice() 
 	{
 		return price;
 	}
-	public void setPrice(float price) 
+	public void setPrice(double price) 
 	{
 		this.price = price;
 	}

@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css\skeleton.css">
+	<jsp:include page="dependencies.jsp" />
 		<style>
 
 			.header{
@@ -26,9 +27,9 @@
 			}
 
 			.productDescription{
-				padding: 8px;
-				border-radius: 5px;
-				margin-top: 280px;
+/* 				padding: 8px; */
+/* 				border-radius: 5px; */
+/* 				margin-top: 280px; */
 				height: 300px; /* pwede ata to tanggalin after*/
 				width: 350px;
 				border: 1px solid black;
@@ -50,17 +51,15 @@
 	</head>
 
 	<body bgcolor = "#d6d6c2">
-		<div class = "header">
-
-		</div>
+		<jsp:include page="nav-bar.jsp" />
 		<div class = "row">
-		<div class = "productBox">
-			<img class = "image" src = "C:\Users\User\Pictures\presto.jpg">
-		</div>
-
-		<div class = productDescription>
-			Tangina this product so nice
-		</div>
+			<div class = "productBox">
+				<img class = "image" src = "C:\Users\User\Pictures\presto.jpg">
+			</div>
+	
+			<div class = productDescription>
+				Tangina this product so nice
+			</div>
 		</div>
 		<div class = "row" style ="margin-top:13px;">
 			<input type = "button" class = "addToCart" onClick = "addToCart();" value = "Add To Cart" style="background-color:rgb(191, 191, 191);">
