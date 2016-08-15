@@ -16,7 +16,7 @@ public class Model {
 		db.getConnection();
 		
 		try{
-	        String query = "Select id_account from accounts where username=? and password=?";
+	        String query = "Select id from accounts where username=? and password=?";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
 	        pst.setString(1, username);
 	        pst.setString(2, password);
@@ -79,7 +79,7 @@ public class Model {
 	        pst.setString(1, username);
 	        ResultSet rs = pst.executeQuery();
 	        if(rs.next()){
-	        	return rs.getInt("id_account");
+	        	return rs.getInt("id");
 	        }
 	        else return -1;
 		} catch(Exception e) {
@@ -87,6 +87,69 @@ public class Model {
 		}
 		
 		return -1;
+	}
+	
+	public static boolean addCustAccount(String username, String password, String first_name, String middle_name, String last_name, 
+			String email, String privilegeLevel, String bil_house_num, String bil_street,
+			String bil_subdivision, String bil_city, String bil_postal_code,
+			String bil_country, String ship_house_num, String ship_street, String ship_subdivision,
+			String ship_city, String ship_postal_code, String ship_country)
+	{
+		db = new DBConnection();
+		db.getConnection();
+		
+		try{
+			
+//			String queryString = "INSERT INTO accounts (username, password, email, privilege, firstname, middlename, lastname) VALUES(@username, @password, @email, @privilege, @firstname, @middlename, @lastname)";
+//			String queryString = "INSERT INTO billing_addreess (house_num, street, subdivision, city, postal_code, country) VALUES(@bil_house_num, @bil_street, @bil_subdivision, @bil_city, @bil_postal_code, @bil_country)";
+//			String queryString = "INSERT INTO shipping_addreess (house_num, street, subdivision, city, postal_code, country) VALUES(@ship_house_num, @ship_street, @ship_subdivision, @ship_city, @ship_postal_code, @ship_country)";
+			
+//	        String query = "INSERT INTO accounts VALUES " + username + " , " + password + " , " + email + " , " + '1' + " , " + first_name + " , " + middle_name + " , " + last_name;
+//	        String query2 = "INSERT INTO billing_address VALUES " + bil_house_num + " , " + bil_street + " , " + bil_subdivision + " , " + bil_city + " , " + bil_postal_code + " , " + bil_country ;
+//	        String query3 = "INSERT INTO shipping_address VALUES " + ship_house_num + " , " + ship_street + " , " + ship_subdivision + " , " + ship_city + " , " + ship_postal_code + " , " + ship_country ;
+	        
+			String query = "INSERT INTO accounts (username, password, email, privilege, firstname, middlename, lastname) VALUES (?,?,?,?,?,?,?)";
+			PreparedStatement pst = db.getConnection().prepareStatement(query);
+			pst.setString(1, username);
+			pst.setString(2, password);
+			pst.setString(3, email);
+			pst.setString(4, privilegeLevel);
+			pst.setString(5, first_name);
+			pst.setString(6, middle_name);
+			pst.setString(7, last_name);
+			
+			String query2 = "INSERT INTO billing_address (house_num, street, subdivision, city, postal_code, country) VALUES(?,?,?,?,?,?)";
+			PreparedStatement pst2 = db.getConnection().prepareStatement(query2);
+			pst2.setString(1, bil_house_num);
+			pst2.setString(2, bil_street);
+			pst2.setString(3, bil_subdivision);
+			pst2.setString(4, bil_city);
+			pst2.setString(5, bil_postal_code);
+			pst2.setString(6, bil_country);
+
+			String query3 = "INSERT INTO shipping_address (house_num, street, subdivision, city, postal_code, country) VALUES(?,?,?,?,?,?)";    
+	        PreparedStatement pst3 = db.getConnection().prepareStatement(query3);
+	        pst3.setString(1, ship_house_num);
+	        pst3.setString(2, ship_street);
+	        pst3.setString(3, ship_subdivision);
+	        pst3.setString(4, ship_city);
+	        pst3.setString(5, ship_postal_code);
+	        pst3.setString(6, ship_country);
+	        
+	        pst.executeUpdate();
+	        pst2.executeUpdate();
+	        pst3.executeUpdate();
+	        
+	        System.out.println("Inside model add customer");
+	        
+	        return true;
+		} catch(Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("EDI PUTA NG ADD ACCOUNT");
+			return false;
+		}
+		
 	}
 	
 	public static ArrayList<Product> getProductsList()
@@ -104,7 +167,7 @@ public class Model {
 	        ResultSet rs = pst.executeQuery();
 	        if(rs.next())
 	        {
-	        	list.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getFloat("price"), rs.getString("category")));
+	        	list.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getDouble("price"), rs.getString("category")));
 	        }
 	        System.out.println("I end here");
 		} catch(Exception e) 
@@ -138,19 +201,19 @@ public class Model {
 	        {
 	        	if(rs.getString("category").equals("boots"))
 	        	{
-	        		bootsList.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getFloat("price"), rs.getString("category")));
+	        		bootsList.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getDouble("price"), rs.getString("category")));
 	        	}
 	        	else if(rs.getString("category").equals("shoes"))
 	        	{
-	        		shoesList.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getFloat("price"), rs.getString("category")));
+	        		shoesList.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getDouble("price"), rs.getString("category")));
 	        	}
 	        	else if(rs.getString("category").equals("sandals"))
 	        	{
-	        		sandalsList.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getFloat("price"), rs.getString("category")));
+	        		sandalsList.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getDouble("price"), rs.getString("category")));
 	        	}
 	        	else if(rs.getString("category").equals("slippers"))
 	        	{
-	        		slippersList.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getFloat("price"), rs.getString("category")));
+	        		slippersList.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getDouble("price"), rs.getString("category")));
 	        	}
 	        }
 	        hmap.put("boots", bootsList);
@@ -166,6 +229,37 @@ public class Model {
 		}
 		
 		return hmap;
-		
 	}
+	
+	public static Product getProduct(int id)
+	{
+		db = new DBConnection();
+		db.getConnection();
+		Product prod = new Product();
+		
+		try
+		{
+			System.out.println("I start here");
+	        String query = "SELECT name, price, category FROM products WHERE id_product = ?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setInt(1, id);
+	        ResultSet rs = pst.executeQuery();
+	        if(rs.next())
+	        {
+	        	prod.setProd_id(id);
+	        	prod.setName(rs.getString("name"));
+	        	prod.setPrice(rs.getDouble("price"));
+	        	prod.setCategory(rs.getString("category"));
+	        }
+	        System.out.println("I end here");
+		} catch(Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("EDI PUTA NG PRODUCT");
+		}
+		
+		return prod;
+	}
+	
+	
 }
