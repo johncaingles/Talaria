@@ -27,6 +27,7 @@
 				<div class="register">
 					Billing Address:<br>
 					<input type = "text" placeholder = "House #" name = "bil_house_num"><br>
+					<input type = "text" placeholder = "Street" name = "bil_street"><br>
 					<input type = "text" placeholder = "Subdivision" name = "bil_subdivision"><br>
 					<input type = "text" placeholder = "City" name = "bil_city"><br>
 					<input type = "number" placeholder = "Postal Code" maxlength = "1" name = "bil_postal_code"><br>
@@ -36,6 +37,7 @@
 				<div class="register">
 					Shipping Address:<br>
 					<input type = "text" placeholder = "House #" name = "ship_house_num"><br>
+					<input type = "text" placeholder = "Street" name = "ship_street"><br>
 					<input type = "text" placeholder = "Subdivision" name = "ship_subdivision"><br>
 					<input type = "text" placeholder = "City" name = "ship_city"><br>
 					<input type = "number" placeholder = "Postal Code" maxlength = "1" name = "ship_postal_code"><br>

@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<<<<<<< HEAD
+=======
+<%@page import="model.Model" %>
+>>>>>>> 2dd4f22be90d62c502d887fef164564debdd3700
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,6 +13,7 @@
 
 	<jsp:include page="dependencies.jsp" />
 <script type="text/javascript">
+<<<<<<< HEAD
     function show() {
         var selopt = document.getElementById("filter1").value;
         if (selopt == 1) {
@@ -19,6 +24,27 @@
         if (selopt == 2) {
             document.getElementById("f2").style.display = "block";
             document.getElementById("f1").style.display = "none";
+=======
+    function show() 
+    {
+        var select = document.getElementById("filter1").value;
+        if (select == 0) {
+            document.getElementById("f1").style.display = "block";
+            document.getElementById("f2").style.display = "none";
+            document.getElementById("f3").style.display = "none";
+            document.getElementById("btn").style.display = "block";
+        }
+        if (select == 1) {
+            document.getElementById("f2").style.display = "block";
+            document.getElementById("f1").style.display = "none";
+            document.getElementById("f3").style.display = "none";
+            document.getElementById("btn").style.display = "block";
+        }
+        if (select == 2) {
+            document.getElementById("f3").style.display = "block";
+            document.getElementById("f1").style.display = "none";
+            document.getElementById("f2").style.display = "none";
+>>>>>>> 2dd4f22be90d62c502d887fef164564debdd3700
             document.getElementById("btn").style.display = "block";
         }
     }
@@ -41,27 +67,57 @@
 			    	<div class="col s5">
 				      <select id="filter1" name="filter1" onchange="show()">
 					      <option value="" disabled selected>Filter by...</option>
+<<<<<<< HEAD
 					      <option value="1">Total sales</option>
 					      <option value="2">Sales per product type</option>
+=======
+					      <option value="0">Total sales</option>
+					      <option value="1">Sales per product type</option>
+					      <option value="2">Sales per product</option>
+>>>>>>> 2dd4f22be90d62c502d887fef164564debdd3700
 					  </select>
 				  	</div>
 				  	
 				  	<div id="f1" class="col s5" style="display:none">
 				      <select name="f1" onchange="showTable()">
+<<<<<<< HEAD
 					      <option value="1">All sales</option>
 					      <option value="2">Per product type</option>
 					      <option value="3">Per product</option>
+=======
+					      <option value="0">All sales</option>
+					      <option value="1">Per product type</option>
+					      <option value="2">Per product</option>
+>>>>>>> 2dd4f22be90d62c502d887fef164564debdd3700
 					  </select>
 				  	</div>
 				  	
 				  	<div id="f2" class="col s5" style="display:none">
 				      <select name="f2" onchange="showTable()">
+<<<<<<< HEAD
 					      <option value="1">Boots</option>
 					      <option value="2">Shoes</option>
 					      <option value="3">Sandals</option>
 					      <option value="4">Slippers</option>
 					  </select>
 				  	</div>
+=======
+					      <option value="boots">Boots</option>
+					      <option value="shoes">Shoes</option>
+					      <option value="sandals">Sandals</option>
+					      <option value="slippers">Slippers</option>
+					  </select>
+				  	</div>
+				  	
+				  	<div id="f3" class="col s5" style="display:none">
+				      <select name="f3" onchange="showTable()">
+				      	  <% for(String name : Model.getAllProductNames()){ %>
+				      	  	<option value="<% out.print(name); %> "><% out.print(name); %></option>
+				      	  <% } %>					      
+					  </select>
+				  	</div>
+				  	
+>>>>>>> 2dd4f22be90d62c502d887fef164564debdd3700
 				  	<div id="btn" class="col s2" style="display:none">
 				      <button class="btn-large red lighten-1" onclick="showTable()">Show</button>
 				  	</div>
