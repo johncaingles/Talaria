@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Model;
 import model.Product;
+import model.Transaction;
 
 /**
  * Servlet implementation class AddToCartServlet
@@ -43,13 +44,16 @@ public class AddToCartServlet extends HttpServlet {
         HttpSession session = request.getSession();
         
         if(session.getAttribute("cart_items")==null){
-        	session.setAttribute("cart_items", new ArrayList<Product>());
+        	session.setAttribute("cart_items", new ArrayList<Transaction>());
         }
         
-        ArrayList<Product> cart_items = (ArrayList<Product>) session.getAttribute("cart_items");
+        ArrayList<Transaction> cart_items = (ArrayList<Transaction>) session.getAttribute("cart_items");
         int id = Integer.valueOf(request.getParameter("productID"));
+        int quantity = Integer.valueOf(request.getParameter("quantity"));
+        Product prod = Model.getProduct(id);
+        Transaction tran = new Transaction(quantity, prod) ;
         
-        cart_items.add(Model.getProduct(id));
+        cart_items.add(tran);
         session.setAttribute("cart_items", cart_items);
 
 		response.sendRedirect("results.jsp");

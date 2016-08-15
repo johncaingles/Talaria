@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Product"%>
+<%@page import="model.Transaction" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,14 +15,15 @@
 	
 	<div class="container">
 	<h1>DIS BE YOUR ITEMS</h1>
-		<% ArrayList<Product> cartItems = (ArrayList<Product>)request.getSession().getAttribute("cart_items"); %>
+		<% ArrayList<Transaction> cartItems = (ArrayList<Transaction>)request.getSession().getAttribute("cart_items"); %>
 		<ul class="collection">
-			<% for(Product product: cartItems) { %>
+			<% for(Transaction tran: cartItems) { %>
+				<%Product product = tran.getProd(); %>
 			    <li class="collection-item avatar">
 			      <img src="img/shoe_0.jpg" alt="" class="circle">
 			      <span class="title"><% out.print(product.getName()); %></span>
 			      <p><% out.print(product.getCategory()); %> <br>
-			         <% out.print(product.getPrice()); %>
+			         <% out.print(product.getPrice() * tran.getQuantity()); %>
 			      </p>
 			      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
 			    </li>
@@ -36,7 +38,7 @@
         	<div class="col s12">
         <div class="row">
         		<h4> Gimme your credit card number </h4>
-                <form action="" method="post">
+                <form action="TransactionServlet" method="post">
                     <div class="input-field col s12">
                         <input name="creditcard_num" value="" id="creditcard_num" type="text" class="validate">
                         <label class="active" for="creditcard_num">Credit card number</label>

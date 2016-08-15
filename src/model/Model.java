@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.mysql.jdbc.Statement;
 
 public class Model {
 	
@@ -444,4 +447,54 @@ public class Model {
 		
 		return "error dafuq";
 	}
+	
+	public static int addTransaction(int account_id, double total_price)
+	{
+		db = new DBConnection();
+		db.getConnection();
+		int last_inserted_id = -1;
+		
+		try
+		{
+			String query = "INSERT INTO transaction (accounts_id, total_price) VALUES (?,?)";
+			PreparedStatement pst = db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			pst.setInt(1, account_id);
+			pst.setDouble(2, total_price);
+			pst.executeUpdate();
+			
+			ResultSet rs = pst.getGeneratedKeys();
+            if(rs.next())
+            {
+                last_inserted_id = rs.getInt(1);
+            }
+			
+		} catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return last_inserted_id;
+	}
+	
+	public static void addProductSales(int transaction_id, int product_id, int quantity)
+	{
+		
+		
+		String query = "INSERT INTO product_sales (transaction_id, product_id, quantity) VALUES (?,?,?)";
+		PreparedStatement pst;
+		try 
+		{
+			pst = db.getConnection().prepareStatement(query);
+			pst.setInt(1, transaction_id);
+			pst.setInt(2, product_id);
+			pst.setInt(3, quantity);
+			pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 }
