@@ -45,6 +45,7 @@
 
         	<div class="col s6">
         		<h4> Create an account </h4>
+        		<a href="register.jsp">REGISTER</a>
         	</div>
         </div>
 

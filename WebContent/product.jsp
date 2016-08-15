@@ -1,3 +1,5 @@
+
+<%@page import="model.Product"%>
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css\skeleton.css">
@@ -59,10 +61,19 @@
 	
 			<div class = productDescription>
 				Tangina this product so nice
+				<br>
+				<% Product product = (Product)request.getAttribute("product"); %>
+				<% out.print(product.getCategory()); %>
+				<br>
+				<% out.print(product.getName()); %>
+				<br>
+				<% out.print(product.getPrice()); %>
 			</div>
 		</div>
 		<div class = "row" style ="margin-top:13px;">
-			<input type = "button" class = "addToCart" onClick = "addToCart();" value = "Add To Cart" style="background-color:rgb(191, 191, 191);">
+			<form action="AddToCartServlet" method="post" >
+				<input type = "button" class = "addToCart" value = "Add To Cart" style="background-color:rgb(191, 191, 191);">
+			</form>
 		</div>
 	</body>
 

@@ -29,6 +29,8 @@
 	
 	<h1 class="center">FUCK YOU I AM RESULTS</h1>
 	
+	
+	
 <%-- 	<c:forEach var="element" items="${sendThis}"> --%>
 <%--         <c:out value="${element}"/> --%>
 <%--     </c:forEach> --%>
@@ -90,7 +92,7 @@
 						                <p><a href="">Learn more...</a></p>
 						              </div>
 						              <div class="card-action">
-							              <a href="product.jsp">See Product</a>
+							              <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>">See Product</a>
 							              <a href="#">Add to Cart</a>
 						           	 </div>
 	       				            </div>
@@ -171,9 +173,9 @@
 		  	<ul id="slippers_list">
     	<% for (Product product : listCategorizedProducts.get("slippers")) { %>
     	<li>
-	    <form class="card" method="get" action="">
+	    <form class="card" method="get" action="ProductViewSerlvet">
 							
-						<input type="hidden" name="product_id" value="">
+						<input type="hidden" name="product_id" value="<% out.print(product.getProd_id()); %>">
 						
 							<div class="col s4">
 						        <div class="card " style="overflow: hidden;">
@@ -189,17 +191,18 @@
 					                <p><a href="">Learn more...</a></p>
 					              </div>
 					              <div class="card-action">
-						              <a href="product.jsp">See Product</a>
+						              <input type="submit" value="See Product">
 						              <a href="#">Add to Cart</a>
 					           	 </div>
        				            </div>
 			            </div>
 		            </form>
 		            </li>
-            <% } %>
+		            <% } %>
             </ul>
             </div>
      </div>
+
     
     <div id="test"></div>
 </body>

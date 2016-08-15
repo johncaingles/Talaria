@@ -136,7 +136,7 @@ public class Model {
 	{
 		db = new DBConnection();
 		db.getConnection();
-		Product prod = null;
+		Product prod = new Product();
 		
 		try
 		{

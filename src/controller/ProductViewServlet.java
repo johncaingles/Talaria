@@ -31,18 +31,13 @@ public class ProductViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		// TODO Auto-generated method stub
+		String method = request.getParameter("method");
+		if(method.equals("initProductView")){
+			int productID = Integer.parseInt(request.getParameter("productID"));
+			System.out.println("KANTOT: " + productID);
+			initProductView(request, response, productID);
+		}
 		
-		int id = Integer.parseInt(request.getParameter("product_id"));   
-        String name = Model.getProduct(id).getName();
-        double price = Model.getProduct(id).getPrice();
-        String category = Model.getProduct(id).getCategory();
-		
-		Product sendProduct = new Product( id, name , price , category );
-        request.setAttribute("sendProduct", sendProduct);
-        
-        request.getRequestDispatcher("product.jsp").forward(request, response);
-     
 		
 	}
 
@@ -53,8 +48,17 @@ public class ProductViewServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 	
-	public void initProductView(){
+	public void initProductView(HttpServletRequest request, HttpServletResponse response, int productID) throws ServletException, IOException {
+		   
+        String name = Model.getProduct(productID).getName();
+        double price = Model.getProduct(productID).getPrice();
+        String category = Model.getProduct(productID).getCategory();
 		
+		Product product = new Product( productID, name , price , category );
+        request.setAttribute("product", product);
+        
+        request.getRequestDispatcher("product.jsp").forward(request, response);
+     
 	}
 
 }
