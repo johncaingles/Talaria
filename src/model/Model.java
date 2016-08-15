@@ -74,7 +74,7 @@ public class Model {
 		db.getConnection();
 		
 		try{
-	        String query = "Select id_account from accounts where username=?";
+	        String query = "Select id from accounts where username=?";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
 	        pst.setString(1, username);
 	        ResultSet rs = pst.executeQuery();
@@ -240,7 +240,7 @@ public class Model {
 		try
 		{
 			System.out.println("I start here");
-	        String query = "SELECT name, price, category FROM products WHERE id_product = ?";
+	        String query = "SELECT name, price, category FROM products WHERE id = ?";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
 	        pst.setInt(1, id);
 	        ResultSet rs = pst.executeQuery();
@@ -261,5 +261,54 @@ public class Model {
 		return prod;
 	}
 	
+//	public static Account getAccount(int id)
+//	{
+//		db = new DBConnection();
+//		db.getConnection();
+//		Account account = new Account();
+//		
+//		try
+//		{
+//			System.out.println("I start here");
+//	        String query = "SELECT name, price, category FROM products WHERE id_product = ?";
+//	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+//	        pst.setInt(1, id);
+//	        ResultSet rs = pst.executeQuery();
+//	        if(rs.next())
+//	        {
+//	        	prod.setProd_id(id);
+//	        	prod.setName(rs.getString("name"));
+//	        	prod.setPrice(rs.getDouble("price"));
+//	        	prod.setCategory(rs.getString("category"));
+//	        }
+//	        System.out.println("I end here");
+//		} catch(Exception e) 
+//		{
+//			e.printStackTrace();
+//			System.out.println("EDI PUTA NG PRODUCT");
+//		}
+//		
+//		return account;
+//	}
 	
+	public static String getPrivilegeLevel(int id) {
+
+		db = new DBConnection();
+		db.getConnection();
+		
+		try{
+	        String query = "Select privilege from accounts where id=?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setString(1, String.valueOf(id));
+	        ResultSet rs = pst.executeQuery();
+	        if(rs.next()){
+	        	return rs.getString("privilege");
+	        }
+	        else return "not exist";
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "error dafuq";
+	}
 }

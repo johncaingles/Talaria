@@ -125,7 +125,7 @@
 					                <p><a href="">Learn more...</a></p>
 					              </div>
 					              <div class="card-action">
-						              <a href="product.jsp">See Product</a>
+						              <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>">See Product</a>
 						              <a href="#">Add to Cart</a>
 					           	 </div>
        				            </div>
@@ -158,7 +158,7 @@
 					                <p><a href="">Learn more...</a></p>
 					              </div>
 					              <div class="card-action">
-						              <a href="product.jsp">See Product</a>
+						              <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>">See Product</a>
 						              <a href="#">Add to Cart</a>
 					           	 </div>
        				            </div>
@@ -191,7 +191,7 @@
 					                <p><a href="">Learn more...</a></p>
 					              </div>
 					              <div class="card-action">
-						              <input type="submit" value="See Product">
+						              <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>">See Product</a>
 						              <a href="#">Add to Cart</a>
 					           	 </div>
        				            </div>

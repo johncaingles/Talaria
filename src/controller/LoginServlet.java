@@ -55,9 +55,20 @@ public class LoginServlet extends HttpServlet {
 			Account account = new Account(accountID);
 			account.setUsername(username);
 //			account.setName(Model.getAccountName(accountID));
-//			account.setPrivilegeLevel(Model.getPrivilegeLevel(accountID));
+			account.setPrivilegeLevel(Model.getPrivilegeLevel(accountID));
+
+	          
+          HttpSession session = request.getSession();
+          session.setAttribute("user_account", account);
+          System.out.println("KANTOTAN: " +account.getPrivilegeLevel());
+          System.out.println("KANTOTAN2: " +account.getAccountID());
+          switch(account.getPrivilegeLevel()){
+          case "1": response.sendRedirect("results.jsp");break;
+          case "2":
+          case "3":
+          case "4": response.sendRedirect("admin.jsp");break;
+          }
 			
-			response.sendRedirect("results.jsp");
 			
 	//			rd.forward(request, response);
 			//response.sendRedirect("results.jsp");
@@ -66,9 +77,6 @@ public class LoginServlet extends HttpServlet {
 //          //setting cookie to expiry in 30 mins
 //          idCookie.setMaxAge(30 * 60);
 //          nameCookie.setMaxAge(30 * 60);
-          
-          HttpSession session = request.getSession();
-          session.setAttribute("user_account", account);
           
 //          response.addCookie(idCookie);
 //          response.addCookie(nameCookie);

@@ -1,11 +1,10 @@
+<%@ page import="model.Account" %>
 <nav class="light-red lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="" class="brand-logo">Talaria</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="">Researchers</a></li>
-        <li><a href="">Studies</a></li>
-        <li><a href="">Genomes</a></li>
-        <li><a href="">About</a></li>
-        <%@ page import="model.Account" %>
+        <%   if ((session.getAttribute("cart_items") != null) ){ %>
+        		<li><a href="cart.jsp">Cart</a></li>
+        <% } %>
         <li><%   if ((session.getAttribute("user_account") == null) ){ %>
     		<a class="modal-trigger" href="#login_modal">Login</a>
     	<% } else {
