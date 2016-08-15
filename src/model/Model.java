@@ -38,7 +38,7 @@ public class Model {
 		db.getConnection();
 		
 		try{
-	        String query = "Select id_account from accounts where username=?";
+	        String query = "Select id from accounts where username=?";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
 	        pst.setString(1, username);
 	        ResultSet rs = pst.executeQuery();
@@ -204,7 +204,7 @@ public class Model {
 		try
 		{
 			System.out.println("I start here");
-	        String query = "SELECT name, price, category FROM products WHERE id_product = ?";
+	        String query = "SELECT name, price, category FROM products WHERE id = ?";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
 	        pst.setInt(1, id);
 	        ResultSet rs = pst.executeQuery();
@@ -223,6 +223,169 @@ public class Model {
 		}
 		
 		return prod;
+	}
+	
+	public static ArrayList<RecordType0> getFinanceRecordsType0(String filter2)
+	{
+		db = new DBConnection();
+		db.getConnection();
+		ArrayList<RecordType0> list = null;
+		
+		if(filter2 == "0")
+		{
+			try
+			{
+				System.out.println("I start here");
+		        String query = 
+		        		"SELECT SUM(p.price * s.quantity) AS \"Total\" "
+		        		+ "FROM product_sales s , products p, transaction t, accounts a"
+		        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id";
+		        PreparedStatement pst = db.getConnection().prepareStatement(query);
+		        ResultSet rs = pst.executeQuery();
+		        list = new ArrayList();
+		        if(rs.next())
+		        {
+		        	list.add(new RecordType0("Total Sales", rs.getDouble("Total")));
+		        }
+		        
+		        System.out.println("I end here");
+			} catch(Exception e) 
+			{
+				e.printStackTrace();
+				System.out.println("EDI PUTA NG FINANCE");
+			}
+		}
+		else if(filter2 == "1")
+		{
+			try
+			{
+				System.out.println("I start here");
+		        String query = 
+		        		"SELECT p.category AS \"Product Type\",  SUM(p.price * s.quantity) AS \"Total\" "
+		        		+ "FROM product_sales s , products p, transaction t, accounts a "
+		        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id "
+		        		+ "GROUP BY p.name";
+		        PreparedStatement pst = db.getConnection().prepareStatement(query);
+		        ResultSet rs = pst.executeQuery();
+		        list = new ArrayList();
+		        if(rs.next())
+		        {
+		        	list.add(new RecordType0(rs.getString("Product Type"), rs.getDouble("Total")));
+		        }
+		        
+		        System.out.println("I end here");
+			} catch(Exception e) 
+			{
+				e.printStackTrace();
+				System.out.println("EDI PUTA NG FINANCE");
+			}
+		}
+		else if(filter2 == "2")
+		{
+			try
+			{
+				System.out.println("I start here");
+		        String query = 
+		        		"SELECT p.name AS \"Product Name\",  SUM(p.price * s.quantity) AS \"Total\" "
+		        		+ "FROM product_sales s , products p, transaction t, accounts a "
+		        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id "
+		        		+ "GROUP BY p.category";
+		        PreparedStatement pst = db.getConnection().prepareStatement(query);
+		        ResultSet rs = pst.executeQuery();
+		        list = new ArrayList();
+		        if(rs.next())
+		        {
+		        	list.add(new RecordType0(rs.getString("Product Name"), rs.getDouble("Total")));
+		        }
+		        
+		        System.out.println("I end here");
+			} catch(Exception e) 
+			{
+				e.printStackTrace();
+				System.out.println("EDI PUTA NG FINANCE");
+			}
+		}
+		else
+			return null;
+		return list;
+	}
+	
+	public static ArrayList<RecordType1> getFinanceRecordsType1(String filter1, String filter2)
+	{
+		db = new DBConnection();
+		db.getConnection();
+		ArrayList<RecordType1> list = null;
+		String filter = null, query = null;
+		
+		if(filter1 == "1")
+		{
+			query = 
+        		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\""
+        		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\""
+        		+ "FROM product_sales s , products p, transaction t, accounts a"
+        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.category = \"" + filter2 + "\"";
+		}
+			
+		else if(filter1 == "2")
+		{
+			query = 
+        		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\""
+        		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\""
+        		+ "FROM product_sales s , products p, transaction t, accounts a"
+        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.name = \"" + filter2 + "\"";
+		}
+		else 
+			return null;
+		
+		try
+		{
+			System.out.println("I start here");
+	        
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        ResultSet rs = pst.executeQuery();
+	        list = new ArrayList();
+	        if(rs.next())
+	        {
+	        	list.add(new RecordType1(rs.getString("User"), rs.getString("Product Type"), rs.getString("Product Name"), rs.getDouble("Price"), rs.getInt("Quantity") , rs.getDouble("Total")));
+	        }
+	        
+	        System.out.println("I end here");
+		} catch(Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("EDI PUTA NG FINANCE");
+		}
+		
+		return list;
+	}
+	
+	public static ArrayList<String> getAllProductNames()
+	{
+		db = new DBConnection();
+		db.getConnection();
+		ArrayList<String> list = null;
+		
+		try
+		{
+			System.out.println("I start here");
+	        String query = 
+	        		"SELECT name FROM products ORDER BY name asc";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        ResultSet rs = pst.executeQuery();
+	        list = new ArrayList();
+	        if(rs.next())
+	        {
+	        	list.add(rs.getString("name"));
+	        }
+	        
+	        System.out.println("I end here");
+		} catch(Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("EDI PUTA NG PRODUCT NAMES");
+		}
+		
+		return list;
 	}
 	
 	
