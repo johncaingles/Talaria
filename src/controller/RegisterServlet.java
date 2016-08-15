@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Account;
 import model.Model;
@@ -61,8 +62,21 @@ public class RegisterServlet extends HttpServlet {
 		String ship_postal_code = request.getParameter("ship_postal_code");
 		String ship_country = request.getParameter("ship_country");
 		
-		Model.addCustAccount(username, password, first_name, middle_name, last_name, email, "1", bil_house_num, bil_street, bil_subdivision, bil_city, bil_postal_code, bil_country, ship_house_num, ship_street, ship_subdivision, ship_city, ship_postal_code, ship_country);
-		
+		if(Model.addCustAccount(username, password, first_name, middle_name, last_name, email, "1", bil_house_num, bil_street, bil_subdivision, bil_city, bil_postal_code, bil_country, ship_house_num, ship_street, ship_subdivision, ship_city, ship_postal_code, ship_country))
+		{
+			Account account = new Account(username, first_name, middle_name, last_name, email, "1", bil_house_num, bil_street, bil_subdivision, bil_city, bil_postal_code, bil_country, ship_house_num, ship_street, ship_subdivision, ship_city, ship_postal_code, ship_country);
+			
+			HttpSession session = request.getSession();
+	        session.setAttribute("user_account", account);
+	        System.out.println("Inside servlet customer sucess");
+	        
+			response.sendRedirect("results.jsp");
+		}
+		else
+		{
+			System.out.println("Inside servlet customer fail");
+			response.sendRedirect("registration.jsp");
+		}
 		
 		
 	}

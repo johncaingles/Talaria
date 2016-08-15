@@ -13,7 +13,7 @@
 	</head>
 	<body bgcolor = "#d6d6c2">
 		
-			<form>
+			<form action="RegisterServlet" method="post">
 				<div class = "register">
 					<input type = "text" placeholder = "First Name" name = "first_name"><br>
 					<input type = "text" maxlength = "1" placeholder = "MI" size = "3px"name = "middle_name"><br>

@@ -31,8 +31,33 @@ public class Account {
 		this.accountID = accountID;
 	}
 	
-	
-	
+	public Account(String username, String first_name, String middle_name,
+			String last_name, String email, String privilegeLevel,
+			String bil_house_num, String bil_street, String bil_subdivision,
+			String bil_city, String bil_postal_code, String bil_country,
+			String ship_house_num, String ship_street, String ship_subdivision,
+			String ship_city, String ship_postal_code, String ship_country) {
+		super();
+		this.username = username;
+		this.first_name = first_name;
+		this.middle_name = middle_name;
+		this.last_name = last_name;
+		this.email = email;
+		this.privilegeLevel = privilegeLevel;
+		this.bil_house_num = bil_house_num;
+		this.bil_street = bil_street;
+		this.bil_subdivision = bil_subdivision;
+		this.bil_city = bil_city;
+		this.bil_postal_code = bil_postal_code;
+		this.bil_country = bil_country;
+		this.ship_house_num = ship_house_num;
+		this.ship_street = ship_street;
+		this.ship_subdivision = ship_subdivision;
+		this.ship_city = ship_city;
+		this.ship_postal_code = ship_postal_code;
+		this.ship_country = ship_country;
+	}
+
 	public Account(int accountID, String username, String first_name,
 			String middle_name, String last_name, String email,
 			String privilegeLevel, String bil_house_num, String bil_street,
