@@ -31,7 +31,43 @@ public class Model {
 		
 		return false;
 	}
+	
+	public static boolean checkIfUsernameExists(String username) {
+		db = new DBConnection();
+		db.getConnection();
+		
+		try{
+	        String query = "Select id_account from accounts where username=?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setString(1, username);
+	        ResultSet rs = pst.executeQuery();
+	        if(rs.next()){
+	        	return true;
+	        }
+	        else return false;
+		} catch(Exception e) {
+			
+		}
+		
+		return false;
+	}
 
+	public static void createAccount(String username, String password, String accountType) {
+		db = new DBConnection();
+		db.getConnection();
+		
+		try{
+	        String query = "INSERT INTO accounts(username, password, accounttype)VALUES(?, ?, ?);";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setString(1, username);
+	        pst.setString(2, password);
+	        pst.setString(3, accountType);
+	        pst.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static int getAccountID(String username) {
 
 		db = new DBConnection();
@@ -58,7 +94,7 @@ public class Model {
 		System.out.println("KING INA NG PRODUCTS");
 		db = new DBConnection();
 		db.getConnection();
-		ArrayList<Product> list = new ArrayList();
+		ArrayList<Product> list = new ArrayList<Product>();
 
 		try
 		{

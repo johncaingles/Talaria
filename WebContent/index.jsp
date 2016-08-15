@@ -12,12 +12,18 @@
 	<h1>KAINANO</h1>
 	<div class="container">
 		<form action="LoginServlet" method="post">
-			username: <input type="text" name="username" />
-			password: <input type="password" name="password" />
+			<div class="form-group">
+				<label for="username">Username:</label>
+				<input type="text" name="username" />
+			</div>
 			
+			<div class="form-group">
+				<label for="password">Password:</label>
+				<input type="password" name="password" />
+			</div>
 			<br/><br/>
 			
-			<input type="submit" value="Login"/>
+			<button type="submit" class="btn btn-default">Login</button>
 		</form>
 	</div>
 </body>
