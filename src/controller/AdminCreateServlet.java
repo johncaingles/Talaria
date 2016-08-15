@@ -38,11 +38,11 @@ public class AdminCreateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");   
         String password = request.getParameter("password");
-        String accType = request.getParameter("accType");
+        String privLevel = request.getParameter("accType");
 
         if(!Model.checkIfUsernameExists(username))
 		{
-			Model.createAccount(username, password, accType);
+			Model.createAccount(username, password, privLevel);
 			request.getRequestDispatcher("admin.jsp").forward(request, response);
 		} 
 		else 
