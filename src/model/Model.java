@@ -68,7 +68,7 @@ public class Model {
 	        ResultSet rs = pst.executeQuery();
 	        if(rs.next())
 	        {
-	        	list.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getFloat("price"), rs.getString("category")));
+	        	list.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getDouble("price"), rs.getString("category")));
 	        }
 	        System.out.println("I end here");
 		} catch(Exception e) 
@@ -102,19 +102,19 @@ public class Model {
 	        {
 	        	if(rs.getString("category").equals("boots"))
 	        	{
-	        		bootsList.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getFloat("price"), rs.getString("category")));
+	        		bootsList.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getDouble("price"), rs.getString("category")));
 	        	}
 	        	else if(rs.getString("category").equals("shoes"))
 	        	{
-	        		shoesList.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getFloat("price"), rs.getString("category")));
+	        		shoesList.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getDouble("price"), rs.getString("category")));
 	        	}
 	        	else if(rs.getString("category").equals("sandals"))
 	        	{
-	        		sandalsList.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getFloat("price"), rs.getString("category")));
+	        		sandalsList.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getDouble("price"), rs.getString("category")));
 	        	}
 	        	else if(rs.getString("category").equals("slippers"))
 	        	{
-	        		slippersList.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getFloat("price"), rs.getString("category")));
+	        		slippersList.add(new Product(rs.getInt("id_product"), rs.getString("name"), rs.getDouble("price"), rs.getString("category")));
 	        	}
 	        }
 	        hmap.put("boots", bootsList);
@@ -130,6 +130,35 @@ public class Model {
 		}
 		
 		return hmap;
+	}
+	
+	public static Product getProduct(int id)
+	{
+		db = new DBConnection();
+		db.getConnection();
+		Product prod = null;
 		
+		try
+		{
+			System.out.println("I start here");
+	        String query = "SELECT name, price, category FROM products WHERE id_product = ?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setInt(1, id);
+	        ResultSet rs = pst.executeQuery();
+	        if(rs.next())
+	        {
+	        	prod.setProd_id(id);
+	        	prod.setName(rs.getString("name"));
+	        	prod.setPrice(rs.getDouble("price"));
+	        	prod.setCategory(rs.getString("category"));
+	        }
+	        System.out.println("I end here");
+		} catch(Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("EDI PUTA NG PRODUCT");
+		}
+		
+		return prod;
 	}
 }
