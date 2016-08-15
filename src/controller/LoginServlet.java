@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Account;
 import model.Model;
+import model.Product;
 
 /**
  * Servlet implementation class LoginServlet
@@ -47,15 +48,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");   
         String password = request.getParameter("password");
-        
-        String sendThis = "This is sent yo";
-        
-        request.setAttribute("sendThis", sendThis);
-//        RequestDispatcher rd = getServletContext()
-//                .getRequestDispatcher("results.jsp");
-        
-        
-		if(Model.checkCredentials(username, password))
+                
+        if(Model.checkCredentials(username, password))
 		{
 			int accountID = Model.getAccountID(username);
 			Account account = new Account(accountID);
@@ -63,9 +57,8 @@ public class LoginServlet extends HttpServlet {
 //			account.setName(Model.getAccountName(accountID));
 //			account.setPrivilegeLevel(Model.getPrivilegeLevel(accountID));
 			
+			response.sendRedirect("results.jsp");
 			
-			
-			request.getRequestDispatcher("results.jsp").forward(request, response);
 	//			rd.forward(request, response);
 			//response.sendRedirect("results.jsp");
 //          Cookie idCookie = new Cookie("user_id", String.valueOf(account.getAccountID()));

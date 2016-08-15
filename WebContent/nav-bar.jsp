@@ -10,7 +10,7 @@
     		<a class="modal-trigger" href="#login_modal">Login</a>
     	<% } else {
 			Account account = (Account)session.getAttribute("user_account");
-			String user_name = account.getName(); %>
+			String user_name = account.getUsername(); %>
     		<a class="dropdown-button" href="#!" data-activates="account_dropdown"><% out.print(user_name); %>'<i class="material-icons right">arrow_drop_down</i></a>
     	<% } %>
       </ul>
@@ -20,7 +20,7 @@
   <ul id="account_dropdown" class="dropdown-content">
   <li><a href="">Profile</a></li>
   <li class="divider"></li>
-  <li><a href="">Logout</a></li>
+  <li><a href="/Talaria/LogoutServlet">Logout</a></li>
 </ul>
 
 <div id="login_modal" class="modal">
@@ -45,6 +45,7 @@
 
         	<div class="col s6">
         		<h4> Create an account </h4>
+        		<a href="register.jsp">REGISTER</a>
         	</div>
         </div>
 
