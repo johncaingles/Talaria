@@ -6,9 +6,11 @@ public class Product
 	private String name;
 	private double price;
 	private String category;
+	
+	public Product(){};
+	
 	public Product(int prod_id, String name, double price, String category) 
 	{
-		super();
 		this.prod_id = prod_id;
 		this.name = name;
 		this.price = price;
