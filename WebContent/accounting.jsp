@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<<<<<<< HEAD
-=======
 <%@page import="model.Model" %>
->>>>>>> 2dd4f22be90d62c502d887fef164564debdd3700
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,7 +10,6 @@
 
 	<jsp:include page="dependencies.jsp" />
 <script type="text/javascript">
-<<<<<<< HEAD
     function show() {
         var selopt = document.getElementById("filter1").value;
         if (selopt == 1) {
@@ -24,7 +20,6 @@
         if (selopt == 2) {
             document.getElementById("f2").style.display = "block";
             document.getElementById("f1").style.display = "none";
-=======
     function show() 
     {
         var select = document.getElementById("filter1").value;
@@ -44,7 +39,6 @@
             document.getElementById("f3").style.display = "block";
             document.getElementById("f1").style.display = "none";
             document.getElementById("f2").style.display = "none";
->>>>>>> 2dd4f22be90d62c502d887fef164564debdd3700
             document.getElementById("btn").style.display = "block";
         }
     }
@@ -63,45 +57,27 @@
     <div class="container">
 	    	
 		    <div class="row">
+		    	<form action="FinanceRecordServlet" method="post">
 			    <div class="input-field col s12">
 			    	<div class="col s5">
 				      <select id="filter1" name="filter1" onchange="show()">
 					      <option value="" disabled selected>Filter by...</option>
-<<<<<<< HEAD
-					      <option value="1">Total sales</option>
-					      <option value="2">Sales per product type</option>
-=======
 					      <option value="0">Total sales</option>
 					      <option value="1">Sales per product type</option>
 					      <option value="2">Sales per product</option>
->>>>>>> 2dd4f22be90d62c502d887fef164564debdd3700
 					  </select>
 				  	</div>
 				  	
 				  	<div id="f1" class="col s5" style="display:none">
 				      <select name="f1" onchange="showTable()">
-<<<<<<< HEAD
-					      <option value="1">All sales</option>
-					      <option value="2">Per product type</option>
-					      <option value="3">Per product</option>
-=======
 					      <option value="0">All sales</option>
 					      <option value="1">Per product type</option>
 					      <option value="2">Per product</option>
->>>>>>> 2dd4f22be90d62c502d887fef164564debdd3700
 					  </select>
 				  	</div>
 				  	
 				  	<div id="f2" class="col s5" style="display:none">
 				      <select name="f2" onchange="showTable()">
-<<<<<<< HEAD
-					      <option value="1">Boots</option>
-					      <option value="2">Shoes</option>
-					      <option value="3">Sandals</option>
-					      <option value="4">Slippers</option>
-					  </select>
-				  	</div>
-=======
 					      <option value="boots">Boots</option>
 					      <option value="shoes">Shoes</option>
 					      <option value="sandals">Sandals</option>
@@ -117,54 +93,35 @@
 					  </select>
 				  	</div>
 				  	
->>>>>>> 2dd4f22be90d62c502d887fef164564debdd3700
 				  	<div id="btn" class="col s2" style="display:none">
-				      <button class="btn-large red lighten-1" onclick="showTable()">Show</button>
+				      <button type="submit" class="btn-large red lighten-1" onclick="showTable()">Show</button>
 				  	</div>
 				</div>
+				</form>
 		  	</div>
 		<div class="col s12">
 			<table id="table" class="striped" style="display:none">
+			<% if(request.getParameter("list")!=null){ 
+				if(request.getParameter("type").equals("0")){ %>
 		        <thead>
 		          <tr>
-		              <th>Name</th>
-		              <th>Item Name</th>
+		              <th>Category</th>
 		              <th>Item Price</th>
 		          </tr>
 		        </thead>
 		
 		        <tbody>
-		          <tr>
-		            <td>Alvin</td>
-		            <td>Eclair</td>
-		            <td>$0.87</td>
-		          </tr>
-		          <tr>
-		            <td>Alan</td>
-		            <td>Jellybean</td>
-		            <td>$3.76</td>
-		          </tr>
-		          <tr>
-		            <td>Jonathan</td>
-		            <td>Lollipop</td>
-		            <td>$7.00</td>
-		          </tr>
-		          <tr>
-		            <td>Jonathan</td>
-		            <td>Lollipop</td>
-		            <td>$7.00</td>
-		          </tr>
-		          <tr>
-		            <td>Jonathan</td>
-		            <td>Lollipop</td>
-		            <td>$7.00</td>
-		          </tr>
-		          <tr>
-		            <td>Jonathan</td>
-		            <td>Lollipop</td>
-		            <td>$7.00</td>
-		          </tr>
+<%-- 		          <% for(RecordType0 ((RecordType0)record) : request.getParameter("list")){ %> --%>
+<!-- 		          <tr> -->
+<%-- 		            <td><% out.print(record.getCategory_type()); %></td> --%>
+<%-- 		            <td><% out.print(record.getTotal_price()); %></td> --%>
+<!-- 		          </tr> -->
+<%-- 		          <% } %> --%>
 		        </tbody>
+		        <% } else { %>
+		        
+				<% } %>
+			<% } %>
 	      </table>
       </div>
 	</div>

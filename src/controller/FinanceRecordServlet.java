@@ -65,7 +65,7 @@ public class FinanceRecordServlet extends HttpServlet {
         }
         
 		request.setAttribute("list", real_list);
-		request.setAttribute("type", real_list);
+		request.setAttribute("type", type);
         
 		request.getRequestDispatcher("accounting.jsp").forward(request, response);
 	}

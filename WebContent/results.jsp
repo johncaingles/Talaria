@@ -27,7 +27,7 @@
 
 	<jsp:include page="nav-bar.jsp" />
 	
-	<h1 class="center">FUCK YOU I AM RESULTS</h1>
+	<h1 class="center">RESULTS</h1>
 	
 	
 	
@@ -40,8 +40,8 @@
     		
     		<nav>
 		    <div class="nav-wrapper">
-		      <form>
-		        <div class="input-field" style="height: 64px" >
+		      <form action="ResultServlet" method="get">
+		        <div class="input-field" name="search" style="height: 64px" >
 		          <input id="search" type="search" required>
 		          <label for="search"><i class="material-icons">search</i></label>
 		          <i class="material-icons">close</i>
@@ -66,13 +66,16 @@
 		HashMap<String, ArrayList<Product>> listCategorizedProducts = new HashMap<String, ArrayList<Product>>();
         listCategorizedProducts = Model.getProductsHash();
         
-        System.out.println(listCategorizedProducts.get("boots").get(0).getName());
-        
+        if(request.getAttribute("search")==null){
+        	request.setAttribute("search", "");
+        }
+        String search = (String)request.getAttribute("search");
 		%>
 		
 		  <div class="row" id="boots_cards">
 		  	<ul id="boots_list">
 		    <% for (Product product : listCategorizedProducts.get("boots")) { %>
+		    <% if(product.getName().contains(search)){ %>
 		    <li>
 		    <form class="card" method="get" action="">
 								
@@ -81,7 +84,7 @@
 								<div class="col s4">
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
-						                <a href=""><img class="activator" src="img/shoe_0.jpg"></a>
+						                <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>"><img class="activator" src="img/shoe_0.jpg"></a>
 						                <span class="card-title"><% out.print(product.getName()); %></span>
 						              </div>
 						              <div class="card-content">
@@ -89,16 +92,15 @@
 						                		<i class="material-icons right" >more_vert</i>
 						                </span>
 		
-						                <p><a href="">Learn more...</a></p>
 						              </div>
 						              <div class="card-action">
 							              <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>">See Product</a>
-							              <a href="#">Add to Cart</a>
 						           	 </div>
 	       				            </div>
 				            </div>
 			            </form>
 			            </li>
+	            	<% } %> 
 	            <% } %>
 	            </ul>
             </div>
@@ -106,32 +108,32 @@
             <div class="row" id="shoes_cards">
 		  	<ul id="shoes_list">
 	    <% for (Product product : listCategorizedProducts.get("shoes")) { %>
-	    <li>
-	    <form class="card" method="get" action="">
+		    <% if(product.getName().contains(search)){ %>
+		    <li>
+		    <form class="card" method="get" action="">
+								
+							<input type="hidden" name="product_id" value="">
 							
-						<input type="hidden" name="product_id" value="">
-						
-							<div class="col s4">
-						        <div class="card " style="overflow: hidden;">
-					              <div class="card-image waves-effect waves-block waves-light"  >
-					                <a href=""><img class="activator" src="img/shoe_0.jpg"></a>
-					                <span class="card-title"><% out.print(product.getName()); %></span>
-					              </div>
-					              <div class="card-content">
-					                <span class="card-title activator grey-text text-darken-4"><% out.print(product.getPrice()); %>
-					                		<i class="material-icons right" >more_vert</i>
-					                </span>
-	
-					                <p><a href="">Learn more...</a></p>
-					              </div>
-					              <div class="card-action">
-						              <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>">See Product</a>
-						              <a href="#">Add to Cart</a>
-					           	 </div>
-       				            </div>
-			            </div>
-		            </form>
-		            </li>
+								<div class="col s4">
+							        <div class="card " style="overflow: hidden;">
+						              <div class="card-image waves-effect waves-block waves-light"  >
+						                <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>"><img class="activator" src="img/shoe_0.jpg"></a>
+						                <span class="card-title"><% out.print(product.getName()); %></span>
+						              </div>
+						              <div class="card-content">
+						                <span class="card-title activator grey-text text-darken-4"><% out.print(product.getPrice()); %>
+						                		<i class="material-icons right" >more_vert</i>
+						                </span>
+		
+						              </div>
+						              <div class="card-action">
+							              <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>">See Product</a>
+						           	 </div>
+	       				            </div>
+				            </div>
+			            </form>
+			            </li>
+	            	<% } %> 
             <% } %>
             </ul>
             </div>
@@ -139,32 +141,32 @@
             <div class="row" id="sandals_cards">
 		  	<ul id="sandals_list">
 	    <% for (Product product : listCategorizedProducts.get("sandals")) { %>
-	    <li>
-	    <form class="card" method="get" action="">
+		    <% if(product.getName().contains(search)){ %>
+		    <li>
+		    <form class="card" method="get" action="">
+								
+							<input type="hidden" name="product_id" value="">
 							
-						<input type="hidden" name="product_id" value="">
-						
-							<div class="col s4">
-						        <div class="card " style="overflow: hidden;">
-					              <div class="card-image waves-effect waves-block waves-light"  >
-					                <a href=""><img class="activator" src="img/shoe_0.jpg"></a>
-					                <span class="card-title"><% out.print(product.getName()); %></span>
-					              </div>
-					              <div class="card-content">
-					                <span class="card-title activator grey-text text-darken-4"><% out.print(product.getPrice()); %>
-					                		<i class="material-icons right" >more_vert</i>
-					                </span>
-	
-					                <p><a href="">Learn more...</a></p>
-					              </div>
-					              <div class="card-action">
-						              <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>">See Product</a>
-						              <a href="#">Add to Cart</a>
-					           	 </div>
-       				            </div>
-			            </div>
-		            </form>
-		            </li>
+								<div class="col s4">
+							        <div class="card " style="overflow: hidden;">
+						              <div class="card-image waves-effect waves-block waves-light"  >
+						                <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>"><img class="activator" src="img/shoe_0.jpg"></a>
+						                <span class="card-title"><% out.print(product.getName()); %></span>
+						              </div>
+						              <div class="card-content">
+						                <span class="card-title activator grey-text text-darken-4"><% out.print(product.getPrice()); %>
+						                		<i class="material-icons right" >more_vert</i>
+						                </span>
+		
+						              </div>
+						              <div class="card-action">
+							              <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>">See Product</a>
+						           	 </div>
+	       				            </div>
+				            </div>
+			            </form>
+			            </li>
+	            	<% } %> 
             <% } %>
             </ul>
             </div>
@@ -172,32 +174,32 @@
     	<div class="row" id="slippers_cards">
 		  	<ul id="slippers_list">
     	<% for (Product product : listCategorizedProducts.get("slippers")) { %>
-    	<li>
-	    <form class="card" method="get" action="ProductViewSerlvet">
+		    <% if(product.getName().contains(search)){ %>
+		    <li>
+		    <form class="card" method="get" action="">
+								
+							<input type="hidden" name="product_id" value="">
 							
-						<input type="hidden" name="product_id" value="<% out.print(product.getProd_id()); %>">
-						
-							<div class="col s4">
-						        <div class="card " style="overflow: hidden;">
-					              <div class="card-image waves-effect waves-block waves-light"  >
-					                <a href=""><img class="activator" src="img/shoe_0.jpg"></a>
-					                <span class="card-title"><% out.print(product.getName()); %></span>
-					              </div>
-					              <div class="card-content">
-					                <span class="card-title activator grey-text text-darken-4"><% out.print(product.getPrice()); %>
-					                		<i class="material-icons right" >more_vert</i>
-					                </span>
-	
-					                <p><a href="">Learn more...</a></p>
-					              </div>
-					              <div class="card-action">
-						              <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>">See Product</a>
-						              <a href="#">Add to Cart</a>
-					           	 </div>
-       				            </div>
-			            </div>
-		            </form>
-		            </li>
+								<div class="col s4">
+							        <div class="card " style="overflow: hidden;">
+						              <div class="card-image waves-effect waves-block waves-light"  >
+						                <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>"><img class="activator" src="img/shoe_0.jpg"></a>
+						                <span class="card-title"><% out.print(product.getName()); %></span>
+						              </div>
+						              <div class="card-content">
+						                <span class="card-title activator grey-text text-darken-4"><% out.print(product.getPrice()); %>
+						                		<i class="material-icons right" >more_vert</i>
+						                </span>
+		
+						              </div>
+						              <div class="card-action">
+							              <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>">See Product</a>
+						           	 </div>
+	       				            </div>
+				            </div>
+			            </form>
+			            </li>
+	            	<% } %> 
 		            <% } %>
             </ul>
             </div>
