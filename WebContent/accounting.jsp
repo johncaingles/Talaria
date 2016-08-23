@@ -10,16 +10,17 @@
 
 	<jsp:include page="dependencies.jsp" />
 <script type="text/javascript">
-    function show() {
-        var selopt = document.getElementById("filter1").value;
-        if (selopt == 1) {
-            document.getElementById("f1").style.display = "block";
-            document.getElementById("f2").style.display = "none";
-            document.getElementById("btn").style.display = "block";
-        }
-        if (selopt == 2) {
-            document.getElementById("f2").style.display = "block";
-            document.getElementById("f1").style.display = "none";
+//     function show() {
+//         var selopt = document.getElementById("filter1").value;
+//         if (selopt == 1) {
+//             document.getElementById("f1").style.display = "block";
+//             document.getElementById("f2").style.display = "none";
+//             document.getElementById("btn").style.display = "block";
+//         }
+//         if (selopt == 2) {
+//             document.getElementById("f2").style.display = "block";
+//             document.getElementById("f1").style.display = "none";
+
     function show() 
     {
         var select = document.getElementById("filter1").value;

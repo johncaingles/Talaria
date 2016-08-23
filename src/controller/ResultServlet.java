@@ -28,10 +28,11 @@ public class ResultServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String searchInput = request.getParameter("search");
+		System.out.println("tangina ano daw: "+searchInput);
 		
         request.setAttribute("search", searchInput);
         
-        request.getRequestDispatcher("results.jsp").forward(request, response);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
         
 	}
 

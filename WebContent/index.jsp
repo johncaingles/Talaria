@@ -5,6 +5,7 @@
 <%@page import="model.Product"%>
 <%@page import="model.Model" %>
 <%@page import="java.util.HashMap"%>
+<%@page import="org.apache.commons.lang.StringUtils" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -41,8 +42,8 @@
     		<nav>
 		    <div class="nav-wrapper">
 		      <form action="ResultServlet" method="get">
-		        <div class="input-field" name="search" style="height: 64px" >
-		          <input id="search" type="search" required>
+		        <div class="input-field" style="height: 64px" >
+		          <input id="search" name="search" type="search">
 		          <label for="search"><i class="material-icons">search</i></label>
 		          <i class="material-icons">close</i>
 		        </div>
@@ -68,6 +69,7 @@
         
         if(request.getAttribute("search")==null){
         	request.setAttribute("search", "");
+        	System.out.println("KANTOTAN");
         }
         String search = (String)request.getAttribute("search");
 		%>
@@ -75,7 +77,7 @@
 		  <div class="row" id="boots_cards">
 		  	<ul id="boots_list">
 		    <% for (Product product : listCategorizedProducts.get("boots")) { %>
-		    <% if(product.getName().contains(search)){ %>
+		    <% if(StringUtils.containsIgnoreCase(product.getName(), search)){ %>
 		    <li>
 		    <form class="card" method="get" action="">
 								
@@ -108,7 +110,7 @@
             <div class="row" id="shoes_cards">
 		  	<ul id="shoes_list">
 	    <% for (Product product : listCategorizedProducts.get("shoes")) { %>
-		    <% if(product.getName().contains(search)){ %>
+		    <% if(StringUtils.containsIgnoreCase(product.getName(), search)){ %>
 		    <li>
 		    <form class="card" method="get" action="">
 								
@@ -141,7 +143,7 @@
             <div class="row" id="sandals_cards">
 		  	<ul id="sandals_list">
 	    <% for (Product product : listCategorizedProducts.get("sandals")) { %>
-		    <% if(product.getName().contains(search)){ %>
+		    <% if(StringUtils.containsIgnoreCase(product.getName(), search)){ %>
 		    <li>
 		    <form class="card" method="get" action="">
 								
@@ -174,7 +176,7 @@
     	<div class="row" id="slippers_cards">
 		  	<ul id="slippers_list">
     	<% for (Product product : listCategorizedProducts.get("slippers")) { %>
-		    <% if(product.getName().contains(search)){ %>
+		    <% if(StringUtils.containsIgnoreCase(product.getName(), search)){ %>
 		    <li>
 		    <form class="card" method="get" action="">
 								

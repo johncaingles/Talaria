@@ -1,5 +1,6 @@
 
 <%@page import="model.Product"%>
+<%@page import="model.Model"%>
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css\skeleton.css">
@@ -68,11 +69,22 @@
 				<% out.print(product.getName()); %>
 				<br>
 				<% out.print(product.getPrice()); %>
+				<br>
+				<% for(String review:Model.getProductReview(product.getProd_id())){ 
+					out.print("<p>"+review+"</p>"); 
+					}%>
+				
+				
+				
 			</div>
 		</div>
 		<div class = "row" style ="margin-top:13px;">
 			<form action="AddToCartServlet" method="post" >
 				<input type="hidden" name="productID" value="<% out.print(product.getProd_id()); %>" >
+				<div class="form-group">
+					<label for="quantity">Quantity</label>
+					<input type="quantity" name="quantity" />
+				</div>
 				<input type = "submit" class = "addToCart" value = "Add To Cart" style="background-color:rgb(191, 191, 191);">
 			</form>
 		</div>
