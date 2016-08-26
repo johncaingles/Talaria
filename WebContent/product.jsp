@@ -1,6 +1,7 @@
 
 <%@page import="model.Product"%>
 <%@page import="model.Model"%>
+<%@ page import="org.owasp.encoder.*" %>
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css\skeleton.css">
@@ -71,7 +72,7 @@
 				<% out.print(product.getPrice()); %>
 				<br>
 				<% for(String review:Model.getProductReview(product.getProd_id())){ 
-					out.print("<p>"+review+"</p>"); 
+					out.print("<p>"+Encode.forJava(review)+"</p>"); 
 					}%>
 				
 				

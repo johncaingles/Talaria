@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.owasp.encoder.Encode;
+
 import model.Account;
 import model.Model;
 
@@ -41,26 +43,26 @@ public class RegisterServlet extends HttpServlet {
 	{
 		// TODO Auto-generated method stub
 		
-		String first_name = request.getParameter("first_name"); 
-		String middle_name = request.getParameter("middle_name"); 
-		String last_name = request.getParameter("last_name"); 
-		String email = request.getParameter("email");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		String first_name = Encode.forJava(request.getParameter("first_name")); 
+		String middle_name = Encode.forJava(request.getParameter("middle_name")); 
+		String last_name = Encode.forJava(request.getParameter("last_name")); 
+		String email = Encode.forJava(request.getParameter("email"));
+		String username = Encode.forJava(request.getParameter("username"));
+		String password = Encode.forJava(request.getParameter("password"));
 		
-		String bil_house_num = request.getParameter("bil_house_num");
-		String bil_street = request.getParameter("bil_street");
-		String bil_subdivision = request.getParameter("bil_subdivision");
-		String bil_city = request.getParameter("bil_city");
-		String bil_postal_code = request.getParameter("bil_postal_code");
-		String bil_country = request.getParameter("bil_country");
+		String bil_house_num = Encode.forJava(request.getParameter("bil_house_num"));
+		String bil_street = Encode.forJava(request.getParameter("bil_street"));
+		String bil_subdivision = Encode.forJava(request.getParameter("bil_subdivision"));
+		String bil_city = Encode.forJava(request.getParameter("bil_city"));
+		String bil_postal_code = Encode.forJava(request.getParameter("bil_postal_code"));
+		String bil_country = Encode.forJava(request.getParameter("bil_country"));
 		
-		String ship_house_num = request.getParameter("ship_house_num");
-		String ship_street = request.getParameter("ship_street");
-		String ship_subdivision = request.getParameter("ship_subdivision");
-		String ship_city = request.getParameter("ship_city");
-		String ship_postal_code = request.getParameter("ship_postal_code");
-		String ship_country = request.getParameter("ship_country");
+		String ship_house_num = Encode.forJava(request.getParameter("ship_house_num"));
+		String ship_street = Encode.forJava(request.getParameter("ship_street"));
+		String ship_subdivision = Encode.forJava(request.getParameter("ship_subdivision"));
+		String ship_city = Encode.forJava(request.getParameter("ship_city"));
+		String ship_postal_code = Encode.forJava(request.getParameter("ship_postal_code"));
+		String ship_country = Encode.forJava(request.getParameter("ship_country"));
 		
 		if(Model.addCustAccount(username, password, first_name, middle_name, last_name, email, "1", bil_house_num, bil_street, bil_subdivision, bil_city, bil_postal_code, bil_country, ship_house_num, ship_street, ship_subdivision, ship_city, ship_postal_code, ship_country))
 		{

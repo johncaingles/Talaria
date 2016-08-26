@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.owasp.encoder.Encode;
+
 import model.Account;
 import model.Model;
 
@@ -39,6 +41,7 @@ public class AddReviewServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String review = request.getParameter("review");
+		review = Encode.forJava(review);
 		String productID = request.getParameter("product_id");
 		
 		HttpSession session = request.getSession();

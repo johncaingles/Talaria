@@ -60,7 +60,7 @@ public class Model {
 		db.getConnection();
 		
 		try{
-	        String query = "INSERT INTO accounts(username, password, accounttype)VALUES(?, ?, ?);";
+	        String query = "INSERT INTO accounts(username, password, privilege)VALUES(?, ?, ?);";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
 	        pst.setString(1, username);
 	        pst.setString(2, password);
