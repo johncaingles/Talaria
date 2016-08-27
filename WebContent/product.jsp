@@ -63,37 +63,6 @@
 
 	<body>
 		<jsp:include page="nav-bar.jsp" />
-<<<<<<< HEAD
-		<div class = "row">
-			<div class = "productBox">
-				<img class = "image" src = "C:\Users\User\Pictures\presto.jpg">
-			</div>
-	
-			<div class = productDescription>
-				Tangina this product so nice
-				<br>
-				<% Product product = (Product)request.getAttribute("product"); %>
-				<% out.print(product.getCategory()); %>
-				<br>
-				<% out.print(product.getName()); %>
-				<br>
-				<% out.print(product.getPrice()); %>
-				<br>
-				<% for(String review:Model.getProductReview(product.getProd_id())){ 
-					out.print("<p>"+Encode.forHtml(review)+"</p>"); 
-					}%>
-				
-
-				
-			</div>
-		</div>
-		<div class = "row" style ="margin-top:13px;">
-			<form action="AddToCartServlet" method="post" >
-				<input type="hidden" name="productID" value="<% out.print(product.getProd_id()); %>" >
-				<div class="form-group">
-					<label for="quantity">Quantity</label>
-					<input type="quantity" name="quantity" />
-=======
 		<% Product product = (Product)request.getAttribute("product"); %>
 		<div class = "container">
 			<div class = "row">
@@ -126,7 +95,6 @@
 							    <% } %>
 						    </ul>
 					    </div>
->>>>>>> refs/remotes/origin/master
 				</div>
 		
 				<div class = "card-panel right col s4">
