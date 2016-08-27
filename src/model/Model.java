@@ -1,28 +1,103 @@
 package model;
 
 import java.sql.Connection;
+//import java.sql.Date;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.apache.shiro.authc.credential.DefaultPasswordService;
+import org.apache.shiro.crypto.hash.DefaultHashService;
+import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.apache.shiro.crypto.RandomNumberGenerator;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.util.SimpleByteSource;
 
 import com.mysql.jdbc.Statement;
 
 public class Model {
 	
 	private static DBConnection db;
-
+	
+	public static String getPassword(String username)
+	{
+		db = new DBConnection();
+		db.getConnection();
+		
+		String password = null;
+		
+		try{
+	        String query = "Select password from accounts where username = ?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setString(1, username);
+	        ResultSet rs = pst.executeQuery();
+	        if(rs.next())
+	        	return rs.getString("password");
+	        
+		} catch(Exception e) {
+			
+		}
+		return password;
+	}
+	
+	public static String getSalt(String username)
+	{
+		db = new DBConnection();
+		db.getConnection();
+		
+		String salt = null;
+		
+		try{
+	        String query = "Select salt from accounts where username = ?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setString(1, username);
+	        ResultSet rs = pst.executeQuery();
+	        if(rs.next())
+	        	return rs.getString("salt");
+	        
+		} catch(Exception e) {
+			
+		}
+		return salt;
+	}
+	
 	public static boolean checkCredentials(String username, String password) {
 		db = new DBConnection();
 		db.getConnection();
+		
+//		Object salt = rng.nextBytes();
+//		String hashedPasswordBase64 = new Sha256Hash(password, salt, 1024).toBase64();
+		
+//		String passwordFromDB = getPassword(username);
+//		
+		String salt = getSalt(username);
+		String hashedPasswordBase64 = new Sha256Hash(password, salt, 1024).toBase64();
+//		
+//		System.out.println("This is user input password : " + password);
+//		
+//		System.out.println("This is hashed password from db : " + passwordFromDB);
+//		
+//		System.out.println("This is the salt from db : " + salt);
+//		
+//		System.out.println("This is hashed password from user input : " + hashedPasswordBase64);
+		
+//		if(passwordFromDB.equals(hashedPasswordBase64))
+//			System.out.println("Please be true");
+//		else
+//			System.out.println("Well fuck then");
 		
 		try{
 	        String query = "Select id from accounts where username=? and password=?";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
 	        pst.setString(1, username);
-	        pst.setString(2, password);
+	        pst.setString(2, hashedPasswordBase64);
 	        ResultSet rs = pst.executeQuery();
 	        if(rs.next()){
 	        	return true;
@@ -58,14 +133,45 @@ public class Model {
 	public static void createAccount(String username, String password, String accountType) {
 		db = new DBConnection();
 		db.getConnection();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		
+//		DefaultHashService hashService = new DefaultHashService();
+//		hashService.setHashIterations(500000); // 500000
+//		hashService.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
+//		hashService.setPrivateSalt(new SimpleByteSource("myVERYSECRETBase64EncodedSalt")); // Same salt as in shiro.ini, but NOT base64-encoded.
+//		hashService.setGeneratePublicSalt(true);
+//
+//		DefaultPasswordService passwordService = new DefaultPasswordService();
+//		passwordService.setHashService(hashService);
+//		String encryptedPassword = passwordService.encryptPassword(password);
+		
+		RandomNumberGenerator rng = new SecureRandomNumberGenerator();
+		String salt = rng.nextBytes().toString();
+
+		String hashedPasswordBase64 = new Sha256Hash(password, salt, 1024).toBase64();
+		
+		System.out.println("This is the hash salt : " + salt.toString());
+		System.out.println("This is the hashed password : " + hashedPasswordBase64);
 		
 		try{
-	        String query = "INSERT INTO accounts(username, password, privilege)VALUES(?, ?, ?);";
+	        String query = "INSERT INTO accounts(username, password, privilege, salt, created_date )VALUES(?, ?, ?, ?, NOW());";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
 	        pst.setString(1, username);
-	        pst.setString(2, password);
+	        pst.setString(2, hashedPasswordBase64);
 	        pst.setString(3, accountType);
+	        pst.setString(4, salt);
+	        
 	        pst.executeUpdate();
+	        
+//	        query = "insert table1 (created_date) values (convert(datetime," + dateFormat.format(date) + ",5));";
+//	        pst = db.getConnection().prepareStatement(query);
+//	        pst.executeUpdate();
+	        
+//	        java.sql.Statement stmt = db.getConnection().createStatement() ;
+//	        query = "insert accounts (created_date) values (convert(datetime," + dateFormat.format(date) + ",5));" ;
+//	        stmt.executeUpdate(query) ;
+	        
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -101,6 +207,14 @@ public class Model {
 		db = new DBConnection();
 		db.getConnection();
 		
+		RandomNumberGenerator rng = new SecureRandomNumberGenerator();
+		String salt = rng.nextBytes().toString();
+
+		String hashedPasswordBase64 = new Sha256Hash(password, salt, 1024).toBase64();
+		
+		System.out.println("This is the hash salt : " + salt.toString());
+		System.out.println("This is the hashed password : " + hashedPasswordBase64);
+		
 		try{
 			
 //			String queryString = "INSERT INTO accounts (username, password, email, privilege, firstname, middlename, lastname) VALUES(@username, @password, @email, @privilege, @firstname, @middlename, @lastname)";
@@ -111,15 +225,16 @@ public class Model {
 //	        String query2 = "INSERT INTO billing_address VALUES " + bil_house_num + " , " + bil_street + " , " + bil_subdivision + " , " + bil_city + " , " + bil_postal_code + " , " + bil_country ;
 //	        String query3 = "INSERT INTO shipping_address VALUES " + ship_house_num + " , " + ship_street + " , " + ship_subdivision + " , " + ship_city + " , " + ship_postal_code + " , " + ship_country ;
 	        
-			String query = "INSERT INTO accounts (username, password, email, privilege, firstname, middlename, lastname) VALUES (?,?,?,?,?,?,?)";
+			String query = "INSERT INTO accounts (username, password, email, privilege, firstname, middlename, lastname, salt) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement pst = db.getConnection().prepareStatement(query);
 			pst.setString(1, username);
-			pst.setString(2, password);
+			pst.setString(2, hashedPasswordBase64);
 			pst.setString(3, email);
 			pst.setString(4, privilegeLevel);
 			pst.setString(5, first_name);
 			pst.setString(6, middle_name);
 			pst.setString(7, last_name);
+			pst.setString(8, salt);
 			
 			String query2 = "INSERT INTO billing_address (house_num, street, subdivision, city, postal_code, country) VALUES(?,?,?,?,?,?)";
 			PreparedStatement pst2 = db.getConnection().prepareStatement(query2);
@@ -270,14 +385,14 @@ public class Model {
 		db.getConnection();
 		ArrayList<RecordType0> list = null;
 		
-		if(filter2 == "0")
+		if(filter2.equals("0"))
 		{
 			try
 			{
 				System.out.println("I start here");
 		        String query = 
-		        		"SELECT SUM(p.price * s.quantity) AS \"Total\" "
-		        		+ "FROM product_sales s , products p, transaction t, accounts a"
+		        		"SELECT SUM(p.price * s.quantity) AS 'Total' "
+		        		+ "FROM product_sales s , products p, transaction t, accounts a "
 		        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id";
 		        PreparedStatement pst = db.getConnection().prepareStatement(query);
 		        ResultSet rs = pst.executeQuery();
@@ -294,7 +409,7 @@ public class Model {
 				System.out.println("EDI PUTA NG FINANCE");
 			}
 		}
-		else if(filter2 == "1")
+		else if(filter2.equals("1"))
 		{
 			try
 			{
@@ -319,7 +434,7 @@ public class Model {
 				System.out.println("EDI PUTA NG FINANCE");
 			}
 		}
-		else if(filter2 == "2")
+		else if(filter2.equals("2"))
 		{
 			try
 			{
@@ -356,21 +471,21 @@ public class Model {
 		ArrayList<RecordType1> list = null;
 		String filter = null, query = null;
 		
-		if(filter1 == "1")
+		if(filter1.equals("1"))
 		{
-			query = 
-        		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\""
-        		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\""
-        		+ "FROM product_sales s , products p, transaction t, accounts a"
+			query =
+        		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\" "
+        		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\" "
+        		+ "FROM product_sales s , products p, transaction t, accounts a "
         		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.category = \"" + filter2 + "\"";
 		}
 			
-		else if(filter1 == "2")
+		else if(filter1.equals("2"))
 		{
-			query = 
-        		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\""
-        		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\""
-        		+ "FROM product_sales s , products p, transaction t, accounts a"
+			query =
+        		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\" "
+        		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\" "
+        		+ "FROM product_sales s , products p, transaction t, accounts a "
         		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.name = \"" + filter2 + "\"";
 		}
 		else 
@@ -380,7 +495,8 @@ public class Model {
 		{
 			System.out.println("I start here");
 	        
-	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);			
+			pst.setString(1, String.valueOf(filter2));
 	        ResultSet rs = pst.executeQuery();
 	        list = new ArrayList();
 	        if(rs.next())
@@ -585,23 +701,26 @@ public class Model {
 		
 	}
 	
-	public static ArrayList<String> getProductReview(int id)
+	public static ResultSet getProductReview(int id)
 	{
 		db = new DBConnection();
 		db.getConnection();
 		ArrayList<String> list = new ArrayList<>();
+		ResultSet rs = null;
 		
 		try
 		{
 			System.out.println("I start here");
-	        String query = "SELECT review FROM products p, product_review r WHERE r.product_id = p.id AND r.id = ?";
+	        String query = "SELECT username, review "
+	        		+ "FROM products p, product_review r , accounts a "
+	        		+ "WHERE r.product_id = p.id AND r.account_id = a.id AND r.product_id = ?";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
 	        pst.setInt(1, id);
-	        ResultSet rs = pst.executeQuery();
-	        if(rs.next())
-	        {
-	        	list.add(rs.getString("review"));
-	        }
+	        rs = pst.executeQuery();
+//	        while(rs.next())
+//	        {
+//	        	list.add(rs.getString("review"));
+//	        }
 	        System.out.println("I end here");
 		} catch(Exception e) 
 		{
@@ -609,7 +728,83 @@ public class Model {
 			System.out.println("EDI PUTA NG PRODUCT");
 		}
 		
-		return list;
+		return rs;
+	}
+	
+	public static ArrayList<Integer> getDate(int id) 
+	{
+		db = new DBConnection();
+		db.getConnection();
+		ArrayList<Integer> list = new ArrayList<>();
+		
+		try{
+	        String query = "Select created_date from accounts where id = ?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setInt(1, id);
+	        ResultSet rs = pst.executeQuery();
+	        if(rs.next())
+	        {
+	        	//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	        	// Year - Month - Day - Hour - Minute - Second
+	            Date date = rs.getDate(1);
+	            
+	            int year = date.getYear();
+	            int month = date.getMonth();
+	            int day = date.getDate();
+	            
+	            
+	            list.add(year);
+	            list.add(month);
+	            list.add(day);
+
+	            Time time = rs.getTime(1);
+	            int hour = time.getHours();
+	            int mins = time.getMinutes();
+	            int sec = time.getSeconds();
+	            
+	            list.add(hour);
+	            list.add(mins);
+	            list.add(sec);
+	            
+	            System.out.println("this shit fuck pls  " + year + " " + month + " " + day + " " + hour + " " + mins + " " + sec);
+	            
+	            //System.out.println("This is the time " + time);
+	            //return dateFormat.format(date);
+	        	
+	        	//list.add(rs.getDate(1).toString());
+	        	
+	        	
+	        	//list.add(rs.getTime(2).toString());
+	        	return list;
+	        }
+	        else return null;
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("EDI PUTA NG DATE");
+		}		
+		
+		return null;
+	}
+	
+	public static void removeAccount(int id) 
+	{
+		db = new DBConnection();
+		db.getConnection();
+		
+		try
+		{
+			System.out.println("I start here");
+	        String query = "DELETE FROM accounts WHERE id = ?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setInt(1, id);
+	        pst.executeUpdate();
+	        
+	        System.out.println("I end here");
+		} catch(Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("EDI PUTA Remove Account");
+		}
 	}
 	
 }

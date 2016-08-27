@@ -1,3 +1,7 @@
+<%@ page import="model.Account" %>
+<%   if ((session.getAttribute("user_account") != null) ){ %>
+<%		if(((Account)session.getAttribute("user_account")).getPrivilegeLevel().equals("2")){ %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -374,3 +378,4 @@
     <div id="test"></div>
 </body>
 </html>
+<% }} else { %> <jsp:include page="forbidden.jsp" /> <% } %>

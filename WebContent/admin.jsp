@@ -1,3 +1,7 @@
+<%@ page import="model.Account" %>
+<%   if ((session.getAttribute("user_account") != null) ){ %>
+<%		if(((Account)session.getAttribute("user_account")).getPrivilegeLevel().equals("4")){ %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,7 +15,7 @@
 
 <head>
 <body>
-
+	
 	<jsp:include page="nav-bar.jsp" />
 	
 	<h1 class="center">Hello, Administrator. </h1> 
@@ -65,3 +69,4 @@
     
 </body>
 </html>
+<% }} else { %> <jsp:include page="forbidden.jsp" /> <% } %>

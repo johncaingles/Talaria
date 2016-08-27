@@ -42,29 +42,34 @@ public class FinanceRecordServlet extends HttpServlet {
 	{
 		// TODO Auto-generated method stub
 		
-		String filter1 = request.getParameter("filter1");   
+		String filter1 = request.getParameter("filter1");
         String filter2_1 = request.getParameter("f1");
         String filter2_2 = request.getParameter("f2");
         String filter2_3 = request.getParameter("f3");
-        Object real_list = null;
+        ArrayList<RecordType0> real_list0 = null;
+        ArrayList<RecordType1> real_list1 = null;
         String type = null;
         
-        if(filter1 == "0")
+        System.out.println("I AM FILTER: "+filter1);
+        if(filter1.equals("0"))
         {
+        	System.out.println("IAM PASOK ANO");
         	ArrayList<RecordType0> list = new ArrayList();
         	list = Model.getFinanceRecordsType0(filter2_1);
-        	real_list = list;
+        	real_list0 = list;
         	type = "0";
+        	request.setAttribute("list", real_list0);
         }
-        else if(filter1 == "1" || filter1 == "2")
+        else if(filter1.equals("1") || filter1.equals("2"))
         {
         	ArrayList<RecordType1> list = new ArrayList();
         	list = Model.getFinanceRecordsType1(filter1, filter2_2);
-        	real_list = list;
+        	real_list1 = list;
         	type = "1";
+        	request.setAttribute("list", real_list1);
         }
         
-		request.setAttribute("list", real_list);
+		
 		request.setAttribute("type", type);
         
 		request.getRequestDispatcher("accounting.jsp").forward(request, response);
