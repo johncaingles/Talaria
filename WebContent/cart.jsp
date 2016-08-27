@@ -1,3 +1,7 @@
+<%@ page import="model.Account" %>
+<%   if ((session.getAttribute("user_account") != null) ){ %>
+<%		if(((Account)session.getAttribute("user_account")).getPrivilegeLevel().equals("1")){ %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.ArrayList"%>
@@ -59,7 +63,7 @@
                     </div>
                     </div>
                     <button class="btn waves-effect waves-light blue" type="submit">Login
-                        <i class="material-icons right">send</i>
+                        <i class="material-icons right">Buy</i>
                     </button>
                 </form>
         	</div>
@@ -73,3 +77,4 @@
 </div>
 </body>
 </html>
+<% }} else { %> <jsp:include page="forbidden.jsp" /> <% } %>

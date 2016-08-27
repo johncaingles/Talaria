@@ -270,14 +270,14 @@ public class Model {
 		db.getConnection();
 		ArrayList<RecordType0> list = null;
 		
-		if(filter2 == "0")
+		if(filter2.equals("0"))
 		{
 			try
 			{
 				System.out.println("I start here");
 		        String query = 
-		        		"SELECT SUM(p.price * s.quantity) AS \"Total\" "
-		        		+ "FROM product_sales s , products p, transaction t, accounts a"
+		        		"SELECT SUM(p.price * s.quantity) AS 'Total' "
+		        		+ "FROM product_sales s , products p, transaction t, accounts a "
 		        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id";
 		        PreparedStatement pst = db.getConnection().prepareStatement(query);
 		        ResultSet rs = pst.executeQuery();
@@ -294,7 +294,7 @@ public class Model {
 				System.out.println("EDI PUTA NG FINANCE");
 			}
 		}
-		else if(filter2 == "1")
+		else if(filter2.equals("1"))
 		{
 			try
 			{
@@ -319,7 +319,7 @@ public class Model {
 				System.out.println("EDI PUTA NG FINANCE");
 			}
 		}
-		else if(filter2 == "2")
+		else if(filter2.equals("2"))
 		{
 			try
 			{
@@ -356,21 +356,21 @@ public class Model {
 		ArrayList<RecordType1> list = null;
 		String filter = null, query = null;
 		
-		if(filter1 == "1")
+		if(filter1.equals("1"))
 		{
 			query = 
-        		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\""
-        		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\""
-        		+ "FROM product_sales s , products p, transaction t, accounts a"
+        		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\" "
+        		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\" "
+        		+ "FROM product_sales s , products p, transaction t, accounts a "
         		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.category = \"" + filter2 + "\"";
 		}
 			
-		else if(filter1 == "2")
+		else if(filter1.equals("2"))
 		{
 			query = 
-        		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\""
-        		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\""
-        		+ "FROM product_sales s , products p, transaction t, accounts a"
+        		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\" "
+        		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\" "
+        		+ "FROM product_sales s , products p, transaction t, accounts a "
         		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.name = \"" + filter2 + "\"";
 		}
 		else 
