@@ -606,23 +606,26 @@ public class Model {
 		
 	}
 	
-	public static ArrayList<String> getProductReview(int id)
+	public static ResultSet getProductReview(int id)
 	{
 		db = new DBConnection();
 		db.getConnection();
 		ArrayList<String> list = new ArrayList<>();
+		ResultSet rs = null;
 		
 		try
 		{
 			System.out.println("I start here");
-	        String query = "SELECT review FROM products p, product_review r WHERE r.product_id = p.id AND r.id = ?";
+	        String query = "SELECT username, review "
+	        		+ "FROM products p, product_review r , accounts a "
+	        		+ "WHERE r.product_id = p.id AND r.account_id = a.id AND r.product_id = ?";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
 	        pst.setInt(1, id);
-	        ResultSet rs = pst.executeQuery();
-	        if(rs.next())
-	        {
-	        	list.add(rs.getString("review"));
-	        }
+	        rs = pst.executeQuery();
+//	        while(rs.next())
+//	        {
+//	        	list.add(rs.getString("review"));
+//	        }
 	        System.out.println("I end here");
 		} catch(Exception e) 
 		{
@@ -630,7 +633,7 @@ public class Model {
 			System.out.println("EDI PUTA NG PRODUCT");
 		}
 		
-		return list;
+		return rs;
 	}
 	
 	public static ArrayList<Integer> getDate(int id) 

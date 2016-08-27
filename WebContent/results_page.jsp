@@ -209,9 +209,7 @@
             </ul>
             </div>
      </div>
-
-    
-    <div id="test"></div>
+    <jsp:include page="footer.jsp" />
 </body>
 </html>
 <% } else { %> <jsp:include page="forbidden.jsp" /> <% } %>

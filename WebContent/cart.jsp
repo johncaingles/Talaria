@@ -27,9 +27,9 @@
 			      <img src="img/shoe_0.jpg" alt="" class="circle">
 			      <span class="title"><% out.print(product.getName()); %></span>
 			      <p><% out.print(product.getCategory()); %> <br>
-			         <% out.print(product.getPrice() * tran.getQuantity()); %>
+			         <% out.print("Quantity: " + tran.getQuantity()); %>
 			      </p>
-			      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+			      <div class="secondary-content"><h5>$<% out.print(product.getPrice() * tran.getQuantity()); %></h5></div>
 			    </li>
 		    <% } %>
 	    </ul>

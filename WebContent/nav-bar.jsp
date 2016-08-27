@@ -3,7 +3,7 @@
     <div class="nav-wrapper container"><a id="logo-container" href="index.jsp" class="brand-logo">Talaria</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <%   if ((session.getAttribute("cart_items") != null) ){ %>
-        		<li><a href="cart.jsp">Cart</a></li>
+        		<li><a href="cart.jsp"><i class="material-icons">shopping_cart</i></a></li>
         <% } %>
         <li><%   if ((session.getAttribute("user_account") == null) ){ %>
     		<a class="modal-trigger" href="#login_modal">Login</a>

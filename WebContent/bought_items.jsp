@@ -31,7 +31,7 @@
 			      <p><% out.print(product.getCategory()); %> <br>
 			         <% out.print(product.getPrice()); %>
 			      </p>
-			      <a href="#review_modal_<% out.print(product.getProd_id()); %>" class="secondary-content modal-trigger"><i class="material-icons">grade</i></a>
+			      <a href="#review_modal_<% out.print(product.getProd_id()); %>" class="secondary-content modal-trigger"><i class="medium material-icons">note_add</i></a>
 			    </li>
 			    
 			    <div id="review_modal_<% out.print(product.getProd_id()); %>" class="modal">
