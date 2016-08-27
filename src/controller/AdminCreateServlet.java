@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.owasp.encoder.Encode;
+import org.owasp.encoder.Encoder;
+
 import model.Account;
 import model.Model;
 
@@ -36,7 +39,7 @@ public class AdminCreateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username");   
+		String username = Encode.forJava(request.getParameter("username"));   
         String password = request.getParameter("password");
         String privLevel = request.getParameter("accType");
 

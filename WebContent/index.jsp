@@ -6,6 +6,7 @@
 <%@page import="model.Model" %>
 <%@page import="java.util.HashMap"%>
 <%@page import="org.apache.commons.lang.StringUtils" %>
+<%@ page import="org.owasp.encoder.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -77,7 +78,7 @@
 		  <div class="row" id="boots_cards">
 		  	<ul id="boots_list">
 		    <% for (Product product : listCategorizedProducts.get("boots")) { %>
-		    <% if(StringUtils.containsIgnoreCase(product.getName(), search)){ %>
+		    <% if(StringUtils.containsIgnoreCase(Encode.forHtml(product.getName()), search)){ %>
 		    <li>
 		    <form class="card" method="get" action="">
 								
@@ -87,7 +88,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4"><% out.print(product.getPrice()); %>
@@ -110,7 +111,7 @@
             <div class="row" id="shoes_cards">
 		  	<ul id="shoes_list">
 	    <% for (Product product : listCategorizedProducts.get("shoes")) { %>
-		    <% if(StringUtils.containsIgnoreCase(product.getName(), search)){ %>
+		    <% if(StringUtils.containsIgnoreCase(Encode.forHtml(product.getName()), search)){ %>
 		    <li>
 		    <form class="card" method="get" action="">
 								
@@ -120,7 +121,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4"><% out.print(product.getPrice()); %>
@@ -143,7 +144,7 @@
             <div class="row" id="sandals_cards">
 		  	<ul id="sandals_list">
 	    <% for (Product product : listCategorizedProducts.get("sandals")) { %>
-		    <% if(StringUtils.containsIgnoreCase(product.getName(), search)){ %>
+		    <% if(StringUtils.containsIgnoreCase(Encode.forHtml(product.getName()), search)){ %>
 		    <li>
 		    <form class="card" method="get" action="">
 								
@@ -153,7 +154,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4"><% out.print(product.getPrice()); %>
@@ -176,7 +177,7 @@
     	<div class="row" id="slippers_cards">
 		  	<ul id="slippers_list">
     	<% for (Product product : listCategorizedProducts.get("slippers")) { %>
-		    <% if(StringUtils.containsIgnoreCase(product.getName(), search)){ %>
+		    <% if(StringUtils.containsIgnoreCase(Encode.forHtml(product.getName()), search)){ %>
 		    <li>
 		    <form class="card" method="get" action="">
 								
@@ -186,7 +187,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4"><% out.print(product.getPrice()); %>

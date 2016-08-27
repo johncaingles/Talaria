@@ -1,4 +1,5 @@
 <%@ page import="model.Account" %>
+<%@ page import="org.owasp.encoder.Encode" %>
 <nav class="light-red lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="" class="brand-logo">Talaria</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -10,7 +11,7 @@
     	<% } else {
 			Account account = (Account)session.getAttribute("user_account");
 			String user_name = account.getUsername(); %>
-    		<a class="dropdown-button" href="#!" data-activates="account_dropdown"><% out.print(user_name); %>'<i class="material-icons right">arrow_drop_down</i></a>
+    		<a class="dropdown-button" href="#!" data-activates="account_dropdown"><% out.print(Encode.forHtml(user_name)); %><i class="material-icons right">arrow_drop_down</i></a>
     	<% } %>
       </ul>
     </div>

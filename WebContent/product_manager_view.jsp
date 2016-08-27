@@ -5,6 +5,7 @@
 <%@page import="model.Product"%>
 <%@page import="model.Model" %>
 <%@page import="java.util.HashMap"%>
+<%@ page import="org.owasp.encoder.Encode" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -120,7 +121,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="#product_modal_<% out.print(product.getProd_id()); %>" class="modal-trigger"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4">$<% out.print(product.getPrice()); %>
@@ -142,7 +143,7 @@
 					                <form action="EditProductServlet" method="post">
 					                <input type="hidden" name="product_id" value="<% out.print(product.getProd_id()); %>">
 					                    <div class="input-field col s12">
-					                        <input name="product_name" value="<% out.print(product.getName()); %>" id="product_name" type="text" class="validate">
+					                        <input name="product_name" value="<% out.print(Encode.forHtml(product.getName())); %>" id="product_name" type="text" class="validate">
 					                        <label class="active" for="product_name">Name</label>
 					                    </div>
 					                    <div class="input-field col m12">
@@ -185,7 +186,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="#product_modal_<% out.print(product.getProd_id()); %>" class="modal-trigger"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4">$<% out.print(product.getPrice()); %>
@@ -207,7 +208,7 @@
 					                <form action="EditProductServlet" method="post">
 					                <input type="hidden" name="product_id" value="<% out.print(product.getProd_id()); %>">
 					                    <div class="input-field col s12">
-					                        <input name="product_name" value="<% out.print(product.getName()); %>" id="product_name" type="text" class="validate">
+					                        <input name="product_name" value="<% out.print(Encode.forHtml(product.getName())); %>" id="product_name" type="text" class="validate">
 					                        <label class="active" for="product_name">Name</label>
 					                    </div>
 					                    <div class="input-field col m12">
@@ -250,7 +251,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="#product_modal_<% out.print(product.getProd_id()); %>" class="modal-trigger"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4">$<% out.print(product.getPrice()); %>
@@ -272,7 +273,7 @@
 					                <form action="EditProductServlet" method="post">
 					                <input type="hidden" name="product_id" value="<% out.print(product.getProd_id()); %>">
 					                    <div class="input-field col s12">
-					                        <input name="product_name" value="<% out.print(product.getName()); %>" id="product_name" type="text" class="validate">
+					                        <input name="product_name" value="<% out.print(Encode.forHtml(product.getName())); %>" id="product_name" type="text" class="validate">
 					                        <label class="active" for="product_name">Name</label>
 					                    </div>
 					                    <div class="input-field col m12">
@@ -315,7 +316,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="#product_modal_<% out.print(product.getProd_id()); %>" class="modal-trigger"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4">$<% out.print(product.getPrice()); %>
@@ -337,7 +338,7 @@
 					                <form action="EditProductServlet" method="post">
 					                <input type="hidden" name="product_id" value="<% out.print(product.getProd_id()); %>">
 					                    <div class="input-field col s12">
-					                        <input name="product_name" value="<% out.print(product.getName()); %>" id="product_name" type="text" class="validate">
+					                        <input name="product_name" value="<% out.print(Encode.forHtml(product.getName())); %>" id="product_name" type="text" class="validate">
 					                        <label class="active" for="product_name">Name</label>
 					                    </div>
 					                    <div class="input-field col m12">

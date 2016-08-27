@@ -41,7 +41,6 @@ public class AddReviewServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String review = request.getParameter("review");
-		review = Encode.forJava(review);
 		String productID = request.getParameter("product_id");
 		
 		HttpSession session = request.getSession();

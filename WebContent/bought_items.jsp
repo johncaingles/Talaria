@@ -24,7 +24,7 @@
 			<% for(Product product: productList) { %>
 			    <li class="collection-item avatar">
 			      <img src="img/shoe_0.jpg" alt="" class="circle">
-			      <span class="title"><% out.print(product.getName()); %></span>
+			      <span class="title"><% out.print(Encode.forHtml(product.getName())); %></span>
 			      <p><% out.print(product.getCategory()); %> <br>
 			         <% out.print(product.getPrice()); %>
 			      </p>
