@@ -1,10 +1,15 @@
 package model;
 
 import java.sql.Connection;
+//import java.sql.Date;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -58,14 +63,29 @@ public class Model {
 	public static void createAccount(String username, String password, String accountType) {
 		db = new DBConnection();
 		db.getConnection();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		
+		
 		
 		try{
-	        String query = "INSERT INTO accounts(username, password, accounttype)VALUES(?, ?, ?);";
+	        String query = "INSERT INTO accounts(username, password, privilege, created_date)VALUES(?, ?, ?, NOW());";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
 	        pst.setString(1, username);
 	        pst.setString(2, password);
 	        pst.setString(3, accountType);
+	        //pst.setString(4, "NOW()");
+	        
 	        pst.executeUpdate();
+	        
+//	        query = "insert table1 (created_date) values (convert(datetime," + dateFormat.format(date) + ",5));";
+//	        pst = db.getConnection().prepareStatement(query);
+//	        pst.executeUpdate();
+	        
+//	        java.sql.Statement stmt = db.getConnection().createStatement() ;
+//	        query = "insert accounts (created_date) values (convert(datetime," + dateFormat.format(date) + ",5));" ;
+//	        stmt.executeUpdate(query) ;
+	        
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -362,7 +382,7 @@ public class Model {
         		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\""
         		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\""
         		+ "FROM product_sales s , products p, transaction t, accounts a"
-        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.category = \"" + filter2 + "\"";
+        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.category = ?";
 		}
 			
 		else if(filter1 == "2")
@@ -371,7 +391,7 @@ public class Model {
         		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\""
         		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\""
         		+ "FROM product_sales s , products p, transaction t, accounts a"
-        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.name = \"" + filter2 + "\"";
+        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.name = ?";
 		}
 		else 
 			return null;
@@ -380,7 +400,8 @@ public class Model {
 		{
 			System.out.println("I start here");
 	        
-	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);			
+			pst.setString(1, String.valueOf(filter2));
 	        ResultSet rs = pst.executeQuery();
 	        list = new ArrayList();
 	        if(rs.next())
@@ -610,6 +631,82 @@ public class Model {
 		}
 		
 		return list;
+	}
+	
+	public static ArrayList<Integer> getDate(int id) 
+	{
+		db = new DBConnection();
+		db.getConnection();
+		ArrayList<Integer> list = new ArrayList<>();
+		
+		try{
+	        String query = "Select created_date from accounts where id = ?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setInt(1, id);
+	        ResultSet rs = pst.executeQuery();
+	        if(rs.next())
+	        {
+	        	//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	        	// Year - Month - Day - Hour - Minute - Second
+	            Date date = rs.getDate(1);
+	            
+	            int year = date.getYear();
+	            int month = date.getMonth();
+	            int day = date.getDate();
+	            
+	            
+	            list.add(year);
+	            list.add(month);
+	            list.add(day);
+
+	            Time time = rs.getTime(1);
+	            int hour = time.getHours();
+	            int mins = time.getMinutes();
+	            int sec = time.getSeconds();
+	            
+	            list.add(hour);
+	            list.add(mins);
+	            list.add(sec);
+	            
+	            System.out.println("this shit fuck pls  " + year + " " + month + " " + day + " " + hour + " " + mins + " " + sec);
+	            
+	            //System.out.println("This is the time " + time);
+	            //return dateFormat.format(date);
+	        	
+	        	//list.add(rs.getDate(1).toString());
+	        	
+	        	
+	        	//list.add(rs.getTime(2).toString());
+	        	return list;
+	        }
+	        else return null;
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("EDI PUTA NG DATE");
+		}		
+		
+		return null;
+	}
+	
+	public static void removeAccount(int id) 
+	{
+		db = new DBConnection();
+		db.getConnection();
+		
+		try
+		{
+			System.out.println("I start here");
+	        String query = "DELETE FROM accounts WHERE id = ?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setInt(1, id);
+	        pst.executeUpdate();
+	        
+	        System.out.println("I end here");
+		} catch(Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("EDI PUTA Remove Account");
+		}
 	}
 	
 }
