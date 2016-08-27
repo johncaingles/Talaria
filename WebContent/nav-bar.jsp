@@ -1,24 +1,31 @@
 <%@ page import="model.Account" %>
 <nav class="light-red lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="" class="brand-logo">Talaria</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="index.jsp" class="brand-logo">Talaria</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <%   if ((session.getAttribute("cart_items") != null) ){ %>
-        		<li><a href="cart.jsp">Cart</a></li>
+        		<li><a href="cart.jsp"><i class="material-icons">shopping_cart</i></a></li>
         <% } %>
         <li><%   if ((session.getAttribute("user_account") == null) ){ %>
     		<a class="modal-trigger" href="#login_modal">Login</a>
     	<% } else {
 			Account account = (Account)session.getAttribute("user_account");
-			String user_name = account.getUsername(); %>
-    		<a class="dropdown-button" href="#!" data-activates="account_dropdown"><% out.print(user_name); %>'<i class="material-icons right">arrow_drop_down</i></a>
-    	<% } %>
+			String user_name = account.getUsername(); 
+			if(account.getPrivilegeLevel().equals("1")){%>
+    		<a class="dropdown-button" href="#!" data-activates="customer_dropdown"><% out.print(user_name); %><i class="material-icons right">arrow_drop_down</i></a>
+    	<% }else{ %> 
+    		<a class="dropdown-button" href="#!" data-activates="account_dropdown"><% out.print(user_name); %><i class="material-icons right">arrow_drop_down</i></a>
+    	<% }} %>
       </ul>
     </div>
   </nav>
   
-  <ul id="account_dropdown" class="dropdown-content">
+  <ul id="customer_dropdown" class="dropdown-content">
   <li><a href="bought_items.jsp">Your Items</a></li>
   <li class="divider"></li>
+  <li><a href="/Talaria/LogoutServlet">Logout</a></li>
+</ul>
+
+<ul id="account_dropdown" class="dropdown-content">
   <li><a href="/Talaria/LogoutServlet">Logout</a></li>
 </ul>
 

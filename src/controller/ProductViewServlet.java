@@ -56,7 +56,7 @@ public class ProductViewServlet extends HttpServlet {
 		
 		Product product = new Product( productID, name , price , category );
         request.setAttribute("product", product);
-        
+        System.out.println("MAX CHICKEN YUM");
         request.getRequestDispatcher("product.jsp").forward(request, response);
      
 	}

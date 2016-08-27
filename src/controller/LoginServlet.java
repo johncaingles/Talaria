@@ -3,9 +3,11 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,7 +50,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");   
         String password = request.getParameter("password");
-                
+        boolean ifDelete = false;        
+        
         if(Model.checkCredentials(username, password))
 		{
 			int accountID = Model.getAccountID(username);
@@ -57,17 +60,51 @@ public class LoginServlet extends HttpServlet {
 //			account.setName(Model.getAccountName(accountID));
 			account.setPrivilegeLevel(Model.getPrivilegeLevel(accountID));
 
-	          
-          HttpSession session = request.getSession();
-          session.setAttribute("user_account", account);
-          System.out.println("KANTOTAN: " +account.getPrivilegeLevel());
-          System.out.println("KANTOTAN2: " +account.getAccountID());
-          switch(account.getPrivilegeLevel()){
-          case "1": response.sendRedirect("index.jsp");break;
-          case "2": response.sendRedirect("product_manager_view.jsp");break;
-          case "3": response.sendRedirect("accounting.jsp");break;
-          case "4": response.sendRedirect("admin.jsp");break;
+			
+			
+			if(account.getPrivilegeLevel().equals("2") || account.getPrivilegeLevel().equals("3"))
+			{
+				
+				ArrayList<Integer> date = Model.getDate(accountID);
+				Date tempDate = new Date(date.get(0), date.get(1), date.get(2), date.get(3), date.get(4), date.get(5));
+//				System.out.println("Temp date is this " + tempDate);
+				Date currDate = new Date();
+//				System.out.println("Curr date is this " + currDate);
+				long MILLIS_PER_DAY = 24 * 60 * 60 * 1000L;
+				boolean moreThanDay = Math.abs(currDate.getTime() - tempDate.getTime()) > MILLIS_PER_DAY;
+				
+				System.out.println(moreThanDay);
+				if(moreThanDay)
+				{
+					Model.removeAccount(accountID);
+					ifDelete = true;
+				}
+			}
+	      
+          if(ifDelete)
+          {
+        	  response.sendRedirect("index.jsp");
           }
+          else
+          {
+        	  HttpSession session = request.getSession();
+              session.setAttribute("user_account", account);
+              System.out.println("KANTOTAN: " +account.getPrivilegeLevel());
+              System.out.println("KANTOTAN2: " +account.getAccountID());
+        	  
+        	  switch(account.getPrivilegeLevel())
+        	  {
+		          case "1": response.sendRedirect("index.jsp");break;
+		          case "2": response.sendRedirect("product_manager_view.jsp");break;
+		          case "3": response.sendRedirect("accounting.jsp");break;
+		          case "4": response.sendRedirect("admin.jsp");break;
+        	  }
+          }	  
+        }     
+    	else 
+  		{
+  		   response.sendRedirect("index.jsp");
+  		}
 			
 			
 	//			rd.forward(request, response);
@@ -80,11 +117,8 @@ public class LoginServlet extends HttpServlet {
           
 //          response.addCookie(idCookie);
 //          response.addCookie(nameCookie);
-		} 
-		else 
-		{
-		   response.sendRedirect("index.jsp");
-		}
+		 
+		
         
 //        else if (account != null)
 //        {

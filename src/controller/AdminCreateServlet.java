@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,6 +42,8 @@ public class AdminCreateServlet extends HttpServlet {
         String password = request.getParameter("password");
         String privLevel = request.getParameter("accType");
 
+        //Date date = new Date();
+        
         if(!Model.checkIfUsernameExists(username))
 		{
 			Model.createAccount(username, password, privLevel);

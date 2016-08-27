@@ -32,7 +32,7 @@ public class ResultServlet extends HttpServlet {
 		
         request.setAttribute("search", searchInput);
         
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("results_page.jsp").forward(request, response);
         
 	}
 

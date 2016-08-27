@@ -1,3 +1,7 @@
+<%@ page import="model.Account" %>
+<%   if ((session.getAttribute("user_account") != null) ){ %>
+<%		if(((Account)session.getAttribute("user_account")).getPrivilegeLevel().equals("1")){ %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.ArrayList"%>
@@ -28,7 +32,7 @@
 			      <p><% out.print(product.getCategory()); %> <br>
 			         <% out.print(product.getPrice()); %>
 			      </p>
-			      <a href="#review_modal_<% out.print(product.getProd_id()); %>" class="secondary-content modal-trigger"><i class="material-icons">grade</i></a>
+			      <a href="#review_modal_<% out.print(product.getProd_id()); %>" class="secondary-content modal-trigger"><i class="medium material-icons">note_add</i></a>
 			    </li>
 			    
 			    <div id="review_modal_<% out.print(product.getProd_id()); %>" class="modal">
@@ -59,3 +63,4 @@
     
 </body>
 </html>
+<% }} else { %> <jsp:include page="forbidden.jsp" /> <% } %>

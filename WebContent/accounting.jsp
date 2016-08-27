@@ -1,7 +1,14 @@
+<%@ page import="model.Account" %>
+<%   if ((session.getAttribute("user_account") != null) ){ %>
+<%		if(((Account)session.getAttribute("user_account")).getPrivilegeLevel().equals("3")){ %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="model.Model" %>
+<%@page import="model.RecordType0" %>
+<%@page import="model.RecordType1" %>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -100,10 +107,12 @@
 				</div>
 				</form>
 		  	</div>
-		<div class="col s12">
-			<table id="table" class="striped" style="display:none">
-			<% if(request.getParameter("list")!=null){ 
-				if(request.getParameter("type").equals("0")){ %>
+		<div class="row">
+			<table id="table" class="striped" style="">
+			<% if(request.getAttribute("list")!=null){ System.out.println("pakyuol"); 
+				if(request.getAttribute("type").equals("0")){ System.out.println("pakyuol2");%>
+				<!-- <h1>iyak</h1>  -->
+				<!--  di siya nagsshow kasi sa pag-initialize ng page, may mga hinihide ata -->
 		        <thead>
 		          <tr>
 		              <th>Category</th>
@@ -112,15 +121,35 @@
 		        </thead>
 		
 		        <tbody>
-<%-- 		          <% for(RecordType0 ((RecordType0)record) : request.getParameter("list")){ %> --%>
-<!-- 		          <tr> -->
-<%-- 		            <td><% out.print(record.getCategory_type()); %></td> --%>
-<%-- 		            <td><% out.print(record.getTotal_price()); %></td> --%>
-<!-- 		          </tr> -->
-<%-- 		          <% } %> --%>
+		          <% ArrayList<RecordType0> list = (ArrayList<RecordType0>)request.getAttribute("list"); %>
+ 		          <% for(RecordType0 record : list ){ %>
+ 		          <tr> 
+ 		            <td><% out.print(record.getCategory_type()); %></td>
+ 		            <td><% out.print(record.getTotal_price()); %></td>
+ 		          </tr>
+ 		          <% } %>
 		        </tbody>
 		        <% } else { %>
-		        
+		        	<thead>
+		          <tr>
+		              <th>Category</th>
+		              <th>Item Price</th>
+		          </tr>
+		        </thead>
+		
+		        <tbody>
+		          <% ArrayList<RecordType1> list = (ArrayList<RecordType1>)request.getAttribute("list"); %>
+ 		          <% for(RecordType1 record : list ){ %>
+ 		          <tr> 
+ 		            <td><% out.print(record.getUsername()); %></td>
+ 		            <td><% out.print(record.getProduct_Type()); %></td>
+ 		            <td><% out.print(record.getProduct_name()); %></td>
+ 		            <td><% out.print(record.getPrice()); %></td>
+ 		            <td><% out.print(record.getQuantity()); %></td>
+ 		            <td><% out.print(record.getTotal()); %></td>
+ 		          </tr>
+ 		          <% } %>
+		        </tbody>
 				<% } %>
 			<% } %>
 	      </table>
@@ -128,3 +157,4 @@
 	</div>
 </body>
 </html>
+<% }} else { %> <jsp:include page="forbidden.jsp" /> <% } %>
