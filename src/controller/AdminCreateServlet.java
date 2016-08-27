@@ -39,7 +39,7 @@ public class AdminCreateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = Encode.forJava(request.getParameter("username"));   
+		String username = request.getParameter("username");   
         String password = request.getParameter("password");
         String privLevel = request.getParameter("accType");
 
