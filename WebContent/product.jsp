@@ -72,7 +72,7 @@
 				<% out.print(product.getPrice()); %>
 				<br>
 				<% for(String review:Model.getProductReview(product.getProd_id())){ 
-					out.print("<p>"+Encode.forJava(review)+"</p>"); 
+					out.print("<p>"+Encode.forHtml(review)+"</p>"); 
 					}%>
 				
 
