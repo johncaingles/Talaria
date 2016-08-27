@@ -13,21 +13,91 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.shiro.authc.credential.DefaultPasswordService;
+import org.apache.shiro.crypto.hash.DefaultHashService;
+import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.apache.shiro.crypto.RandomNumberGenerator;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.util.SimpleByteSource;
+
 import com.mysql.jdbc.Statement;
 
 public class Model {
 	
 	private static DBConnection db;
-
+	
+	public static String getPassword(String username)
+	{
+		db = new DBConnection();
+		db.getConnection();
+		
+		String password = null;
+		
+		try{
+	        String query = "Select password from accounts where username = ?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setString(1, username);
+	        ResultSet rs = pst.executeQuery();
+	        if(rs.next())
+	        	return rs.getString("password");
+	        
+		} catch(Exception e) {
+			
+		}
+		return password;
+	}
+	
+	public static String getSalt(String username)
+	{
+		db = new DBConnection();
+		db.getConnection();
+		
+		String salt = null;
+		
+		try{
+	        String query = "Select salt from accounts where username = ?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setString(1, username);
+	        ResultSet rs = pst.executeQuery();
+	        if(rs.next())
+	        	return rs.getString("salt");
+	        
+		} catch(Exception e) {
+			
+		}
+		return salt;
+	}
+	
 	public static boolean checkCredentials(String username, String password) {
 		db = new DBConnection();
 		db.getConnection();
+		
+//		Object salt = rng.nextBytes();
+//		String hashedPasswordBase64 = new Sha256Hash(password, salt, 1024).toBase64();
+		
+//		String passwordFromDB = getPassword(username);
+//		
+		String salt = getSalt(username);
+		String hashedPasswordBase64 = new Sha256Hash(password, salt, 1024).toBase64();
+//		
+//		System.out.println("This is user input password : " + password);
+//		
+//		System.out.println("This is hashed password from db : " + passwordFromDB);
+//		
+//		System.out.println("This is the salt from db : " + salt);
+//		
+//		System.out.println("This is hashed password from user input : " + hashedPasswordBase64);
+		
+//		if(passwordFromDB.equals(hashedPasswordBase64))
+//			System.out.println("Please be true");
+//		else
+//			System.out.println("Well fuck then");
 		
 		try{
 	        String query = "Select id from accounts where username=? and password=?";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
 	        pst.setString(1, username);
-	        pst.setString(2, password);
+	        pst.setString(2, hashedPasswordBase64);
 	        ResultSet rs = pst.executeQuery();
 	        if(rs.next()){
 	        	return true;
@@ -66,15 +136,31 @@ public class Model {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		
+//		DefaultHashService hashService = new DefaultHashService();
+//		hashService.setHashIterations(500000); // 500000
+//		hashService.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
+//		hashService.setPrivateSalt(new SimpleByteSource("myVERYSECRETBase64EncodedSalt")); // Same salt as in shiro.ini, but NOT base64-encoded.
+//		hashService.setGeneratePublicSalt(true);
+//
+//		DefaultPasswordService passwordService = new DefaultPasswordService();
+//		passwordService.setHashService(hashService);
+//		String encryptedPassword = passwordService.encryptPassword(password);
 		
+		RandomNumberGenerator rng = new SecureRandomNumberGenerator();
+		String salt = rng.nextBytes().toString();
+
+		String hashedPasswordBase64 = new Sha256Hash(password, salt, 1024).toBase64();
+		
+		System.out.println("This is the hash salt : " + salt.toString());
+		System.out.println("This is the hashed password : " + hashedPasswordBase64);
 		
 		try{
-	        String query = "INSERT INTO accounts(username, password, privilege, created_date)VALUES(?, ?, ?, NOW());";
+	        String query = "INSERT INTO accounts(username, password, privilege, salt, created_date )VALUES(?, ?, ?, ?, NOW());";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
 	        pst.setString(1, username);
-	        pst.setString(2, password);
+	        pst.setString(2, hashedPasswordBase64);
 	        pst.setString(3, accountType);
-	        //pst.setString(4, "NOW()");
+	        pst.setString(4, salt);
 	        
 	        pst.executeUpdate();
 	        
@@ -121,6 +207,14 @@ public class Model {
 		db = new DBConnection();
 		db.getConnection();
 		
+		RandomNumberGenerator rng = new SecureRandomNumberGenerator();
+		String salt = rng.nextBytes().toString();
+
+		String hashedPasswordBase64 = new Sha256Hash(password, salt, 1024).toBase64();
+		
+		System.out.println("This is the hash salt : " + salt.toString());
+		System.out.println("This is the hashed password : " + hashedPasswordBase64);
+		
 		try{
 			
 //			String queryString = "INSERT INTO accounts (username, password, email, privilege, firstname, middlename, lastname) VALUES(@username, @password, @email, @privilege, @firstname, @middlename, @lastname)";
@@ -131,15 +225,16 @@ public class Model {
 //	        String query2 = "INSERT INTO billing_address VALUES " + bil_house_num + " , " + bil_street + " , " + bil_subdivision + " , " + bil_city + " , " + bil_postal_code + " , " + bil_country ;
 //	        String query3 = "INSERT INTO shipping_address VALUES " + ship_house_num + " , " + ship_street + " , " + ship_subdivision + " , " + ship_city + " , " + ship_postal_code + " , " + ship_country ;
 	        
-			String query = "INSERT INTO accounts (username, password, email, privilege, firstname, middlename, lastname) VALUES (?,?,?,?,?,?,?)";
+			String query = "INSERT INTO accounts (username, password, email, privilege, firstname, middlename, lastname, salt) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement pst = db.getConnection().prepareStatement(query);
 			pst.setString(1, username);
-			pst.setString(2, password);
+			pst.setString(2, hashedPasswordBase64);
 			pst.setString(3, email);
 			pst.setString(4, privilegeLevel);
 			pst.setString(5, first_name);
 			pst.setString(6, middle_name);
 			pst.setString(7, last_name);
+			pst.setString(8, salt);
 			
 			String query2 = "INSERT INTO billing_address (house_num, street, subdivision, city, postal_code, country) VALUES(?,?,?,?,?,?)";
 			PreparedStatement pst2 = db.getConnection().prepareStatement(query2);
