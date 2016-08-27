@@ -1,5 +1,6 @@
 
 <%@page import="model.Product"%>
+<%@page import="model.Model"%>
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css\skeleton.css">
@@ -68,6 +69,13 @@
 				<% out.print(product.getName()); %>
 				<br>
 				<% out.print(product.getPrice()); %>
+				<br>
+				<% for(String review:Model.getProductReview(product.getProd_id())){ 
+					out.print("<p>"+review+"</p>"); 
+					}%>
+				
+				
+				
 			</div>
 		</div>
 		<div class = "row" style ="margin-top:13px;">

@@ -17,7 +17,7 @@
   </nav>
   
   <ul id="account_dropdown" class="dropdown-content">
-  <li><a href="">Profile</a></li>
+  <li><a href="bought_items.jsp">Your Items</a></li>
   <li class="divider"></li>
   <li><a href="/Talaria/LogoutServlet">Logout</a></li>
 </ul>
@@ -27,7 +27,7 @@
         <div class="row">
         	<div class="col s6">
         		<h4> Existing User? </h4>
-                <form action="" method="get">
+                <form action="LoginServlet" method="post">
                     <div class="input-field col s12">
                         <input name="username" value="" id="username" type="text" class="validate">
                         <label class="active" for="username">Username</label>

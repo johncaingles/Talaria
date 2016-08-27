@@ -26,7 +26,14 @@ public class ResultServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		String searchInput = request.getParameter("search");
+		System.out.println("tangina ano daw: "+searchInput);
+		
+        request.setAttribute("search", searchInput);
+        
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+        
 	}
 
 	/**

@@ -63,9 +63,9 @@ public class LoginServlet extends HttpServlet {
           System.out.println("KANTOTAN: " +account.getPrivilegeLevel());
           System.out.println("KANTOTAN2: " +account.getAccountID());
           switch(account.getPrivilegeLevel()){
-          case "1": response.sendRedirect("results.jsp");break;
-          case "2":
-          case "3":
+          case "1": response.sendRedirect("index.jsp");break;
+          case "2": response.sendRedirect("product_manager_view.jsp");break;
+          case "3": response.sendRedirect("accounting.jsp");break;
           case "4": response.sendRedirect("admin.jsp");break;
           }
 			

@@ -44,6 +44,9 @@ public class TransactionServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		ArrayList<Transaction> cartItems = (ArrayList<Transaction>)request.getSession().getAttribute("cart_items");
 		Account currAcc = (Account) request.getSession().getAttribute("user_account");
+		if(currAcc==null){
+			System.out.println("POTANGINAMOPAKSHET");
+		}
 		double total = 0;
 		int transaction_id, i, j, currProd, ctrProd = 0, mstrProd;
 		
@@ -115,7 +118,7 @@ public class TransactionServlet extends HttpServlet {
 		Model.addProductSales(transaction_id, cartItems.get(i).getProd_id(), ctrProd);
 		*/
 		
-		response.sendRedirect("results.jsp");
+		response.sendRedirect("index.jsp");
 		
 	}
 

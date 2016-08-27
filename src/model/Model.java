@@ -447,6 +447,95 @@ public class Model {
 		
 		return "error dafuq";
 	}
+
+	public static void editProduct(String id, String name, String price,
+			String category) {
+		db = new DBConnection();
+		db.getConnection();
+		
+		try{
+			String query = "UPDATE products SET name = ?, price = ?, category = ? WHERE id = ?";
+			PreparedStatement pst = db.getConnection().prepareStatement(query);
+			pst.setString(1, name);
+			pst.setDouble(2, Double.parseDouble(price));
+			pst.setString(3, category);
+			pst.setInt(4, Integer.parseInt(id));
+	        pst.executeUpdate();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public static void deleteProduct(int id) {
+		db = new DBConnection();
+		db.getConnection();
+		
+		try{
+			String query = "DELETE FROM products WHERE id=?";
+			PreparedStatement pst = db.getConnection().prepareStatement(query);
+			pst.setString(1, String.valueOf(id));
+	        pst.executeUpdate();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public static void addProduct(String name, String price,
+			String category) {
+		db = new DBConnection();
+		db.getConnection();
+		
+		try{
+			String query = "INSERT INTO products (name, price, category) VALUES (?, ?, ?)";
+			PreparedStatement pst = db.getConnection().prepareStatement(query);
+			pst.setString(1, name);
+			pst.setString(2, price);
+			pst.setString(3, category);
+	        pst.executeUpdate();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public static ArrayList<Product> getBoughtProducts(int id) {
+		db = new DBConnection();
+		db.getConnection();
+		
+		ArrayList<Product> products = new ArrayList<Product>();
+		
+		try{
+	        String query = "SELECT p.id"
+	        		+ " FROM accounts a, transaction t, product_sales s, products p"
+	        		+ " WHERE t.accounts_id = a.id AND s.transaction_id = t.id AND s.product_id = p.id AND a.id = ?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setString(1, String.valueOf(id));
+	        ResultSet rs = pst.executeQuery();
+	        if(rs.next()){
+	        	products.add(Model.getProduct(rs.getInt("p.id")));
+	        }
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return products;
+	}
+
+	public static void addReview(String review, String productID,
+			String accountID) {
+		db = new DBConnection();
+		db.getConnection();
+		
+		try{
+			String query = "INSERT INTO product_review (product_id, account_id, review) VALUES (?, ?, ?)";
+			PreparedStatement pst = db.getConnection().prepareStatement(query);
+			pst.setString(1, productID);
+			pst.setString(2, accountID);
+			pst.setString(3, review);
+	        pst.executeUpdate();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	
 	public static int addTransaction(int account_id, double total_price)
 	{
@@ -496,5 +585,31 @@ public class Model {
 		
 	}
 	
+	public static ArrayList<String> getProductReview(int id)
+	{
+		db = new DBConnection();
+		db.getConnection();
+		ArrayList<String> list = new ArrayList<>();
+		
+		try
+		{
+			System.out.println("I start here");
+	        String query = "SELECT review FROM products p, product_review r WHERE r.product_id = p.id AND r.id = ?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setInt(1, id);
+	        ResultSet rs = pst.executeQuery();
+	        if(rs.next())
+	        {
+	        	list.add(rs.getString("review"));
+	        }
+	        System.out.println("I end here");
+		} catch(Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("EDI PUTA NG PRODUCT");
+		}
+		
+		return list;
+	}
 	
 }

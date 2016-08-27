@@ -7,19 +7,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import model.Model;
 
 /**
- * Servlet implementation class LogoutSevlet
+ * Servlet implementation class AddProductServlet
  */
-@WebServlet("/LogoutServlet")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/AddProductServlet")
+public class AddProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServlet() {
+    public AddProductServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,18 +29,21 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        session.invalidate();
-        
-        response.sendRedirect("index.jsp");
+		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String id = request.getParameter("product_id");
+		String name = request.getParameter("product_name");
+		String price = request.getParameter("product_price");
+		String category = request.getParameter("product_category");
+		
+		Model.addProduct(name, price, category);
+
+		response.sendRedirect("product_manager_view.jsp");
 	}
 
 }

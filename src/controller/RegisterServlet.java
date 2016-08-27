@@ -70,7 +70,7 @@ public class RegisterServlet extends HttpServlet {
 	        session.setAttribute("user_account", account);
 	        System.out.println("Inside servlet customer sucess");
 	        
-			response.sendRedirect("results.jsp");
+			response.sendRedirect("index.jsp");
 		}
 		else
 		{
