@@ -16,7 +16,7 @@ private static DBConnection instance;
     public  DBConnection()
     {
         this.username="root";
-        this.password="password";
+        this.password="1234";
         this.url="jdbc:mysql://localhost:3306/Talaria";   
 
             try 
