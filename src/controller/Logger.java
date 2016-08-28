@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.util.Date;
 
@@ -14,16 +16,21 @@ import java.util.Date;
  * @author User
  */
 public class Logger {
-    
+    File file = new File("logs.txt");
     
     
     public void log(String username, String action){
         try{
+            if(!file.exists()){
+                System.out.println("file created");
+                file.createNewFile();
+            }
             FileWriter fw = new FileWriter("logs.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
             String date = new Date().toString();
             bw.write(date +  " " + username + " " + action);
             bw.newLine();
+            System.out.println(file.getAbsolutePath());
             bw.close();
             fw.close();
         }
