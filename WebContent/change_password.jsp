@@ -27,15 +27,15 @@
 		<section>
 			<form action="ChangePasswordServlet" method="post">
 				<div class="input-field col s12">
-	                <input name="old_password" value="" id="old_password" type="text" class="validate">
+	                <input name="old_password" value="" id="old_password" type="password" class="validate">
 	                <label class="active" for="old_password">Old Password</label>
 	            </div>
 				<div class="input-field col s12">
-	                <input name="new_password" value="" id="new_password" type="text" class="validate">
+	                <input name="new_password" value="" id="new_password" type="password" class="validate">
 	                <label class="active" for="new_password">New Password</label>
 	            </div>
 				<div class="input-field col s12">
-	                <input name="confirm_new_password" value="" id="confirm_new_password" type="text" class="validate">
+	                <input name="confirm_new_password" value="" id="confirm_new_password" type="password" class="validate">
 	                <label class="active" for="confirm_new_password">Confirm New Password</label>
 	            </div>
 	            <button class="btn waves-effect waves-light blue" type="submit">Confirm

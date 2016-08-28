@@ -43,7 +43,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,'pika','chu',NULL,'1',NULL,NULL,NULL,NULL,NULL),(2,'bulba','saur','bulb@poke.com','2','bulba','b','saur',NULL,NULL),(3,'manto','josh','manto@gmail.com','3','joshu','m','manto',NULL,NULL),(4,'char','mander','john_israel_caingles@dlsu.edu.ph','4','char','m','mander',NULL,NULL),(5,'john','5gr+jmTmJCwkhvNvWCtJ8NmOBzjKf2pnc3WP+nRS/Ww=',NULL,'1','john','d','caingles',NULL,'1Cw0e2ELL0kBJnhBCtHDxQ==');
+INSERT INTO `accounts` VALUES (1,'pika','chu',NULL,'1',NULL,NULL,NULL,NULL,NULL),(2,'bulba','saur','bulb@poke.com','2','bulba','b','saur',NULL,NULL),(3,'manto','josh','manto@gmail.com','3','joshu','m','manto',NULL,NULL),(4,'char','mander','john_israel_caingles@dlsu.edu.ph','4','char','m','mander',NULL,NULL),(5,'john','jyVse+dPqyjNoRVYOeB+H+VoHOSGVg+d2L2UOGAECWI=',NULL,'1','john','d','caingles',NULL,'Qu+Mijt/Dk/xTBgnZR1zMQ==');
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,8 +88,9 @@ CREATE TABLE `product_review` (
   `product_id` int(11) DEFAULT NULL,
   `account_id` int(11) DEFAULT NULL,
   `review` varchar(450) DEFAULT NULL,
+  `rating` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +99,7 @@ CREATE TABLE `product_review` (
 
 LOCK TABLES `product_review` WRITE;
 /*!40000 ALTER TABLE `product_review` DISABLE KEYS */;
-INSERT INTO `product_review` VALUES (1,1,2,'sup'),(2,1,2,'jolo is pogi'),(3,1,1,'beautiful product'),(4,1,1,'so amazing');
+INSERT INTO `product_review` VALUES (1,1,2,'sup',5),(2,1,2,'jolo is pogi',4),(3,1,1,'beautiful product',1),(4,1,1,'so amazing',5),(5,6,5,'best shoes 10/10',5),(6,6,5,'I swear best shoes believe me\r\n',3),(7,6,5,'just kidding',1);
 /*!40000 ALTER TABLE `product_review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +116,7 @@ CREATE TABLE `product_sales` (
   `product_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=461 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=471 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,7 +125,7 @@ CREATE TABLE `product_sales` (
 
 LOCK TABLES `product_sales` WRITE;
 /*!40000 ALTER TABLE `product_sales` DISABLE KEYS */;
-INSERT INTO `product_sales` VALUES (1,1,1,10),(2,1,2,5),(3,1,8,1),(4,2,1,2),(453,25,5,3),(454,26,1,10),(455,27,8,3),(456,28,5,2),(457,29,5,2),(458,30,5,4),(459,30,8,2),(460,31,1,2);
+INSERT INTO `product_sales` VALUES (1,1,1,10),(2,1,2,5),(3,1,8,1),(4,2,1,2),(453,25,5,3),(454,26,1,10),(455,27,8,3),(456,28,5,2),(457,29,5,2),(458,30,5,4),(459,30,8,2),(460,31,1,2),(461,32,6,1),(462,33,6,3),(463,33,10,1),(464,34,3,2),(465,34,3,4),(466,35,8,4),(467,36,11,4),(468,36,12,1),(469,37,11,4),(470,37,12,1);
 /*!40000 ALTER TABLE `product_sales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -195,7 +196,7 @@ CREATE TABLE `transaction` (
   `accounts_id` varchar(45) DEFAULT NULL,
   `total_price` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,7 +205,7 @@ CREATE TABLE `transaction` (
 
 LOCK TABLES `transaction` WRITE;
 /*!40000 ALTER TABLE `transaction` DISABLE KEYS */;
-INSERT INTO `transaction` VALUES (1,'2',850),(2,'1',100),(25,'2',150),(26,'0',500),(27,'2',750),(28,'2',100),(29,'2',100),(30,'0',700),(31,'1',104);
+INSERT INTO `transaction` VALUES (1,'2',850),(2,'1',100),(25,'2',150),(26,'0',500),(27,'2',750),(28,'2',100),(29,'2',100),(30,'0',700),(31,'1',104),(32,'5',9999),(33,'5',30797),(34,'5',180),(35,'5',1000),(36,'5',1800),(37,'5',1800);
 /*!40000 ALTER TABLE `transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -217,4 +218,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-28  3:12:51
+-- Dump completed on 2016-08-29  4:43:13

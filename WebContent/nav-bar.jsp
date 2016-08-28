@@ -1,17 +1,28 @@
 <%@ page import="model.Account" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.Transaction" %>
 <%@ page import="org.owasp.encoder.Encode" %>
 <nav class="light-red lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="index.jsp" class="brand-logo">Talaria</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <%   if ((session.getAttribute("cart_items") != null) ){ %>
-        		<li><a href="cart.jsp"><i class="material-icons">shopping_cart</i></a></li>
-        <% } %>
+<%--         <%   if ((session.getAttribute("cart_items") != null) ){ %> --%>
+<!--         		<li><a href="cart.jsp"><i class="material-icons">shopping_cart</i></a></li> -->
+<%--         <% } %> --%>
+		<%	int cartTotal = 0; 
+		if (session.getAttribute("cart_items") != null){
+			for(Transaction trans: ((ArrayList<Transaction>)session.getAttribute("cart_items"))){
+				cartTotal  += 1*trans.getQuantity();	
+			}
+		}%>
         <li><%   if ((session.getAttribute("user_account") == null) ){ %>
+        	<li><a class="modal-trigger" href="#login_modal"><i class="material-icons">shopping_cart</i></a></li>
     		<a class="modal-trigger" href="#login_modal">Login</a>
     	<% } else {
 			Account account = (Account)session.getAttribute("user_account");
 			String user_name = account.getUsername(); 
 			if(account.getPrivilegeLevel().equals("1")){%>
+<%-- 			<li><a href="cart.jsp"><span class="new badge" data-badge-caption="custom caption"><% out.print(cartTotal); %></span><i class="material-icons">shopping_cart</i></a></li> --%>
+			<li><a href="cart.jsp"><i class="material-icons">shopping_cart</i></a></li>
     		<a class="dropdown-button" href="#!" data-activates="customer_dropdown"><% out.print(Encode.forHtml(user_name)); %><i class="material-icons right">arrow_drop_down</i></a>
     	<% }else{ %> 
     		<a class="dropdown-button" href="#!" data-activates="account_dropdown"><% out.print(Encode.forHtml(user_name)); %><i class="material-icons right">arrow_drop_down</i></a>

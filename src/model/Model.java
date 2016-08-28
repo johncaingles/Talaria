@@ -594,6 +594,48 @@ public class Model {
 		
 		return "error dafuq";
 	}
+	
+	public static String getFirstName(int id) {
+
+		db = new DBConnection();
+		db.getConnection();
+		
+		try{
+	        String query = "Select firstname from accounts where id=?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setString(1, String.valueOf(id));
+	        ResultSet rs = pst.executeQuery();
+	        if(rs.next()){
+	        	return rs.getString("firstname");
+	        }
+	        else return "not exist";
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "error dafuq";
+	}
+	
+	public static String getLastName(int id) {
+
+		db = new DBConnection();
+		db.getConnection();
+		
+		try{
+	        String query = "Select lastname from accounts where id=?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setString(1, String.valueOf(id));
+	        ResultSet rs = pst.executeQuery();
+	        if(rs.next()){
+	        	return rs.getString("lastname");
+	        }
+	        else return "not exist";
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "error dafuq";
+	}
 
 	public static void editProduct(String id, String name, String price,
 			String category) {
@@ -651,13 +693,13 @@ public class Model {
 		ArrayList<Product> products = new ArrayList<Product>();
 		
 		try{
-	        String query = "SELECT p.id"
+	        String query = "SELECT DISTINCT(p.id)"
 	        		+ " FROM accounts a, transaction t, product_sales s, products p"
 	        		+ " WHERE t.accounts_id = a.id AND s.transaction_id = t.id AND s.product_id = p.id AND a.id = ?";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
 	        pst.setString(1, String.valueOf(id));
 	        ResultSet rs = pst.executeQuery();
-	        if(rs.next()){
+	        while(rs.next()){
 	        	products.add(Model.getProduct(rs.getInt("p.id")));
 	        }
 		} catch(Exception e) {
@@ -667,17 +709,18 @@ public class Model {
 		return products;
 	}
 
-	public static void addReview(String review, String productID,
+	public static void addReview(String rating, String review, String productID,
 			String accountID) {
 		db = new DBConnection();
 		db.getConnection();
 		
 		try{
-			String query = "INSERT INTO product_review (product_id, account_id, review) VALUES (?, ?, ?)";
+			String query = "INSERT INTO product_review (product_id, account_id, review, rating) VALUES (?, ?, ?, ?)";
 			PreparedStatement pst = db.getConnection().prepareStatement(query);
 			pst.setString(1, productID);
 			pst.setString(2, accountID);
 			pst.setString(3, review);
+			pst.setInt(4, Integer.parseInt(rating));
 	        pst.executeUpdate();
 		} catch(Exception e){
 			e.printStackTrace();
@@ -742,7 +785,7 @@ public class Model {
 		try
 		{
 			System.out.println("I start here");
-	        String query = "SELECT username, review "
+	        String query = "SELECT username, review, rating "
 	        		+ "FROM products p, product_review r , accounts a "
 	        		+ "WHERE r.product_id = p.id AND r.account_id = a.id AND r.product_id = ?";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);
@@ -772,7 +815,7 @@ public class Model {
 		try
 		{
 			System.out.println("I start here");
-	        String query = "SELECT p.name AS name, review "
+	        String query = "SELECT p.name AS name, review, rating "
 	        		+ "FROM products p, product_review r , accounts a "
 	        		+ "WHERE r.product_id = p.id AND r.account_id = a.id AND a.id = ?";
 	        PreparedStatement pst = db.getConnection().prepareStatement(query);

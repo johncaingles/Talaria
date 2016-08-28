@@ -25,7 +25,7 @@
 	<% ArrayList<Product> productList = Model.getBoughtProducts(Integer.parseInt(accountID)); %>
 	<div class="container">
 		<div class="row">
-			<div class="col s8">
+			<div class="col s5">
 				<% ArrayList<Product> cartItems = (ArrayList<Product>)request.getSession().getAttribute("cart_items"); %>
 				<ul class="collection with-header">
 					<li class="collection-header"><h4>Bought Items</h4></li>
@@ -34,7 +34,7 @@
 					      <img src="img/shoe_0.jpg" alt="" class="circle">
 					      <span class="title"><% out.print(Encode.forHtml(product.getName())); %></span>
 					      <p><% out.print(Encode.forHtml(product.getCategory())); %> <br>
-					         <% out.print(product.getPrice()); %>
+					         $<% out.print(product.getPrice()); %>
 					      </p>
 					      <a href="#review_modal_<% out.print(product.getProd_id()); %>" class="secondary-content modal-trigger">Add Review<i class="medium material-icons">note_add</i></a>
 					    </li>
@@ -44,9 +44,13 @@
 							        	<div class="col s12">
 							        		<h4> Write a Review </h4>
 							                <form action="AddReviewServlet" method="post">
-							                <input type="hidden" name="product_id" value="<% out.print(product.getProd_id()); %>">
+							                	<h5>Your Rating</h5>
+								                <p class="range-field">
+											      <input name="rating" type="range" id="rating" min="1" max="5" />
+											    </p>
+							                	<input type="hidden" name="product_id" value="<% out.print(product.getProd_id()); %>">
 							                    <div class="input-field col s12">
-							                        <textarea name="review" value="" id="review" type="text" class="validate materialize-textarea" required="" aria-required="true"></textarea>
+							                        <textarea length="350" name="review" value="" id="review" type="text" class="validate materialize-textarea" required="" aria-required="true"></textarea>
 							                        <label class="active" for="review">Review</label>
 							                    </div>
 							                        <button class="btn waves-effect waves-light blue" type="submit">Write Review
@@ -62,7 +66,7 @@
 				    <% } %>
 			    </ul>
 		    </div>
-		    <div class="col s4">
+		    <div class="col s7">
 		    	<% ResultSet rs = Model.getReviewsByUser(Integer.valueOf(accountID)); %>
 				<ul class="collection with-header">
 					<li class="collection-header"><h4>Your Reviews</h4></li>
@@ -72,6 +76,11 @@
 					      <span class="title"><% out.print(rs.getString("name")); %></span>
 					      <p><% out.print(rs.getString("review")); %>
 					      </p>
+					      <div class="secondary-content">
+					      <% for(int i=0; i<rs.getInt("rating"); i++){ %>
+					      		<i class="material-icons">stars</i>
+			        		<% }%>
+				      		</div>
 					    </li>
 				    <% } %>
 		    </div>

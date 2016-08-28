@@ -58,6 +58,8 @@ public class LoginServlet extends HttpServlet {
 			account.setUsername(username);
 //			account.setName(Model.getAccountName(accountID));
 			account.setPrivilegeLevel(Model.getPrivilegeLevel(accountID));
+			account.setFirst_name(Model.getFirstName(accountID));
+			account.setLast_name(Model.getLastName(accountID));
 			//logging
 			Logger lg = new Logger();
 			lg.log(username, "Logged in");

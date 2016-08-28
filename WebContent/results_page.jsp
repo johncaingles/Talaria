@@ -92,7 +92,7 @@
 							<input type="hidden" name="product_id" value="">
 							
 								<div class="col s3">
-							        <div class="card " style="overflow: hidden;">
+							        <div class="card hoverable " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>"><img class="activator" src="img/shoe_0.jpg"></a>
 						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
@@ -119,7 +119,7 @@
 	    <% for (Product product : listCategorizedProducts.get("shoes")) { %>
 		    <% if(StringUtils.containsIgnoreCase(product.getName(), search)){ %>
 		    <li>
-		    <form class="card" method="get" action="">
+		    <form class="card hoverable" method="get" action="">
 								
 							<input type="hidden" name="product_id" value="">
 							
@@ -151,7 +151,7 @@
 	    <% for (Product product : listCategorizedProducts.get("sandals")) { %>
 		    <% if(StringUtils.containsIgnoreCase(product.getName(), search)){ %>
 		    <li>
-		    <form class="card" method="get" action="">
+		    <form class="card hoverable" method="get" action="">
 								
 							<input type="hidden" name="product_id" value="">
 							
@@ -183,7 +183,7 @@
     	<% for (Product product : listCategorizedProducts.get("slippers")) { %>
 		    <% if(StringUtils.containsIgnoreCase(product.getName(), search)){ %>
 		    <li>
-		    <form class="card" method="get" action="">
+		    <form class="card hoverable" method="get" action="">
 								
 							<input type="hidden" name="product_id" value="">
 							

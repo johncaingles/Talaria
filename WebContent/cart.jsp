@@ -22,21 +22,24 @@
 	<jsp:include page="nav-bar.jsp" />
 	
 	<div class="container">
-	<h1>DIS BE YOUR ITEMS</h1>
+	<h3>Shopping Cart</h3>
 		<% ArrayList<Transaction> cartItems = (ArrayList<Transaction>)request.getSession().getAttribute("cart_items"); %>
+		<% double total = 0.00; %>
+		
 		<ul class="collection">
-			<% double total = 0; %>
-			<% for(Transaction tran: cartItems) { %>
-				<%Product product = tran.getProd(); 
-					total += product.getPrice() * tran.getQuantity();%>
-			    <li class="collection-item avatar">
-			      <img src="img/shoe_0.jpg" alt="" class="circle">
-			      <span class="title"><% out.print(Encode.forHtml(product.getName())); %></span>
-			      <p><% out.print(Encode.forHtml(product.getCategory())); %> <br>
-			         <% out.print("Quantity: " + tran.getQuantity()); %>
-			      </p>
-			      <div class="secondary-content"><h5>$<% out.print(product.getPrice() * tran.getQuantity()); %></h5></div>
-			    </li>
+			<% if(cartItems != null){ %>
+				<% for(Transaction tran: cartItems) { %>
+					<%Product product = tran.getProd(); 
+						total += product.getPrice() * tran.getQuantity();%>
+				    <li class="collection-item avatar">
+				      <img src="img/shoe_0.jpg" alt="" class="circle">
+				      <span class="title"><% out.print(Encode.forHtml(product.getName())); %></span>
+				      <p><% out.print(Encode.forHtml(product.getCategory())); %> <br>
+				         <% out.print("Quantity: " + tran.getQuantity()); %>
+				      </p>
+				      <div class="secondary-content"><h5>$<% out.print(product.getPrice() * tran.getQuantity()); %></h5></div>
+				    </li>
+			    <% } %>
 		    <% } %>
 		    <li class="collection-item">
 			      <h5>Total: </h5>

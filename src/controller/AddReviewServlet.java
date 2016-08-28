@@ -42,11 +42,12 @@ public class AddReviewServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String review = request.getParameter("review");
 		String productID = request.getParameter("product_id");
+		String rating = request.getParameter("rating");
 		
 		HttpSession session = request.getSession();
 		String accountID = String.valueOf(((Account)(request.getSession().getAttribute("user_account"))).getAccountID());
 		
-		Model.addReview(review, productID, accountID);
+		Model.addReview(rating,review, productID, accountID);
 		session.setAttribute("notif", "Added a review for " + Model.getProduct(Integer.valueOf(productID)).getName() + "!");
 		
 		response.sendRedirect("bought_items.jsp");
