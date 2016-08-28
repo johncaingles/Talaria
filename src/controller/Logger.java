@@ -20,7 +20,7 @@ public class Logger {
         try{
             FileWriter fw = new FileWriter("logs.txt", true);
             String date = new Date().toString();
-            fw.write(date +  " " + username + " " + action);
+            fw.write(date +  " " + username + " " + action + "\n");
         }
         catch(Exception e){
             e.printStackTrace();
