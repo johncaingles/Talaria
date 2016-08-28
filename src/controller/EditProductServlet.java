@@ -40,6 +40,11 @@ public class EditProductServlet extends HttpServlet {
 		
 		Model.deleteProduct(productID);
 		
+		Account account = (Account)session.getAttribute("user_account");
+		String user_name = account.getUsername();
+		Logger lg = new Logger();
+		lg.log(user_name, "deleted product " + productID);
+		
 		response.sendRedirect("product_manager_view.jsp");
 	}
 
@@ -53,6 +58,11 @@ public class EditProductServlet extends HttpServlet {
 		String category = request.getParameter("product_category");
 		
 		Model.editProduct(id, name, price, category);
+		
+		Account account = (Account)session.getAttribute("user_account");
+		String user_name = account.getUsername();
+		Logger lg = new Logger();
+		lg.log(user_name, "Edited product" + product_id);
 		
 		response.sendRedirect("product_manager_view.jsp");
 	}

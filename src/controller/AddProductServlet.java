@@ -44,6 +44,11 @@ public class AddProductServlet extends HttpServlet {
 		Model.addProduct(name, price, category);
 
 		response.sendRedirect("product_manager_view.jsp");
+		
+		Account account = (Account)session.getAttribute("user_account");
+		String user_name = account.getUsername();
+		Logger lg = new Logger();
+		lg.log(user_name, "added Product " + id);
 	}
 
 }

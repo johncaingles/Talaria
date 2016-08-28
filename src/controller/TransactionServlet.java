@@ -118,6 +118,11 @@ public class TransactionServlet extends HttpServlet {
 		Model.addProductSales(transaction_id, cartItems.get(i).getProd_id(), ctrProd);
 		*/
 		
+		Account account = (Account)session.getAttribute("user_account");
+		String user_name = account.getUsername();
+		Logger lg = new Logger();
+		lg.log(user_name, "made transaction " + transaction_id);
+		
 		response.sendRedirect("index.jsp");
 		
 	}
