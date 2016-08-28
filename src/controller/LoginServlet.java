@@ -59,7 +59,9 @@ public class LoginServlet extends HttpServlet {
 			account.setUsername(username);
 //			account.setName(Model.getAccountName(accountID));
 			account.setPrivilegeLevel(Model.getPrivilegeLevel(accountID));
-
+			//logging
+			Logger lg = new Logger();
+			lg.log(username, "Logged in");
 			
 			
 			if(account.getPrivilegeLevel().equals("2") || account.getPrivilegeLevel().equals("3"))

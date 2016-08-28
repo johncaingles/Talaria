@@ -50,6 +50,11 @@ public class AddReviewServlet extends HttpServlet {
 		Model.addReview(review, productID, accountID);
 		
 		response.sendRedirect("bought_items.jsp");
+		
+		Account account = (Account)session.getAttribute("user_account");
+		String user_name = account.getUsername();
+		Logger lg = new Logger();
+		lg.log(user_name, "added Review for" + productID);
 	}
 
 }

@@ -58,6 +58,11 @@ public class ProductViewServlet extends HttpServlet {
         request.setAttribute("product", product);
         System.out.println("MAX CHICKEN YUM");
         request.getRequestDispatcher("product.jsp").forward(request, response);
+        
+        Account account = (Account)session.getAttribute("user_account");
+		String user_name = account.getUsername();
+		Logger lg = new Logger();
+		lg.log(user_name, "viewed product " + productID);
      
 	}
 

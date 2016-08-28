@@ -69,6 +69,10 @@ public class FinanceRecordServlet extends HttpServlet {
         	request.setAttribute("list", real_list1);
         }
         
+        Account account = (Account)session.getAttribute("user_account");
+		String user_name = account.getUsername();
+		Logger lg = new Logger();
+		lg.log(user_name, "accessed financial records ");
 		
 		request.setAttribute("type", type);
         

@@ -48,6 +48,9 @@ public class AdminCreateServlet extends HttpServlet {
 		{
 			Model.createAccount(username, password, privLevel);
 			request.getRequestDispatcher("admin.jsp").forward(request, response);
+			
+			Logger lg = new Logger();
+			lg.log(username, "created admin account " + username);
 		} 
 		else 
 		{

@@ -72,6 +72,10 @@ public class RegisterServlet extends HttpServlet {
 	        session.setAttribute("user_account", account);
 	        System.out.println("Inside servlet customer sucess");
 	        
+	        
+			Logger lg = new Logger();
+			lg.log(username, "account created " + username);
+	        
 			response.sendRedirect("index.jsp");
 		}
 		else
