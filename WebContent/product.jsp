@@ -80,6 +80,8 @@
 							</div>
 						</div>
 					</div>
+					<div class="divider"></div>
+					<h4>Reviews</h4>
 					<div class = "row">
 							<ul class="collection">
 								<% ResultSet rs = Model.getProductReview(product.getProd_id()); %>

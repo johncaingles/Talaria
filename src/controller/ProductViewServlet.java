@@ -7,7 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import model.Account;
 import model.Model;
 import model.Product;
 
@@ -59,6 +61,7 @@ public class ProductViewServlet extends HttpServlet {
         System.out.println("MAX CHICKEN YUM");
         request.getRequestDispatcher("product.jsp").forward(request, response);
         
+        HttpSession session = request.getSession();
         Account account = (Account)session.getAttribute("user_account");
 		String user_name = account.getUsername();
 		Logger lg = new Logger();

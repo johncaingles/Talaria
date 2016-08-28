@@ -55,6 +55,7 @@ public class AddToCartServlet extends HttpServlet {
         
         cart_items.add(tran);
         session.setAttribute("cart_items", cart_items);
+        session.setAttribute("notif", "Added " + quantity + " " + prod.getName() + " to cart!");
 
 		response.sendRedirect("index.jsp");
 	}

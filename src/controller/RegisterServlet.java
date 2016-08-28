@@ -72,10 +72,11 @@ public class RegisterServlet extends HttpServlet {
 	        session.setAttribute("user_account", account);
 	        System.out.println("Inside servlet customer sucess");
 	        
-	        
+	        /** LOG */
 			Logger lg = new Logger();
 			lg.log(username, "account created " + username);
-	        
+			/** LOG */
+			session.setAttribute("notif", "Welcome to Talaria, " + account.getFirst_name() + "! Check out our products below!");
 			response.sendRedirect("index.jsp");
 		}
 		else

@@ -7,7 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import model.Account;
 import model.Model;
 
 /**
@@ -32,19 +34,21 @@ public class EditProductServlet extends HttpServlet {
 		String method = request.getParameter("method");
 		if(method.equals("deleteProduct")){
 			int productID = Integer.parseInt(request.getParameter("productID"));
-			deleteProduct(response, productID);
+			deleteProduct(request, response, productID);
 		}
 	}
 
-	private void deleteProduct(HttpServletResponse response, int productID) throws IOException {
+	private void deleteProduct(HttpServletRequest request, HttpServletResponse response, int productID) throws IOException {
 		
 		Model.deleteProduct(productID);
-		
+		HttpSession session = request.getSession();
+		/** LOG */
 		Account account = (Account)session.getAttribute("user_account");
 		String user_name = account.getUsername();
 		Logger lg = new Logger();
 		lg.log(user_name, "deleted product " + productID);
-		
+		/** LOG */
+		session.setAttribute("notif", "Successfully deleted a product!");
 		response.sendRedirect("product_manager_view.jsp");
 	}
 
@@ -58,12 +62,14 @@ public class EditProductServlet extends HttpServlet {
 		String category = request.getParameter("product_category");
 		
 		Model.editProduct(id, name, price, category);
-		
+		/** LOG */
+		HttpSession session = request.getSession();
 		Account account = (Account)session.getAttribute("user_account");
 		String user_name = account.getUsername();
 		Logger lg = new Logger();
-		lg.log(user_name, "Edited product" + product_id);
-		
+		lg.log(user_name, "Edited product" + id);
+		/** LOG */
+		session.setAttribute("notif", "Successfully edited " + Model.getProduct(Integer.valueOf(id)).getName() + " !");
 		response.sendRedirect("product_manager_view.jsp");
 	}
 

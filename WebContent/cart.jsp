@@ -1,6 +1,9 @@
 <%@ page import="model.Account" %>
-<%   if ((session.getAttribute("user_account") != null) ){ %>
-<%		if(((Account)session.getAttribute("user_account")).getPrivilegeLevel().equals("1")){ %>
+<% String priv = "0"; %>
+<%   if ((session.getAttribute("user_account") != null) ){
+	  	priv = ((Account)session.getAttribute("user_account")).getPrivilegeLevel(); 
+	 }
+	 if(priv.equals("1") || priv.equals("0")){%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -77,4 +80,4 @@
 </div>
 </body>
 </html>
-<% }} else { %> <jsp:include page="forbidden.jsp" /> <% } %>
+<% } else { %> <jsp:include page="forbidden.jsp" /> <% } %>

@@ -19,13 +19,27 @@
     </div>
   </nav>
   
+  <%   if ((session.getAttribute("notif") != null) ){ %>
+  <div class="row">
+      <div class="col s12">
+        <div class="card-panel red lighten-1">
+          <span class="white-text"><% out.print(session.getAttribute("notif")); %>
+          </span>
+        </div>
+      </div>
+    </div>
+    <% } %>
+    <% session.setAttribute("notif", null); %>
+  
   <ul id="customer_dropdown" class="dropdown-content">
   <li><a href="bought_items.jsp">Your Items</a></li>
+  <li><a href="change_password.jsp">Change Password</a></li>
   <li class="divider"></li>
   <li><a href="/Talaria/LogoutServlet">Logout</a></li>
 </ul>
 
 <ul id="account_dropdown" class="dropdown-content">
+  <li><a href="change_password.jsp">Change Password</a></li>
   <li><a href="/Talaria/LogoutServlet">Logout</a></li>
 </ul>
 

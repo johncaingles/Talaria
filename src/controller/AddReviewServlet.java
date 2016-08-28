@@ -48,13 +48,15 @@ public class AddReviewServlet extends HttpServlet {
 		String accountID = String.valueOf(((Account)(request.getSession().getAttribute("user_account"))).getAccountID());
 		
 		Model.addReview(review, productID, accountID);
+		session.setAttribute("notif", "Added a review for " + Model.getProduct(Integer.valueOf(productID)).getName() + "!");
 		
 		response.sendRedirect("bought_items.jsp");
-		
+		/** LOG */
 		Account account = (Account)session.getAttribute("user_account");
 		String user_name = account.getUsername();
 		Logger lg = new Logger();
 		lg.log(user_name, "added Review for" + productID);
+		/** LOG */
 	}
 
 }

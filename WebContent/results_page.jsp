@@ -35,7 +35,7 @@
 
 	<jsp:include page="nav-bar.jsp" />
 	
-	<h1 class="center">RESULTSDAW</h1>
+	<h3 class="center">Product Catalog</h3>
 	
 	
 	

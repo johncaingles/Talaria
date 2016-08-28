@@ -85,6 +85,8 @@ public class LoginServlet extends HttpServlet {
 	      
           if(ifDelete)
           {
+        	  HttpSession session = request.getSession();
+        	  session.setAttribute("notif", "Your account has already expired.");
         	  response.sendRedirect("index.jsp");
           }
           else
@@ -94,6 +96,7 @@ public class LoginServlet extends HttpServlet {
               System.out.println("KANTOTAN: " +account.getPrivilegeLevel());
               System.out.println("KANTOTAN2: " +account.getAccountID());
         	  
+              session.setAttribute("notif", "Welcome back, " + account.getFirst_name() + "!");
         	  switch(account.getPrivilegeLevel())
         	  {
 		          case "1": response.sendRedirect("index.jsp");break;
@@ -105,6 +108,8 @@ public class LoginServlet extends HttpServlet {
         }     
     	else 
   		{
+    		HttpSession session = request.getSession();
+    	   session.setAttribute("notif", "Invalid Credentials.");
   		   response.sendRedirect("index.jsp");
   		}
 			

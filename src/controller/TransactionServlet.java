@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Account;
 import model.Model;
@@ -44,6 +45,7 @@ public class TransactionServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		ArrayList<Transaction> cartItems = (ArrayList<Transaction>)request.getSession().getAttribute("cart_items");
 		Account currAcc = (Account) request.getSession().getAttribute("user_account");
+		int quantity = 0;
 		if(currAcc==null){
 			System.out.println("POTANGINAMOPAKSHET");
 		}
@@ -53,6 +55,7 @@ public class TransactionServlet extends HttpServlet {
 		for(i = 0; i < cartItems.size(); i++)
 		{
 			total += cartItems.get(i).getProd().getPrice() * cartItems.get(i).getQuantity();
+			quantity  += 1*cartItems.get(i).getQuantity();
 		}
 		
 		transaction_id = Model.addTransaction(currAcc.getAccountID(), total);
@@ -117,12 +120,16 @@ public class TransactionServlet extends HttpServlet {
 		while(j < cartItems.size());
 		Model.addProductSales(transaction_id, cartItems.get(i).getProd_id(), ctrProd);
 		*/
-		
+		/** LOG */
+		HttpSession session = request.getSession();
 		Account account = (Account)session.getAttribute("user_account");
 		String user_name = account.getUsername();
 		Logger lg = new Logger();
 		lg.log(user_name, "made transaction " + transaction_id);
-		
+		/** LOG */
+
+		session.setAttribute("notif", "Successfully bought " + quantity + " items!");
+		cartItems = new ArrayList<Transaction>();
 		response.sendRedirect("index.jsp");
 		
 	}

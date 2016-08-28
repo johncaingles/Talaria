@@ -177,6 +177,37 @@ public class Model {
 		}
 	}
 	
+	public static void updateAccountPassword(int accountID, String password){
+		db = new DBConnection();
+		db.getConnection();
+		
+		RandomNumberGenerator rng = new SecureRandomNumberGenerator();
+		String salt = rng.nextBytes().toString();
+		
+		String hashedPasswordBase64 = new Sha256Hash(password, salt, 1024).toBase64();
+		
+		try{
+	        String query = "UPDATE `accounts` SET `password`=?, `salt`=?, created_date=null  WHERE `id`=?;";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setString(1, hashedPasswordBase64);
+	        pst.setString(2, salt);
+	        pst.setInt(3, accountID);
+	        
+	        pst.executeUpdate();
+	        
+//	        query = "insert table1 (created_date) values (convert(datetime," + dateFormat.format(date) + ",5));";
+//	        pst = db.getConnection().prepareStatement(query);
+//	        pst.executeUpdate();
+	        
+//	        java.sql.Statement stmt = db.getConnection().createStatement() ;
+//	        query = "insert accounts (created_date) values (convert(datetime," + dateFormat.format(date) + ",5));" ;
+//	        stmt.executeUpdate(query) ;
+	        
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static int getAccountID(String username) {
 
 		db = new DBConnection();

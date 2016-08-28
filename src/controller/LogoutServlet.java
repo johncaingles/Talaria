@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Account;
+
 /**
  * Servlet implementation class LogoutSevlet
  */
@@ -20,8 +22,6 @@ public class LogoutServlet extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public LogoutServlet() {
-    	Account account = (Account)session.getAttribute("user_account");
-		String user_name = account.getUsername(); 
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,10 +33,13 @@ public class LogoutServlet extends HttpServlet {
 		Logger lg = new Logger();
 		
         HttpSession session = request.getSession();
+        /** LOG */
+    	Account account = (Account)session.getAttribute("user_account");
+		String user_name = account.getUsername(); 
+        lg.log(user_name, "Logged out");
+        /** LOG */
+
         session.invalidate();
-        
-        lg.log(user_name, "Logged out")
-        
         response.sendRedirect("index.jsp");
 	}
 

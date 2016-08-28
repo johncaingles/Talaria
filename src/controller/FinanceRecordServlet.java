@@ -8,7 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import model.Account;
 import model.Model;
 import model.RecordType0;
 import model.RecordType1;
@@ -68,12 +70,13 @@ public class FinanceRecordServlet extends HttpServlet {
         	type = "1";
         	request.setAttribute("list", real_list1);
         }
-        
+        /** LOG */
+        HttpSession session = request.getSession();
         Account account = (Account)session.getAttribute("user_account");
 		String user_name = account.getUsername();
 		Logger lg = new Logger();
 		lg.log(user_name, "accessed financial records ");
-		
+		/** LOG */
 		request.setAttribute("type", type);
         
 		request.getRequestDispatcher("accounting.jsp").forward(request, response);
