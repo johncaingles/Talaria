@@ -77,7 +77,7 @@ public class RegisterServlet extends HttpServlet {
 		else
 		{
 			System.out.println("Inside servlet customer fail");
-			response.sendRedirect("registration.jsp");
+			response.sendRedirect("register.jsp");
 		}
 		
 		

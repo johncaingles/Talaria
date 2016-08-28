@@ -13,6 +13,7 @@
 <%@page import="model.Model" %>
 <%@page import="java.util.HashMap"%>
 <%@page import="org.apache.commons.lang.StringUtils" %>
+<%@ page import="org.owasp.encoder.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -94,7 +95,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4">$<% out.print(product.getPrice()); %>
@@ -126,7 +127,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4">$<% out.print(product.getPrice()); %>
@@ -158,7 +159,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4">$<% out.print(product.getPrice()); %>
@@ -190,7 +191,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="/Talaria/ProductViewServlet?method=initProductView&productID=<% out.print(product.getProd_id()); %>"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4">$<% out.print(product.getPrice()); %>

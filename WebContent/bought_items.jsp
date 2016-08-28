@@ -29,7 +29,7 @@
 			    <li class="collection-item avatar">
 			      <img src="img/shoe_0.jpg" alt="" class="circle">
 			      <span class="title"><% out.print(Encode.forHtml(product.getName())); %></span>
-			      <p><% out.print(product.getCategory()); %> <br>
+			      <p><% out.print(Encode.forHtml(product.getCategory())); %> <br>
 			         <% out.print(product.getPrice()); %>
 			      </p>
 			      <a href="#review_modal_<% out.print(product.getProd_id()); %>" class="secondary-content modal-trigger"><i class="medium material-icons">note_add</i></a>

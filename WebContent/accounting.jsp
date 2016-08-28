@@ -1,4 +1,5 @@
 <%@ page import="model.Account" %>
+<%@ page import="org.owasp.encoder.*" %>
 <%   if ((session.getAttribute("user_account") != null) ){ %>
 <%		if(((Account)session.getAttribute("user_account")).getPrivilegeLevel().equals("3")){ %>
 
@@ -96,7 +97,7 @@
 				  	<div id="f3" class="col s5" style="display:none">
 				      <select name="f3" onchange="showTable()">
 				      	  <% for(String name : Model.getAllProductNames()){ %>
-				      	  	<option value="<% out.print(name); %> "><% out.print(name); %></option>
+				      	  	<option value="<% out.print(Encode.forHtml(name)); %> "><% out.print(Encode.forHtml(name)); %></option>
 				      	  <% } %>					      
 					  </select>
 				  	</div>
@@ -124,7 +125,7 @@
 		          <% ArrayList<RecordType0> list = (ArrayList<RecordType0>)request.getAttribute("list"); %>
  		          <% for(RecordType0 record : list ){ %>
  		          <tr> 
- 		            <td><% out.print(record.getCategory_type()); %></td>
+ 		            <td><% out.print(Encode.forHtml(record.getCategory_type())); %></td>
  		            <td><% out.print(record.getTotal_price()); %></td>
  		          </tr>
  		          <% } %>
@@ -141,9 +142,9 @@
 		          <% ArrayList<RecordType1> list = (ArrayList<RecordType1>)request.getAttribute("list"); %>
  		          <% for(RecordType1 record : list ){ %>
  		          <tr> 
- 		            <td><% out.print(record.getUsername()); %></td>
- 		            <td><% out.print(record.getProduct_Type()); %></td>
- 		            <td><% out.print(record.getProduct_name()); %></td>
+ 		            <td><% out.print(Encode.forHtml(record.getUsername())); %></td>
+ 		            <td><% out.print(Encode.forHtml(record.getProduct_Type())); %></td>
+ 		            <td><% out.print(Encode.forHtml(record.getProduct_name())); %></td>
  		            <td><% out.print(record.getPrice()); %></td>
  		            <td><% out.print(record.getQuantity()); %></td>
  		            <td><% out.print(record.getTotal()); %></td>

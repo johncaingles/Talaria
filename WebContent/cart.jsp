@@ -27,7 +27,7 @@
 			    <li class="collection-item avatar">
 			      <img src="img/shoe_0.jpg" alt="" class="circle">
 			      <span class="title"><% out.print(Encode.forHtml(product.getName())); %></span>
-			      <p><% out.print(product.getCategory()); %> <br>
+			      <p><% out.print(Encode.forHtml(product.getCategory())); %> <br>
 			         <% out.print("Quantity: " + tran.getQuantity()); %>
 			      </p>
 			      <div class="secondary-content"><h5>$<% out.print(product.getPrice() * tran.getQuantity()); %></h5></div>

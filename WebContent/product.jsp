@@ -69,7 +69,7 @@
 				<div class = "left col s8">
 					<div class = "card-panel">
 						<div class = "row">
-							<h4 class="center" style="color: #666633"><% out.print(product.getName()); %></h4>
+							<h4 class="center" style="color: #666633"><% out.print(Encode.forHtml(product.getName())); %></h4>
 							<img class = "col m8 responsive-img" src = "img/shoe_0.jpg" style= "width:50%; height: auto;">
 							<div class="block col m4">
 								<br><br>
@@ -86,9 +86,9 @@
 								<% while(rs.next()) { %>
 								    <li class="collection-item avatar">
 								      <img src="img/shoe_0.jpg" alt="" class="circle">
-								      <span class="title"><% out.print(rs.getString("username")); %></span>
+								      <span class="title"><% out.print(Encode.forHtml(rs.getString("username"))); %></span>
 								      <p>
-								      	<% out.print(rs.getString("review")); %>
+								      	<% out.print(Encode.forHtml(rs.getString("review"))); %>
 								      </p>
 								      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
 								    </li>
