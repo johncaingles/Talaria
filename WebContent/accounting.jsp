@@ -156,6 +156,7 @@
 	      </table>
       </div>
 	</div>
+	<jsp:include page="footer.jsp" />
 </body>
 </html>
 <% }} else { %> <jsp:include page="forbidden.jsp" /> <% } %>

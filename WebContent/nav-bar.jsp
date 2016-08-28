@@ -37,11 +37,11 @@
         		<h4> Existing User? </h4>
                 <form action="LoginServlet" method="post">
                     <div class="input-field col s12">
-                        <input name="username" value="" id="username" type="text" class="validate">
+                        <input name="username" value="" id="username" type="text" class="validate" required="" aria-required="true">
                         <label class="active" for="username">Username</label>
                     </div>
                     <div class="input-field col s12">
-                        <input name="password" value="" id="password" type="password" class="validate">
+                        <input name="password" value="" id="password" type="password" class="validate" required="" aria-required="true">
                         <label class="active" for="password">Password</label>
                     </div>
                     <button class="btn waves-effect waves-light blue" type="submit">Login

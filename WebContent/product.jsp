@@ -101,9 +101,9 @@
 					<div class="section">
 						<form action="AddToCartServlet" method="post" >
 							<input type="hidden" name="productID" value="<% out.print(product.getProd_id()); %>" >
-							<div class="form-group">
-							    <label for="quantity">Quantity:</label>
-							    <input type="text" class="form-control" id="quantity" name="quantity">
+							<div class="input-field">
+							    <label for="quantity">Quantity</label>
+							    <input type="text" class="form-control" id="quantity" name="quantity" required="" aria-required="true">
 							 </div>
 							<button class="btn waves-effect waves-light blue" type="submit" name="action">Add to Cart
 							    <i class="material-icons right">shopping_cart</i>
@@ -114,6 +114,7 @@
 			</div>
 			
 		</div>
+		<jsp:include page="footer.jsp" />
 	</body>
 
 </html>

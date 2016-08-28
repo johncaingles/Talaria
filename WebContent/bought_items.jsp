@@ -42,10 +42,10 @@
 					                <form action="AddReviewServlet" method="post">
 					                <input type="hidden" name="product_id" value="<% out.print(product.getProd_id()); %>">
 					                    <div class="input-field col s12">
-					                        <input name="review" value="" id="review" type="text" class="validate">
-					                        <label class="active" for="review">Name</label>
+					                        <textarea name="review" value="" id="review" type="text" class="validate materialize-textarea" required="" aria-required="true"></textarea>
+					                        <label class="active" for="review">Review</label>
 					                    </div>
-					                        <button class="btn waves-effect waves-light blue" type="submit">Apply
+					                        <button class="btn waves-effect waves-light blue" type="submit">Write Review
 					                        <i class="material-icons right">send</i>
 					                    </button>
 					                </form>
