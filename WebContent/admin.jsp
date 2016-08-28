@@ -38,35 +38,35 @@
 		  </div>
 		  <div class="row" id="PM">
 		    	<form action="AdminCreateServlet" method="post" id="createPM">
-				  <div class="form-group">
+				  <div class="input-field col s12">
 				    <label for="username">Username:</label>
-				    <input type="text" class="form-control" id="username" name="username">
+				    <input type="text" class="validate" id="username" name="username" required="" aria-required="true">
 				  </div>
-				  <div class="form-group">
+				  <div class="input-field col s12">
 				    <label for="pwd">Temporary Password (Expires in 24 hours):</label>
-				    <input type="password" class="form-control" id="pwd" name="password">
+				    <input type="password" class="validate" id="pwd" name="password" required="" aria-required="true">
 				  </div>
-				  <input type="hidden" class="form-control" name="accType" value="2"> //2 = PM, 3 = AM
+				  <input type="hidden" class="validate" name="accType" value="2">
 				  <button type="submit" class="btn red lighten-1">Create</button>
 				</form>
           </div>
           
           <div class="row" id="AM">
 		    	<form action="AdminCreateServlet" method="post" id="createAM">
-				  <div class="form-group">
+				  <div class="input-field col s12">
 				    <label for="username">Username:</label>
-				    <input type="text" class="form-control" id="username" name="username">
+				    <input type="text" class="validate" id="username" name="username" required="" aria-required="true">
 				  </div>
-				  <div class="form-group">
+				  <div class="input-field col s12">
 				    <label for="pwd">Temporary Password (Expires in 24 hours):</label>
-				    <input type="password" class="form-control" id="pwd" name="password">
+				    <input type="password" class="validate" id="pwd" name="password" required="" aria-required="true">
 				  </div>
-				  <input type="hidden" class="form-control" name="accType" value="3">
+				  <input type="hidden" class="validate" name="accType" value="3">
 				  <button type="submit" class="btn red lighten-1">Create</button>
 				</form>
           </div>
           </div>
-    
+    <jsp:include page="footer.jsp" />
 </body>
 </html>
 <% }} else { %> <jsp:include page="forbidden.jsp" /> <% } %>

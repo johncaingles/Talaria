@@ -10,6 +10,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Product"%>
 <%@page import="model.Transaction" %>
+<%@ page import="org.owasp.encoder.Encode" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,8 +29,8 @@
 				<%Product product = tran.getProd(); %>
 			    <li class="collection-item avatar">
 			      <img src="img/shoe_0.jpg" alt="" class="circle">
-			      <span class="title"><% out.print(product.getName()); %></span>
-			      <p><% out.print(product.getCategory()); %> <br>
+			      <span class="title"><% out.print(Encode.forHtml(product.getName())); %></span>
+			      <p><% out.print(Encode.forHtml(product.getCategory())); %> <br>
 			         <% out.print("Quantity: " + tran.getQuantity()); %>
 			      </p>
 			      <div class="secondary-content"><h5>$<% out.print(product.getPrice() * tran.getQuantity()); %></h5></div>
@@ -37,7 +38,7 @@
 		    <% } %>
 	    </ul>
 	    
-		<a class="waves-effect waves-light btn modal-trigger" href="#creditcard_modal">Buy</a>
+		<a class="waves-effect waves-light btn modal-trigger" href="#creditcard_modal">Checkout</a>
     </div>
     
     <div id="creditcard_modal" class="modal">
@@ -47,26 +48,26 @@
         		<h4> Gimme your credit card number </h4>
                 <form action="TransactionServlet" method="post">
                     <div class="input-field col s12">
-                        <input name="creditcard_num" value="" id="creditcard_num" type="text" class="validate">
+                        <input name="creditcard_num" value="" id="creditcard_num" type="text" class="validate" required="" aria-required="true">
                         <label class="active" for="creditcard_num">Credit card number</label>
                     </div>
                     <h4> Expiration date and security code </h4>
                     <div class="row">
                     <div class="input-field col m3">
-                        <input name="creditcard_month" value="" id="creditcard_month" type="text" class="validate">
+                        <input name="creditcard_month" value="" id="creditcard_month" type="text" class="validate" required="" aria-required="true">
                         <label class="active" for="creditcard_month">Month</label>
                     </div>
                     <div class="input-field col m5">
-                        <input name="creditcard_year" value="" id="creditcard_year" type="text" class="validate">
+                        <input name="creditcard_year" value="" id="creditcard_year" type="text" class="validate" required="" aria-required="true">
                         <label class="active" for="creditcard_year">Year</label>
                     </div>
                     <div class="input-field col m4">
-                        <input name="creditcard_code" value="" id="creditcard_code" type="text" class="validate">
+                        <input name="creditcard_code" value="" id="creditcard_code" type="text" class="validate" required="" aria-required="true">
                         <label class="active" for="creditcard_code">Code</label>
                     </div>
                     </div>
-                    <button class="btn waves-effect waves-light blue" type="submit">Login
-                        <i class="material-icons right">Buy</i>
+                    <button class="btn waves-effect waves-light blue" type="submit">Purchase
+                        <i class="material-icons right">shop</i>
                     </button>
                 </form>
         	</div>

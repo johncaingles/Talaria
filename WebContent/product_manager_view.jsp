@@ -9,6 +9,7 @@
 <%@page import="model.Product"%>
 <%@page import="model.Model" %>
 <%@page import="java.util.HashMap"%>
+<%@ page import="org.owasp.encoder.Encode" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -62,15 +63,15 @@
 					        		<h4> Add New Product Info</h4>
 					                <form action="AddProductServlet" method="post">
 					                    <div class="input-field col s12">
-					                        <input name="product_name" value="" id="product_name" type="text" class="validate">
+					                        <input name="product_name" value="" id="product_name" type="text" class="validate" required="" aria-required="true">
 					                        <label class="active" for="product_name">Name</label>
 					                    </div>
 					                    <div class="input-field col m12">
-					                        <input name="product_price" value="" id="product_price" type="text" class="validate">
+					                        <input name="product_price" value="" id="product_price" type="text" class="validate" required="" aria-required="true">
 					                        <label class="active" for="product_price">Price</label>
 					                    </div>
 					                    <div class="input-field col s12">
-										    <select name="product_category">
+										    <select name="product_category" required="" aria-required="true">
 										      <option value="" disabled selected>Select Category</option>
 										      <option value="boots">Boots</option>
 										      <option value="shoes">Shoes</option>
@@ -124,7 +125,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="#product_modal_<% out.print(product.getProd_id()); %>" class="modal-trigger"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4">$<% out.print(product.getPrice()); %>
@@ -146,17 +147,17 @@
 					                <form action="EditProductServlet" method="post">
 					                <input type="hidden" name="product_id" value="<% out.print(product.getProd_id()); %>">
 					                    <div class="input-field col s12">
-					                        <input name="product_name" value="<% out.print(product.getName()); %>" id="product_name" type="text" class="validate">
+					                        <input name="product_name" value="<% out.print(Encode.forHtml(product.getName())); %>" id="product_name" type="text" class="validate" required="" aria-required="true">
 					                        <label class="active" for="product_name">Name</label>
 					                    </div>
 					                    <div class="input-field col m12">
-					                        <input name="product_price" value="<% out.print(product.getPrice()); %>" id="product_price" type="text" class="validate">
+					                        <input name="product_price" value="<% out.print(product.getPrice()); %>" id="product_price" type="text" class="validate" required="" aria-required="true">
 					                        <label class="active" for="product_price">Price</label>
 					                    </div>
 					                    <div class="input-field col s12">
-										    <select name="product_category">
-										      <option value="<% out.print(product.getCategory()); %>" disabled selected>Select Category</option>
-										      <option value="boots">Boots</option>
+										    <select name="product_category" required="" aria-required="true">
+										      <option value="<% out.print(product.getCategory()); %>" disabled>Select Category</option>
+										      <option value="boots" selected>Boots</option>
 										      <option value="shoes">Shoes</option>
 										      <option value="sandals">Sandals</option>
 										      <option value="slippers">Slippers</option>
@@ -189,7 +190,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="#product_modal_<% out.print(product.getProd_id()); %>" class="modal-trigger"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4">$<% out.print(product.getPrice()); %>
@@ -211,18 +212,18 @@
 					                <form action="EditProductServlet" method="post">
 					                <input type="hidden" name="product_id" value="<% out.print(product.getProd_id()); %>">
 					                    <div class="input-field col s12">
-					                        <input name="product_name" value="<% out.print(product.getName()); %>" id="product_name" type="text" class="validate">
+					                        <input name="product_name" value="<% out.print(Encode.forHtml(product.getName())); %>" id="product_name" type="text" class="validate" required="" aria-required="true">
 					                        <label class="active" for="product_name">Name</label>
 					                    </div>
 					                    <div class="input-field col m12">
-					                        <input name="product_price" value="<% out.print(product.getPrice()); %>" id="product_price" type="text" class="validate">
+					                        <input name="product_price" value="<% out.print(product.getPrice()); %>" id="product_price" type="text" class="validate" required="" aria-required="true">
 					                        <label class="active" for="product_price">Price</label>
 					                    </div>
 					                    <div class="input-field col s12">
-										    <select name="product_category">
-										      <option value="<% out.print(product.getCategory()); %>" disabled selected>Select Category</option>
+										    <select name="product_category" required="" aria-required="true">
+										      <option value="<% out.print(product.getCategory()); %>" disabled>Select Category</option>
 										      <option value="boots">Boots</option>
-										      <option value="shoes">Shoes</option>
+										      <option value="shoes" selected>Shoes</option>
 										      <option value="sandals">Sandals</option>
 										      <option value="slippers">Slippers</option>
 										    </select>
@@ -254,7 +255,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="#product_modal_<% out.print(product.getProd_id()); %>" class="modal-trigger"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4">$<% out.print(product.getPrice()); %>
@@ -276,19 +277,19 @@
 					                <form action="EditProductServlet" method="post">
 					                <input type="hidden" name="product_id" value="<% out.print(product.getProd_id()); %>">
 					                    <div class="input-field col s12">
-					                        <input name="product_name" value="<% out.print(product.getName()); %>" id="product_name" type="text" class="validate">
+					                        <input name="product_name" value="<% out.print(Encode.forHtml(product.getName())); %>" id="product_name" type="text" class="validate" required="" aria-required="true">
 					                        <label class="active" for="product_name">Name</label>
 					                    </div>
 					                    <div class="input-field col m12">
-					                        <input name="product_price" value="<% out.print(product.getPrice()); %>" id="product_price" type="text" class="validate">
+					                        <input name="product_price" value="<% out.print(product.getPrice()); %>" id="product_price" type="text" class="validate" required="" aria-required="true">
 					                        <label class="active" for="product_price">Price</label>
 					                    </div>
 					                    <div class="input-field col s12">
-										    <select name="product_category">
-										      <option value="<% out.print(product.getCategory()); %>" disabled selected>Select Category</option>
+										    <select name="product_category" required="" aria-required="true">
+										      <option value="<% out.print(product.getCategory()); %>" disabled>Select Category</option>
 										      <option value="boots">Boots</option>
 										      <option value="shoes">Shoes</option>
-										      <option value="sandals">Sandals</option>
+										      <option value="sandals" selected>Sandals</option>
 										      <option value="slippers">Slippers</option>
 										    </select>
 										    <label>Category</label>
@@ -319,7 +320,7 @@
 							        <div class="card " style="overflow: hidden;">
 						              <div class="card-image waves-effect waves-block waves-light"  >
 						                <a href="#product_modal_<% out.print(product.getProd_id()); %>" class="modal-trigger"><img class="activator" src="img/shoe_0.jpg"></a>
-						                <span class="card-title"><% out.print(product.getName()); %></span>
+						                <span class="card-title"><% out.print(Encode.forHtml(product.getName())); %></span>
 						              </div>
 						              <div class="card-content">
 						                <span class="card-title activator grey-text text-darken-4">$<% out.print(product.getPrice()); %>
@@ -341,20 +342,20 @@
 					                <form action="EditProductServlet" method="post">
 					                <input type="hidden" name="product_id" value="<% out.print(product.getProd_id()); %>">
 					                    <div class="input-field col s12">
-					                        <input name="product_name" value="<% out.print(product.getName()); %>" id="product_name" type="text" class="validate">
+					                        <input name="product_name" value="<% out.print(Encode.forHtml(product.getName())); %>" id="product_name" type="text" class="validate" required="" aria-required="true">
 					                        <label class="active" for="product_name">Name</label>
 					                    </div>
 					                    <div class="input-field col m12">
-					                        <input name="product_price" value="<% out.print(product.getPrice()); %>" id="product_price" type="text" class="validate">
+					                        <input name="product_price" value="<% out.print(product.getPrice()); %>" id="product_price" type="text" class="validate" required="" aria-required="true">
 					                        <label class="active" for="product_price">Price</label>
 					                    </div>
 					                    <div class="input-field col s12">
-										    <select name="product_category">
-										      <option value="<% out.print(product.getCategory()); %>" disabled selected>Select Category</option>
+										    <select name="product_category" required="" aria-required="true">
+										      <option value="<% out.print(product.getCategory()); %>" disabled>Select Category</option>
 										      <option value="boots">Boots</option>
 										      <option value="shoes">Shoes</option>
 										      <option value="sandals">Sandals</option>
-										      <option value="slippers">Slippers</option>
+										      <option value="slippers" selected>Slippers</option>
 										    </select>
 										    <label>Category</label>
 										  </div>
@@ -375,6 +376,7 @@
 
     
     <div id="test"></div>
+    <jsp:include page="footer.jsp" />
 </body>
 </html>
 <% }} else { %> <jsp:include page="forbidden.jsp" /> <% } %>

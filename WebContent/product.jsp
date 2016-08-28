@@ -69,7 +69,7 @@
 				<div class = "left col s8">
 					<div class = "card-panel">
 						<div class = "row">
-							<h4 class="center" style="color: #666633"><% out.print(product.getName()); %></h4>
+							<h4 class="center" style="color: #666633"><% out.print(Encode.forHtml(product.getName())); %></h4>
 							<img class = "col m8 responsive-img" src = "img/shoe_0.jpg" style= "width:50%; height: auto;">
 							<div class="block col m4">
 								<br><br>
@@ -88,9 +88,9 @@
 								<% while(rs.next()) { %>
 								    <li class="collection-item avatar">
 								      <img src="img/shoe_0.jpg" alt="" class="circle">
-								      <span class="title"><% out.print(rs.getString("username")); %></span>
+								      <span class="title"><% out.print(Encode.forHtml(rs.getString("username"))); %></span>
 								      <p>
-								      	<% out.print(rs.getString("review")); %>
+								      	<% out.print(Encode.forHtml(rs.getString("review"))); %>
 								      </p>
 								      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
 								    </li>
@@ -103,9 +103,9 @@
 					<div class="section">
 						<form action="AddToCartServlet" method="post" >
 							<input type="hidden" name="productID" value="<% out.print(product.getProd_id()); %>" >
-							<div class="form-group">
-							    <label for="quantity">Quantity:</label>
-							    <input type="text" class="form-control" id="quantity" name="quantity">
+							<div class="input-field">
+							    <label for="quantity">Quantity</label>
+							    <input type="text" class="form-control" id="quantity" name="quantity" required="" aria-required="true">
 							 </div>
 							<button class="btn waves-effect waves-light blue" type="submit" name="action">Add to Cart
 							    <i class="material-icons right">shopping_cart</i>
@@ -116,6 +116,7 @@
 			</div>
 			
 		</div>
+		<jsp:include page="footer.jsp" />
 	</body>
 
 </html>

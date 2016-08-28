@@ -1,4 +1,5 @@
 <%@ page import="model.Account" %>
+<%@ page import="org.owasp.encoder.Encode" %>
 <nav class="light-red lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="index.jsp" class="brand-logo">Talaria</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -11,9 +12,9 @@
 			Account account = (Account)session.getAttribute("user_account");
 			String user_name = account.getUsername(); 
 			if(account.getPrivilegeLevel().equals("1")){%>
-    		<a class="dropdown-button" href="#!" data-activates="customer_dropdown"><% out.print(user_name); %><i class="material-icons right">arrow_drop_down</i></a>
+    		<a class="dropdown-button" href="#!" data-activates="customer_dropdown"><% out.print(Encode.forHtml(user_name)); %><i class="material-icons right">arrow_drop_down</i></a>
     	<% }else{ %> 
-    		<a class="dropdown-button" href="#!" data-activates="account_dropdown"><% out.print(user_name); %><i class="material-icons right">arrow_drop_down</i></a>
+    		<a class="dropdown-button" href="#!" data-activates="account_dropdown"><% out.print(Encode.forHtml(user_name)); %><i class="material-icons right">arrow_drop_down</i></a>
     	<% }} %>
       </ul>
     </div>
@@ -50,11 +51,11 @@
         		<h4> Existing User? </h4>
                 <form action="LoginServlet" method="post">
                     <div class="input-field col s12">
-                        <input name="username" value="" id="username" type="text" class="validate">
+                        <input name="username" value="" id="username" type="text" class="validate" required="" aria-required="true">
                         <label class="active" for="username">Username</label>
                     </div>
                     <div class="input-field col s12">
-                        <input name="password" value="" id="password" type="password" class="validate">
+                        <input name="password" value="" id="password" type="password" class="validate" required="" aria-required="true">
                         <label class="active" for="password">Password</label>
                     </div>
                     <button class="btn waves-effect waves-light blue" type="submit">Login
