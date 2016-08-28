@@ -19,7 +19,7 @@ public class Logger {
     
     public void log(String username, String action){
         try{
-            FileWriter fw = new FileWriter("logs.txt", true);
+            FileWriter fw = new FileWriter("C:/Users/John/Documents/eclipse_workspace/Talaria/logs.txt", true);
             String date = new Date().toString();
             fw.write(date +  " " + username + " " + action + "\n");
         }

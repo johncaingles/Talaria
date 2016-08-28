@@ -25,8 +25,10 @@
 	<h1>DIS BE YOUR ITEMS</h1>
 		<% ArrayList<Transaction> cartItems = (ArrayList<Transaction>)request.getSession().getAttribute("cart_items"); %>
 		<ul class="collection">
+			<% double total = 0; %>
 			<% for(Transaction tran: cartItems) { %>
-				<%Product product = tran.getProd(); %>
+				<%Product product = tran.getProd(); 
+					total += product.getPrice() * tran.getQuantity();%>
 			    <li class="collection-item avatar">
 			      <img src="img/shoe_0.jpg" alt="" class="circle">
 			      <span class="title"><% out.print(Encode.forHtml(product.getName())); %></span>
@@ -36,6 +38,10 @@
 			      <div class="secondary-content"><h5>$<% out.print(product.getPrice() * tran.getQuantity()); %></h5></div>
 			    </li>
 		    <% } %>
+		    <li class="collection-item">
+			      <h5>Total: </h5>
+			      <div class="secondary-content"><h5>$<% out.print(total); %></h5></div>
+			    </li>
 	    </ul>
 	    
 		<a class="waves-effect waves-light btn modal-trigger" href="#creditcard_modal">Checkout</a>

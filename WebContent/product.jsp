@@ -101,16 +101,27 @@
 		
 				<div class = "card-panel right col s4">
 					<div class="section">
-						<form action="AddToCartServlet" method="post" >
+						<% if(!priv.equals("0")){ %>
+						<form class="col s12" action="AddToCartServlet" method="post" >
 							<input type="hidden" name="productID" value="<% out.print(product.getProd_id()); %>" >
 							<div class="input-field">
 							    <label for="quantity">Quantity</label>
 							    <input type="text" class="form-control" id="quantity" name="quantity" required="" aria-required="true">
 							 </div>
-							<button class="btn waves-effect waves-light blue" type="submit" name="action">Add to Cart
+							<button class="col s12 btn waves-effect waves-light blue" type="submit" name="action">Add to Cart
 							    <i class="material-icons right">shopping_cart</i>
 							  </button>
 						</form>
+						<% } else { %>
+							<h5 class="center"><a class="modal-trigger" href="#login_modal">Login</a> to buy this product!</h5>
+							<div class="input-field">
+							    <label for="quantity">Quantity</label>
+							    <input disabled type="text" class="form-control" id="quantity" name="quantity" required="" aria-required="true">
+							 </div>
+							<button class="btn waves-effect waves-light blue disabled" type="submit" name="action">Add to Cart
+							    <i class="material-icons right">shopping_cart</i>
+							  </button>
+						<% } %>
 					</div>
 				</div>
 			</div>
