@@ -508,7 +508,7 @@ public class Model {
         		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\" "
         		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\" "
         		+ "FROM product_sales s , products p, transaction t, accounts a "
-        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.category = \"" + filter2 + "\"";
+        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.category = ?";
 		}
 			
 		else if(filter1.equals("2"))
@@ -517,7 +517,7 @@ public class Model {
         		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\" "
         		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\" "
         		+ "FROM product_sales s , products p, transaction t, accounts a "
-        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.name = \"" + filter2 + "\"";
+        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.name = ?";
 		}
 		else 
 			return null;
