@@ -60,7 +60,7 @@
         		<h4> Gimme your credit card number </h4>
                 <form action="TransactionServlet" method="post">
                     <div class="input-field col s12">
-                        <input name="creditcard_num" value="" id="creditcard_num" type="text" pattern="\d{16}" length="16" oninvalid="setCustomValidity('Enter a 16-digit number')" class="validate" required="" aria-required="true">
+                        <input name="creditcard_num" value="" id="creditcard_num" type="text" pattern="\d{16}" length="16" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Enter a 16-digit number')" class="validate" required="" aria-required="true">
                         <label class="active" for="creditcard_num">Credit card number</label>
                     </div>
                     <h4> Expiration date and security code </h4>
@@ -100,7 +100,7 @@
 					    </select>
                     </div>
                     <div class="input-field col m4">
-                        <input name="creditcard_code" value="" id="creditcard_code" pattern="\d{3}" length="3" oninvalid="setCustomValidity('Enter a 3-digit number')" type="text" class="validate" required="" aria-required="true">
+                        <input name="creditcard_code" value="" id="creditcard_code" pattern="\d{3}" length="3" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Enter a 3-digit number')" type="text" class="validate" required="" aria-required="true">
                         <label class="active" for="creditcard_code">Code</label>
                     </div>
                     </div>
