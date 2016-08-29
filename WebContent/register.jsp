@@ -38,7 +38,7 @@
 	                    </div>
 						<div class="input-field col s12">
 	                        <input name="confirm_password" value="" id="confirm_password" type="password" pattern="\D{1,45}" maxlength="45" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Cannot be empty and must be less than 45 characters')" class="validate" required="" aria-required="true">
-	                        <label class="active" for="confirm_password">Password</label>
+	                        <label class="active" for="confirm_password">Confirm Password</label>
 	                    </div>					
 					</div>
 	
