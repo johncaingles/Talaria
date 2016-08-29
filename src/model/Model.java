@@ -850,36 +850,41 @@ public class Model {
 	        {
 	        	//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	        	// Year - Month - Day - Hour - Minute - Second
-	            Date date = rs.getDate(1);
 	            
-	            int year = date.getYear();
-	            int month = date.getMonth();
-	            int day = date.getDate();
+	        	Date date = rs.getDate(1);
 	            
-	            
-	            list.add(year);
-	            list.add(month);
-	            list.add(day);
+	        	if(date != null)
+	        	{
+	        		int year = date.getYear();
+		            int month = date.getMonth();
+		            int day = date.getDate();
+		            
+		            
+		            list.add(year);
+		            list.add(month);
+		            list.add(day);
 
-	            Time time = rs.getTime(1);
-	            int hour = time.getHours();
-	            int mins = time.getMinutes();
-	            int sec = time.getSeconds();
-	            
-	            list.add(hour);
-	            list.add(mins);
-	            list.add(sec);
-	            
-	            System.out.println("this shit fuck pls  " + year + " " + month + " " + day + " " + hour + " " + mins + " " + sec);
-	            
-	            //System.out.println("This is the time " + time);
-	            //return dateFormat.format(date);
+		            Time time = rs.getTime(1);
+		            int hour = time.getHours();
+		            int mins = time.getMinutes();
+		            int sec = time.getSeconds();
+		            
+		            list.add(hour);
+		            list.add(mins);
+		            list.add(sec);
+		            
+		            System.out.println("this shit fuck pls  " + year + " " + month + " " + day + " " + hour + " " + mins + " " + sec);
+		            
+		            //System.out.println("This is the time " + time);
+		            //return dateFormat.format(date);
+		        	
+		        	//list.add(rs.getDate(1).toString());
+		        	
+		        	
+		        	//list.add(rs.getTime(2).toString());
+		        	return list;
+	        	}
 	        	
-	        	//list.add(rs.getDate(1).toString());
-	        	
-	        	
-	        	//list.add(rs.getTime(2).toString());
-	        	return list;
 	        }
 	        else return null;
 		} catch(Exception e) {
