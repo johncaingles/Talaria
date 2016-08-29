@@ -49,6 +49,12 @@ public class ChangePasswordServlet extends HttpServlet {
 		if(Model.checkCredentials(user_name, oldPw)){
 			if( newPw.equals(confNewPw)){
 				Model.updateAccountPassword(account.getAccountID(), newPw);
+				
+				if(!(Model.getPrivilegeLevel(account.getAccountID()).equals("1") ))
+				{
+					Model.updateDate(account.getAccountID());
+				}
+				
 				session.setAttribute("notif", "Successfully changed password!");
 				response.sendRedirect("index.jsp");
 			}

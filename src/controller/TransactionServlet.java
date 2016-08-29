@@ -130,6 +130,7 @@ public class TransactionServlet extends HttpServlet {
 
 		session.setAttribute("notif", "Successfully bought " + quantity + " items!");
 		cartItems = new ArrayList<Transaction>();
+		session.setAttribute("cart_items", cartItems);
 		response.sendRedirect("index.jsp");
 		
 	}

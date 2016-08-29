@@ -508,7 +508,7 @@ public class Model {
         		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\" "
         		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\" "
         		+ "FROM product_sales s , products p, transaction t, accounts a "
-        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.category = \"" + filter2 + "\"";
+        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.category = ?";
 		}
 			
 		else if(filter1.equals("2"))
@@ -517,7 +517,7 @@ public class Model {
         		"SELECT a.username AS \"User\", p.category AS \"Product Type\", p.name AS \"Product Name\" "
         		+ ", p.price AS \"Price\", s.quantity AS \"Quantity\", p.price * s.quantity AS \"Total\" "
         		+ "FROM product_sales s , products p, transaction t, accounts a "
-        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.name = \"" + filter2 + "\"";
+        		+ "WHERE s.transaction_id = t.id AND s.product_id = p.id AND t.accounts_id = a.id AND p.name = ?";
 		}
 		else 
 			return null;
@@ -850,36 +850,41 @@ public class Model {
 	        {
 	        	//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	        	// Year - Month - Day - Hour - Minute - Second
-	            Date date = rs.getDate(1);
 	            
-	            int year = date.getYear();
-	            int month = date.getMonth();
-	            int day = date.getDate();
+	        	Date date = rs.getDate(1);
 	            
-	            
-	            list.add(year);
-	            list.add(month);
-	            list.add(day);
+	        	if(date != null)
+	        	{
+	        		int year = date.getYear();
+		            int month = date.getMonth();
+		            int day = date.getDate();
+		            
+		            
+		            list.add(year);
+		            list.add(month);
+		            list.add(day);
 
-	            Time time = rs.getTime(1);
-	            int hour = time.getHours();
-	            int mins = time.getMinutes();
-	            int sec = time.getSeconds();
-	            
-	            list.add(hour);
-	            list.add(mins);
-	            list.add(sec);
-	            
-	            System.out.println("this shit fuck pls  " + year + " " + month + " " + day + " " + hour + " " + mins + " " + sec);
-	            
-	            //System.out.println("This is the time " + time);
-	            //return dateFormat.format(date);
+		            Time time = rs.getTime(1);
+		            int hour = time.getHours();
+		            int mins = time.getMinutes();
+		            int sec = time.getSeconds();
+		            
+		            list.add(hour);
+		            list.add(mins);
+		            list.add(sec);
+		            
+		            System.out.println("this shit fuck pls  " + year + " " + month + " " + day + " " + hour + " " + mins + " " + sec);
+		            
+		            //System.out.println("This is the time " + time);
+		            //return dateFormat.format(date);
+		        	
+		        	//list.add(rs.getDate(1).toString());
+		        	
+		        	
+		        	//list.add(rs.getTime(2).toString());
+		        	return list;
+	        	}
 	        	
-	        	//list.add(rs.getDate(1).toString());
-	        	
-	        	
-	        	//list.add(rs.getTime(2).toString());
-	        	return list;
 	        }
 	        else return null;
 		} catch(Exception e) {
@@ -908,6 +913,27 @@ public class Model {
 		{
 			e.printStackTrace();
 			System.out.println("EDI PUTA Remove Account");
+		}
+	}
+	
+	public static void updateDate(int id) 
+	{
+		db = new DBConnection();
+		db.getConnection();
+		
+		try
+		{
+			System.out.println("I start here");
+	        String query = "UPDATE accounts SET created_date = null WHERE id = ?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setInt(1, id);
+	        pst.executeUpdate();
+	        
+	        System.out.println("I end here");
+		} catch(Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("EDI PUTA UPDATE hehehe");
 		}
 	}
 	
