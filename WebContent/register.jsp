@@ -33,10 +33,13 @@
 	                        <label class="active" for="username">Username</label>
 	                    </div>
 						<div class="input-field col s12">
-	                        <input name="password" value="" id=""password"" type=""password"" pattern="\D{1,45}" maxlength="45" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Cannot be empty and must be less than 45 characters')" class="validate" required="" aria-required="true">
+	                        <input name="password" value="" id="password" type="password" pattern="\D{1,45}" maxlength="45" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Cannot be empty and must be less than 45 characters')" class="validate" required="" aria-required="true">
 	                        <label class="active" for="password">Password</label>
 	                    </div>
-						<input type = "password" placeholder = "Confirm Password" name = "confirm_password" required="" aria-required="true">					
+						<div class="input-field col s12">
+	                        <input name="confirm_password" value="" id="confirm_password" type="password" pattern="\D{1,45}" maxlength="45" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Cannot be empty and must be less than 45 characters')" class="validate" required="" aria-required="true">
+	                        <label class="active" for="confirm_password">Password</label>
+	                    </div>					
 					</div>
 	
 					<div class="card-panel hoverable col s3 offset-s1">
