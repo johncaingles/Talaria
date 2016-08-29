@@ -19,7 +19,7 @@
     		<a class="modal-trigger" href="#login_modal">Login</a>
     	<% } else {
 			Account account = (Account)session.getAttribute("user_account");
-			String user_name = account.getUsername(); 
+			String user_name = account.getFirst_name(); 
 			if(account.getPrivilegeLevel().equals("1")){%>
 <%-- 			<li><a href="cart.jsp"><span class="new badge" data-badge-caption="custom caption"><% out.print(cartTotal); %></span><i class="material-icons">shopping_cart</i></a></li> --%>
 			<li><a href="cart.jsp"><i class="material-icons">shopping_cart</i></a></li>

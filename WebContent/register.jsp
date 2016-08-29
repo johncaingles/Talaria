@@ -60,7 +60,11 @@
 						<input type = "text" placeholder = "City" name = "ship_city" required="" aria-required="true"><br>
 						<input type = "number" placeholder = "Postal Code" maxlength = "1" name = "ship_postal_code" required="" aria-required="true"><br>
 						<input type = "text" placeholder = "Country" name = "ship_country" required="" aria-required="true"><br>
-						<input type = "submit" value = "submit" style="background-color:rgb(191, 191, 191);">
+						<div class="row">
+							<button class="col s12 btn waves-effect waves-light blue" type="submit" name="action">Submit
+								    <i class="material-icons right">submit</i>
+							  </button>
+						  </div>
 					</div>
 				</form>
 			</div>
