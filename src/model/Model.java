@@ -916,4 +916,25 @@ public class Model {
 		}
 	}
 	
+	public static void updateDate(int id) 
+	{
+		db = new DBConnection();
+		db.getConnection();
+		
+		try
+		{
+			System.out.println("I start here");
+	        String query = "UPDATE accounts SET created_date = null WHERE id = ?";
+	        PreparedStatement pst = db.getConnection().prepareStatement(query);
+	        pst.setInt(1, id);
+	        pst.executeUpdate();
+	        
+	        System.out.println("I end here");
+		} catch(Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("EDI PUTA UPDATE hehehe");
+		}
+	}
+	
 }
