@@ -14,6 +14,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style>
+	.modal {overflow-y: hidden !important ;}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <jsp:include page="dependencies.jsp" />
@@ -57,21 +60,47 @@
         		<h4> Gimme your credit card number </h4>
                 <form action="TransactionServlet" method="post">
                     <div class="input-field col s12">
-                        <input name="creditcard_num" value="" id="creditcard_num" type="text" class="validate" required="" aria-required="true">
+                        <input name="creditcard_num" value="" id="creditcard_num" type="text" pattern="\d{16}" length="16" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Enter a 16-digit number')" class="validate" required="" aria-required="true">
                         <label class="active" for="creditcard_num">Credit card number</label>
                     </div>
                     <h4> Expiration date and security code </h4>
                     <div class="row">
                     <div class="input-field col m3">
-                        <input name="creditcard_month" value="" id="creditcard_month" type="text" class="validate" required="" aria-required="true">
-                        <label class="active" for="creditcard_month">Month</label>
+					    <select name="ccMonth" required="" aria-required="true">
+						      <option value="" selected disabled>Select Month</option>
+						      <option value="jan">January</option>
+						      <option value="feb">February</option>
+						      <option value="mar">March</option>
+						      <option value="apr">April</option>
+						      <option value="may">May</option>
+						      <option value="jun">June</option>
+						      <option value="jul">July</option>
+						      <option value="aug">August</option>
+						      <option value="sep">September</option>
+						      <option value="oct">October</option>
+						      <option value="nov">November</option>
+						      <option value="dec">December</option>
+					    </select>
                     </div>
                     <div class="input-field col m5">
-                        <input name="creditcard_year" value="" id="creditcard_year" type="text" class="validate" required="" aria-required="true">
-                        <label class="active" for="creditcard_year">Year</label>
+                        <select name="ccYear" required="" aria-required="true">
+						      <option value="" disabled selected>Select Year</option>
+						      <option value="2016">2016</option>
+						      <option value="2017">2017</option>
+						      <option value="2018">2018</option>
+						      <option value="2019">2019</option>
+						      <option value="2020">2020</option>
+						      <option value="2021">2021</option>
+						      <option value="2022">2022</option>
+						      <option value="2023">2023</option>
+						      <option value="2024">2024</option>
+						      <option value="2025">2025</option>
+						      <option value="2026">2026</option>
+						      <option value="2027">2027</option>
+					    </select>
                     </div>
                     <div class="input-field col m4">
-                        <input name="creditcard_code" value="" id="creditcard_code" type="text" class="validate" required="" aria-required="true">
+                        <input name="creditcard_code" value="" id="creditcard_code" pattern="\d{3}" length="3" oninput="setCustomValidity('')" oninvalid="setCustomValidity('Enter a 3-digit number')" type="text" class="validate" required="" aria-required="true">
                         <label class="active" for="creditcard_code">Code</label>
                     </div>
                     </div>
